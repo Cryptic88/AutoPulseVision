@@ -20,15 +20,69 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.autopulse_poe.ui.components.NeonCard
 import com.example.autopulse_poe.ui.theme.*
+import androidx.compose.foundation.Canvas
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.drawscope.Stroke
 
 @Composable
 fun TripsScreen(onNavigateToDetails: () -> Unit = {}) {
     var searchQuery by remember { mutableStateOf("") }
-    
+
     val mockTrips = listOf(
-        Trip("2026-07-28", "12.5 km", "18 min", 85, "28.4 MPG"),
-        Trip("2026-07-27", "4.2 km", "7 min", 92, "31.2 MPG"),
-        Trip("2026-07-26", "45.0 km", "55 min", 78, "26.5 MPG")
+
+        Trip(
+            date = "2026-07-28",
+            distance = "12.5 km",
+            duration = "18 min",
+            score = 85,
+            efficiency = "28.4 MPG",
+            route = listOf(
+                RoutePoint(0.05f, 0.80f),
+                RoutePoint(0.18f, 0.65f),
+                RoutePoint(0.25f, 0.68f),
+                RoutePoint(0.35f, 0.45f),
+                RoutePoint(0.50f, 0.50f),
+                RoutePoint(0.62f, 0.30f),
+                RoutePoint(0.78f, 0.35f),
+                RoutePoint(0.92f, 0.18f)
+            )
+        ),
+
+        Trip(
+            date = "2026-07-27",
+            distance = "4.2 km",
+            duration = "7 min",
+            score = 92,
+            efficiency = "31.2 MPG",
+            route = listOf(
+                RoutePoint(0.08f, 0.25f),
+                RoutePoint(0.25f, 0.35f),
+                RoutePoint(0.40f, 0.30f),
+                RoutePoint(0.55f, 0.55f),
+                RoutePoint(0.72f, 0.50f),
+                RoutePoint(0.90f, 0.75f)
+            )
+        ),
+
+        Trip(
+            date = "2026-07-26",
+            distance = "45.0 km",
+            duration = "55 min",
+            score = 78,
+            efficiency = "26.5 MPG",
+            route = listOf(
+                RoutePoint(0.05f, 0.75f),
+                RoutePoint(0.15f, 0.60f),
+                RoutePoint(0.30f, 0.65f),
+                RoutePoint(0.40f, 0.35f),
+                RoutePoint(0.55f, 0.20f),
+                RoutePoint(0.70f, 0.30f),
+                RoutePoint(0.82f, 0.55f),
+                RoutePoint(0.95f, 0.40f)
+            )
+        )
     )
 
     Column(
@@ -105,40 +159,200 @@ fun TripFilterChip(label: String, selected: Boolean) {
     }
 }
 
-data class Trip(val date: String, val distance: String, val duration: String, val score: Int, val efficiency: String)
+data class Trip(
+    val date: String,
+    val distance: String,
+    val duration: String,
+    val score: Int,
+    val efficiency: String,
+    val route: List<RoutePoint>
+)
+
+data class RoutePoint(
+    val x: Float,
+    val y: Float
+)
 
 @Composable
-fun TripCard(trip: Trip, onClick: () -> Unit) {
+fun TripCard(
+    trip: Trip,
+    onClick: () -> Unit
+) {
     NeonCard(
         borderColor = NeonCyan.copy(alpha = 0.3f),
         modifier = Modifier
+            .fillMaxWidth()
             .padding(vertical = 8.dp)
             .clickable(onClick = onClick)
     ) {
+
         Row(
-            modifier = Modifier.padding(8.dp),
+            modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Column(modifier = Modifier.weight(1f)) {
-                Text(text = trip.date, fontSize = 16.sp, fontWeight = FontWeight.Bold, color = Color.White)
+
+            // ------------------------------------------------
+            // ROUTE PREVIEW
+            // ------------------------------------------------
+
+            RoutePreview(
+                route = trip.route,
+                modifier = Modifier
+                    .width(105.dp)
+                    .height(90.dp)
+            )
+
+            Spacer(modifier = Modifier.width(14.dp))
+
+            // ------------------------------------------------
+            // TRIP INFORMATION
+            // ------------------------------------------------
+
+            Column(
+                modifier = Modifier.weight(1f)
+            ) {
+
                 Text(
-                    text = "${trip.distance} • ${trip.duration} • ${trip.efficiency}",
-                    color = Color.White.copy(alpha = 0.5f),
+                    text = trip.date,
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = AutoPulseText
+                )
+
+                Spacer(modifier = Modifier.height(6.dp))
+
+                Text(
+                    text = "${trip.distance} • ${trip.duration}",
+                    color = AutoPulseTextSecondary,
                     fontSize = 12.sp
                 )
+
+                Spacer(modifier = Modifier.height(3.dp))
+
+                Text(
+                    text = trip.efficiency,
+                    color = AutoPulseTextMuted,
+                    fontSize = 11.sp
+                )
             }
-            Column(horizontalAlignment = Alignment.End) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
+
+            // ------------------------------------------------
+            // SAFETY SCORE
+            // ------------------------------------------------
+
+            Column(
+                horizontalAlignment = Alignment.End
+            ) {
+
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+
                     Icon(
-                        Icons.Default.Star,
+                        imageVector = Icons.Default.Star,
                         contentDescription = null,
                         tint = NeonCyan,
                         modifier = Modifier.size(16.dp)
                     )
+
                     Spacer(modifier = Modifier.width(4.dp))
-                    Text(text = "${trip.score}", fontSize = 20.sp, fontWeight = FontWeight.Black, color = Color.White)
+
+                    Text(
+                        text = trip.score.toString(),
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Black,
+                        color = AutoPulseText
+                    )
                 }
-                Text(text = "Safety Score", color = NeonCyan, fontSize = 10.sp)
+
+                Text(
+                    text = "Safety Score",
+                    color = NeonCyan,
+                    fontSize = 10.sp
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun RoutePreview(
+    route: List<RoutePoint>,
+    modifier: Modifier = Modifier
+) {
+
+    Box(
+        modifier = modifier
+            .background(
+                color = AutoPulseBackground,
+                shape = RoundedCornerShape(12.dp)
+            )
+    ) {
+
+        Canvas(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(8.dp)
+        ) {
+
+            if (route.size >= 2) {
+
+                val path = Path()
+
+                val first = route.first()
+
+                path.moveTo(
+                    first.x * size.width,
+                    first.y * size.height
+                )
+
+                route.drop(1).forEach { point ->
+
+                    path.lineTo(
+                        point.x * size.width,
+                        point.y * size.height
+                    )
+                }
+
+                // Route shadow
+                drawPath(
+                    path = path,
+                    color = NeonCyan.copy(alpha = 0.15f),
+                    style = Stroke(
+                        width = 7.dp.toPx(),
+                        cap = StrokeCap.Round
+                    )
+                )
+
+                // Main route
+                drawPath(
+                    path = path,
+                    color = NeonCyan,
+                    style = Stroke(
+                        width = 2.5.dp.toPx(),
+                        cap = StrokeCap.Round
+                    )
+                )
+
+                // Start point
+                drawCircle(
+                    color = AutoPulseSuccess,
+                    radius = 4.dp.toPx(),
+                    center = Offset(
+                        route.first().x * size.width,
+                        route.first().y * size.height
+                    )
+                )
+
+                // End point
+                drawCircle(
+                    color = NeonMagenta,
+                    radius = 4.dp.toPx(),
+                    center = Offset(
+                        route.last().x * size.width,
+                        route.last().y * size.height
+                    )
+                )
             }
         }
     }
