@@ -68,14 +68,28 @@ fun NavGraph(navController: NavHostController) {
         }
         composable(Screen.ThemePicker.route) { ThemePickerScreen(onBack = { navController.popBackStack() }) }
         composable(Screen.FuelHub.route) { FuelManagementScreen() }
-        
+
         composable(Screen.DiagnosticsMain.route) {
+
             DiagnosticsMainScreen(
-                onNavigateToDtcList = { navController.navigate(Screen.DtcList.route) },
-                onNavigateToAdvanced = { navController.navigate(Screen.Emissions.route) },
-                onNavigateToFreezeFrame = { navController.navigate(Screen.FreezeFrame.route) },
-                onNavigateToVehicleInfo = { navController.navigate(Screen.VehicleInfo.route) },
-                onNavigateToHistory = { navController.navigate(Screen.DtcHistory.route) }
+                onNavigateToDtcList = {
+                    navController.navigate(Screen.DtcDetail.route)
+                },
+                onNavigateToAdvanced = {
+                    navController.navigate(Screen.Emissions.route)
+                },
+                onNavigateToFreezeFrame = {
+                    navController.navigate(Screen.FreezeFrame.route)
+                },
+                onNavigateToVehicleInfo = {
+                    navController.navigate(Screen.VehicleInfo.route)
+                },
+                onNavigateToHistory = {
+                    navController.navigate(Screen.DtcHistory.route)
+                },
+                onClearCodes = {
+                    // Clear DTC logic will eventually go here
+                }
             )
         }
         composable(Screen.DtcList.route) {

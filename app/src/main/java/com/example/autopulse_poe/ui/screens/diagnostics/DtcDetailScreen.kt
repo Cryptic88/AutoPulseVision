@@ -6,9 +6,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.AutoAwesome
-import androidx.compose.material.icons.filled.Build
-import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -22,65 +20,141 @@ import com.example.autopulse_poe.ui.theme.*
 
 @Composable
 fun DtcDetailScreen(onBack: () -> Unit) {
+
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(DarkBackground)
+            .background(AutoPulseBackground)
             .verticalScroll(rememberScrollState())
     ) {
-        // Header
+
+        // HEADER
         Row(
             modifier = Modifier.padding(16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             IconButton(onClick = onBack) {
-                Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null, tint = Color.White)
+                Icon(
+                    Icons.AutoMirrored.Filled.ArrowBack,
+                    contentDescription = "Back",
+                    tint = AutoPulseText
+                )
             }
-            Text(
-                text = "Fault Analysis",
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Black,
-                color = Color.White,
+
+            Column(
                 modifier = Modifier.padding(start = 8.dp)
-            )
+            ) {
+                Text(
+                    text = "Fault Analysis",
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.Black,
+                    color = AutoPulseText
+                )
+
+                Text(
+                    text = "Diagnostic trouble code",
+                    color = AutoPulseTextMuted,
+                    fontSize = 10.sp
+                )
+            }
         }
 
-        Column(modifier = Modifier.padding(horizontal = 20.dp)) {
-            // Main Code Card
-            NeonCard(borderColor = NeonRed) {
-                Text(text = "P0300", fontSize = 48.sp, fontWeight = FontWeight.Black, color = NeonRed)
-                Text(text = "Random or Multiple Cylinder Misfire Detected", fontSize = 18.sp, color = Color.White, fontWeight = FontWeight.Bold)
-                Spacer(modifier = Modifier.height(8.dp))
-                Text(text = "Priority: Critical", color = NeonRed, fontSize = 12.sp, fontWeight = FontWeight.Bold)
+        Column(
+            modifier = Modifier.padding(horizontal = 20.dp)
+        ) {
+
+            // FAULT
+            NeonCard(
+                borderColor = AutoPulseError.copy(alpha = 0.65f)
+            ) {
+
+                Text(
+                    text = "P0300",
+                    fontSize = 44.sp,
+                    fontWeight = FontWeight.Black,
+                    color = AutoPulseError
+                )
+
+                Spacer(modifier = Modifier.height(4.dp))
+
+                Text(
+                    text = "Random or Multiple Cylinder Misfire Detected",
+                    fontSize = 17.sp,
+                    color = AutoPulseText,
+                    fontWeight = FontWeight.Bold
+                )
+
+                Spacer(modifier = Modifier.height(14.dp))
+
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    DiagnosticBadge(
+                        text = "STORED",
+                        color = AutoPulseError
+                    )
+
+                    DiagnosticBadge(
+                        text = "CRITICAL",
+                        color = AutoPulseWarning
+                    )
+                }
             }
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(20.dp))
 
-            // AI Explanation
-            NeonCard(borderColor = NeonPurple) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(Icons.Default.AutoAwesome, contentDescription = null, tint = NeonPurple)
-                    Spacer(modifier = Modifier.width(12.dp))
-                    Text(text = "AI Mechanic Assistant", color = Color.White, fontWeight = FontWeight.Black)
-                }
-                Spacer(modifier = Modifier.height(16.dp))
-                Surface(
-                    color = Color.White.copy(alpha = 0.05f),
-                    shape = MaterialTheme.shapes.medium,
-                    modifier = Modifier.fillMaxWidth()
+            // AI
+            NeonCard(
+                borderColor = AutoPulseCyanDark.copy(alpha = 0.55f)
+            ) {
+
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Column(modifier = Modifier.padding(16.dp)) {
+                    Icon(
+                        Icons.Default.AutoAwesome,
+                        contentDescription = null,
+                        tint = AutoPulseCyanDark
+                    )
+
+                    Spacer(modifier = Modifier.width(10.dp))
+
+                    Text(
+                        text = "AI Mechanic Assistant",
+                        color = AutoPulseText,
+                        fontWeight = FontWeight.Black
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(14.dp))
+
+                Surface(
+                    color = AutoPulseSurfaceElevated,
+                    shape = MaterialTheme.shapes.medium
+                ) {
+                    Column(
+                        modifier = Modifier.padding(15.dp)
+                    ) {
+
                         Text(
-                            text = "Based on the P0300 code, I recommend checking your spark plugs first. Would you like a step-by-step guide?",
-                            color = Color.White,
-                            fontSize = 14.sp
+                            text = "AutoPulse analysis suggests checking the ignition system and spark plugs first.",
+                            color = AutoPulseText,
+                            fontSize = 13.sp,
+                            lineHeight = 19.sp
                         )
+
+                        Spacer(modifier = Modifier.height(12.dp))
+
                         Button(
-                            onClick = { /* Chat logic */ },
-                            modifier = Modifier.padding(top = 12.dp),
-                            colors = ButtonDefaults.buttonColors(containerColor = NeonPurple)
+                            onClick = {},
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = AutoPulseCyanDark
+                            )
                         ) {
-                            Text("Start Repair Chat")
+                            Text(
+                                text = "Start Repair Chat",
+                                fontWeight = FontWeight.Bold
+                            )
                         }
                     }
                 }
@@ -88,48 +162,135 @@ fun DtcDetailScreen(onBack: () -> Unit) {
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            // Common Causes
-            Text(text = "Common Causes", color = NeonCyan, fontWeight = FontWeight.Bold, fontSize = 16.sp)
-            Spacer(modifier = Modifier.height(12.dp))
-            CauseItem("Worn Spark Plugs or Ignition Coils")
-            CauseItem("Vacuum Leak in intake manifold")
-            CauseItem("Low Fuel Pressure or clogged filter")
+            // COMMON CAUSES
+            SectionHeading("COMMON CAUSES")
+
+            Spacer(modifier = Modifier.height(10.dp))
+
+            CauseItem("Worn spark plugs or ignition coils")
+            CauseItem("Vacuum leak in intake system")
+            CauseItem("Low fuel pressure")
+            CauseItem("Fuel injector issue")
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            // ACTIONS
+            SectionHeading("RECOMMENDED ACTIONS")
+
+            Spacer(modifier = Modifier.height(10.dp))
+
+            NeonCard(
+                borderColor = AutoPulseCyan.copy(alpha = 0.25f)
+            ) {
+                ActionItem(
+                    "Check spark plug condition",
+                    true
+                )
+
+                ActionItem(
+                    "Inspect ignition coil packs",
+                    false
+                )
+
+                ActionItem(
+                    "Check fuel pressure",
+                    false
+                )
+
+                ActionItem(
+                    "Inspect intake for vacuum leaks",
+                    false
+                )
+            }
 
             Spacer(modifier = Modifier.height(32.dp))
-
-            // Fix Suggestions
-            Text(text = "Recommended Actions", color = NeonCyan, fontWeight = FontWeight.Bold, fontSize = 16.sp)
-            Spacer(modifier = Modifier.height(12.dp))
-            NeonCard(borderColor = Color.White.copy(alpha = 0.1f)) {
-                ActionItem("Step 1: Check spark plug condition", true)
-                ActionItem("Step 2: Inspect ignition coil packs", false)
-                ActionItem("Step 3: Perform smoke test for vacuum leaks", false)
-            }
-            
-            Spacer(modifier = Modifier.height(40.dp))
         }
     }
 }
 
 @Composable
-fun CauseItem(text: String) {
-    Row(modifier = Modifier.padding(vertical = 4.dp), verticalAlignment = Alignment.CenterVertically) {
-        Icon(Icons.Default.Info, contentDescription = null, tint = NeonCyan.copy(alpha = 0.5f), modifier = Modifier.size(16.dp))
-        Spacer(modifier = Modifier.width(12.dp))
-        Text(text = text, color = Color.White, fontSize = 14.sp)
+private fun DiagnosticBadge(
+    text: String,
+    color: Color
+) {
+    Surface(
+        color = color.copy(alpha = 0.12f),
+        shape = MaterialTheme.shapes.small
+    ) {
+        Text(
+            text = text,
+            color = color,
+            fontSize = 9.sp,
+            fontWeight = FontWeight.Black,
+            modifier = Modifier.padding(
+                horizontal = 9.dp,
+                vertical = 5.dp
+            )
+        )
     }
 }
 
 @Composable
-fun ActionItem(text: String, isPrimary: Boolean) {
-    Row(modifier = Modifier.padding(vertical = 8.dp), verticalAlignment = Alignment.CenterVertically) {
+private fun SectionHeading(text: String) {
+    Text(
+        text = text,
+        color = AutoPulseCyan,
+        fontSize = 11.sp,
+        fontWeight = FontWeight.Bold,
+        letterSpacing = 1.sp
+    )
+}
+
+@Composable
+fun CauseItem(text: String) {
+    Row(
+        modifier = Modifier.padding(vertical = 6.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Icon(
+            Icons.Default.Info,
+            contentDescription = null,
+            tint = AutoPulseCyan.copy(alpha = 0.6f),
+            modifier = Modifier.size(16.dp)
+        )
+
+        Spacer(modifier = Modifier.width(12.dp))
+
+        Text(
+            text = text,
+            color = AutoPulseText,
+            fontSize = 13.sp
+        )
+    }
+}
+
+@Composable
+fun ActionItem(
+    text: String,
+    isPrimary: Boolean
+) {
+    Row(
+        modifier = Modifier.padding(vertical = 8.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+
         Icon(
             Icons.Default.Build,
             contentDescription = null,
-            tint = if (isPrimary) NeonCyan else Color.White.copy(alpha = 0.3f),
+            tint = if (isPrimary) {
+                AutoPulseCyan
+            } else {
+                AutoPulseTextMuted
+            },
             modifier = Modifier.size(18.dp)
         )
-        Spacer(modifier = Modifier.width(16.dp))
-        Text(text = text, color = Color.White, fontSize = 14.sp)
+
+        Spacer(modifier = Modifier.width(14.dp))
+
+        Text(
+            text = text,
+            color = AutoPulseText,
+            fontSize = 13.sp
+        )
     }
 }

@@ -6,7 +6,9 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Bluetooth
 import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Memory
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -19,7 +21,10 @@ import com.example.autopulse_poe.ui.components.NeonCard
 import com.example.autopulse_poe.ui.theme.*
 
 @Composable
-fun VehicleInfoScreen(onBack: () -> Unit) {
+fun VehicleInfoScreen(
+    onBack: () -> Unit
+) {
+
     val infoItems = listOf(
         "VIN" to "1FTFX1EF5PKXXXXXX",
         "Calibration ID" to "VC3A-12A650-AA",
@@ -32,73 +37,276 @@ fun VehicleInfoScreen(onBack: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(DarkBackground)
+            .background(AutoPulseBackground)
     ) {
-        // Header
+
+        // HEADER
+
         Row(
-            modifier = Modifier.padding(16.dp),
+            modifier = Modifier.padding(
+                horizontal = 16.dp,
+                vertical = 14.dp
+            ),
             verticalAlignment = Alignment.CenterVertically
         ) {
+
             IconButton(onClick = onBack) {
-                Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null, tint = Color.White)
+
+                Icon(
+                    Icons.AutoMirrored.Filled.ArrowBack,
+                    contentDescription = "Back",
+                    tint = AutoPulseText
+                )
             }
-            Text(
-                text = "Vehicle Information",
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Black,
-                color = Color.White,
+
+            Column(
                 modifier = Modifier.padding(start = 8.dp)
-            )
+            ) {
+
+                Text(
+                    text = "Vehicle Information",
+                    fontSize = 22.sp,
+                    fontWeight = FontWeight.Black,
+                    color = AutoPulseText
+                )
+
+                Text(
+                    text = "ECU & vehicle identification",
+                    color = AutoPulseTextMuted,
+                    fontSize = 10.sp
+                )
+            }
         }
 
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
-                .padding(20.dp)
+                .padding(horizontal = 20.dp)
         ) {
-            Text(
-                text = "Data retrieved directly from the ECU via Mode 09.",
-                color = Color.White.copy(alpha = 0.6f),
-                fontSize = 14.sp,
-                modifier = Modifier.padding(bottom = 24.dp)
-            )
 
-            NeonCard(borderColor = NeonMagenta) {
-                infoItems.forEachIndexed { index, (label, value) ->
-                    InfoItemRow(label, value)
-                    if (index < infoItems.size - 1) {
-                        HorizontalDivider(
-                            modifier = Modifier.padding(vertical = 12.dp),
-                            color = Color.White.copy(alpha = 0.05f)
+            // ECU STATUS
+
+            NeonCard(
+                borderColor = AutoPulseCyanDark.copy(alpha = 0.45f)
+            ) {
+
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+
+                    Box(
+                        modifier = Modifier
+                            .size(44.dp)
+                            .background(
+                                AutoPulseCyanDark.copy(alpha = 0.10f),
+                                MaterialTheme.shapes.small
+                            ),
+                        contentAlignment = Alignment.Center
+                    ) {
+
+                        Icon(
+                            Icons.Default.Memory,
+                            contentDescription = null,
+                            tint = AutoPulseCyanDark
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.width(14.dp))
+
+                    Column {
+
+                        Text(
+                            text = "ECU ONLINE",
+                            color = AutoPulseSuccess,
+                            fontSize = 10.sp,
+                            fontWeight = FontWeight.Black
+                        )
+
+                        Text(
+                            text = "Vehicle identification available",
+                            color = AutoPulseText,
+                            fontSize = 13.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+
+                        Text(
+                            text = "Retrieved using OBD Mode 09",
+                            color = AutoPulseTextMuted,
+                            fontSize = 10.sp
                         )
                     }
                 }
             }
-            
-            Spacer(modifier = Modifier.height(32.dp))
-            
-            NeonCard(borderColor = NeonOrange) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(Icons.Default.Info, contentDescription = null, tint = NeonOrange)
-                    Spacer(modifier = Modifier.width(12.dp))
-                    Text(text = "Adapter Information", color = Color.White, fontWeight = FontWeight.Bold)
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            Text(
+                text = "VEHICLE DATA",
+                color = AutoPulseTextSecondary,
+                fontSize = 11.sp,
+                fontWeight = FontWeight.Bold,
+                letterSpacing = 1.sp
+            )
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            NeonCard(
+                borderColor = AutoPulseCyanDark.copy(alpha = 0.30f)
+            ) {
+
+                infoItems.forEachIndexed { index, (label, value) ->
+
+                    InfoItemRow(
+                        label = label,
+                        value = value
+                    )
+
+                    if (index < infoItems.lastIndex) {
+
+                        HorizontalDivider(
+                            modifier = Modifier.padding(
+                                vertical = 12.dp
+                            ),
+                            color = AutoPulseBorder
+                        )
+                    }
                 }
-                Spacer(modifier = Modifier.height(12.dp))
-                Text(text = "Device: OBDLink MX+", color = Color.White.copy(alpha = 0.7f), fontSize = 13.sp)
-                Text(text = "Firmware: v5.6.1", color = Color.White.copy(alpha = 0.7f), fontSize = 13.sp)
-                Text(text = "Connection: Bluetooth LE", color = Color.White.copy(alpha = 0.7f), fontSize = 13.sp)
             }
-            
-            Spacer(modifier = Modifier.height(40.dp))
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            // ADAPTER
+
+            Text(
+                text = "ADAPTER",
+                color = AutoPulseTextSecondary,
+                fontSize = 11.sp,
+                fontWeight = FontWeight.Bold,
+                letterSpacing = 1.sp
+            )
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            NeonCard(
+                borderColor = AutoPulseCyan.copy(alpha = 0.30f)
+            ) {
+
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+
+                    Icon(
+                        Icons.Default.Bluetooth,
+                        contentDescription = null,
+                        tint = AutoPulseCyan
+                    )
+
+                    Spacer(modifier = Modifier.width(12.dp))
+
+                    Column {
+
+                        Text(
+                            text = "OBDLink MX+",
+                            color = AutoPulseText,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 14.sp
+                        )
+
+                        Text(
+                            text = "Bluetooth LE",
+                            color = AutoPulseTextMuted,
+                            fontSize = 11.sp
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.weight(1f))
+
+                    Text(
+                        text = "CONNECTED",
+                        color = AutoPulseSuccess,
+                        fontSize = 9.sp,
+                        fontWeight = FontWeight.Black
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(14.dp))
+
+                AdapterInfoRow(
+                    label = "Firmware",
+                    value = "v5.6.1"
+                )
+
+                AdapterInfoRow(
+                    label = "Protocol",
+                    value = "CAN 11/500"
+                )
+
+                AdapterInfoRow(
+                    label = "Latency",
+                    value = "42ms"
+                )
+            }
+
+            Spacer(modifier = Modifier.height(32.dp))
         }
     }
 }
 
+
 @Composable
-fun InfoItemRow(label: String, value: String) {
-    Column(modifier = Modifier.fillMaxWidth()) {
-        Text(text = label, color = Color.White.copy(alpha = 0.5f), fontSize = 12.sp)
-        Text(text = value, color = Color.White, fontWeight = FontWeight.Bold, fontSize = 16.sp)
+fun InfoItemRow(
+    label: String,
+    value: String
+) {
+
+    Column(
+        modifier = Modifier.fillMaxWidth()
+    ) {
+
+        Text(
+            text = label,
+            color = AutoPulseTextMuted,
+            fontSize = 10.sp,
+            fontWeight = FontWeight.Bold
+        )
+
+        Spacer(modifier = Modifier.height(3.dp))
+
+        Text(
+            text = value,
+            color = AutoPulseText,
+            fontWeight = FontWeight.Bold,
+            fontSize = 14.sp
+        )
+    }
+}
+
+
+@Composable
+private fun AdapterInfoRow(
+    label: String,
+    value: String
+) {
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 5.dp),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+
+        Text(
+            text = label,
+            color = AutoPulseTextMuted,
+            fontSize = 11.sp
+        )
+
+        Text(
+            text = value,
+            color = AutoPulseText,
+            fontSize = 11.sp,
+            fontWeight = FontWeight.Bold
+        )
     }
 }
