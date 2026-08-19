@@ -17,6 +17,11 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.autopulse_poe.ui.theme.AutoPulseBorder
+import com.example.autopulse_poe.ui.theme.AutoPulseCyan
+import com.example.autopulse_poe.ui.theme.AutoPulseSurface
+import com.example.autopulse_poe.ui.theme.AutoPulseText
+import com.example.autopulse_poe.ui.theme.AutoPulseTextMuted
 import com.example.autopulse_poe.ui.theme.NeonCyan
 import com.example.autopulse_poe.ui.theme.NeonMagenta
 import com.example.autopulse_poe.ui.theme.NeonPurple
@@ -24,23 +29,21 @@ import com.example.autopulse_poe.ui.theme.NeonPurple
 @Composable
 fun NeonCard(
     modifier: Modifier = Modifier,
-    borderColor: Color = NeonPurple.copy(alpha = 0.5f),
+    borderColor: Color = AutoPulseBorder,
     content: @Composable ColumnScope.() -> Unit
 ) {
-    Box(
+    Column(
         modifier = modifier
-            .clip(RoundedCornerShape(24.dp))
-            .background(Color.White.copy(alpha = 0.05f))
+            .clip(RoundedCornerShape(16.dp))
+            .background(AutoPulseSurface)
             .border(
                 width = 1.dp,
-                brush = Brush.verticalGradient(
-                    colors = listOf(borderColor, Color.Transparent)
-                ),
-                shape = RoundedCornerShape(24.dp)
+                color = borderColor,
+                shape = RoundedCornerShape(16.dp)
             )
             .padding(16.dp)
     ) {
-        Column { content() }
+        content()
     }
 }
 
@@ -124,52 +127,76 @@ fun LiveTripSummaryCard(
     avgSpeed: String,
     modifier: Modifier = Modifier
 ) {
-    val rainbowBrush = Brush.linearGradient(
-        colors = listOf(NeonCyan, NeonPurple, NeonMagenta)
-    )
-
-    Box(
+    Column(
         modifier = modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(24.dp))
-            .background(Color.White.copy(alpha = 0.05f))
-            .border(2.dp, rainbowBrush, RoundedCornerShape(24.dp))
-            .padding(20.dp)
+            .clip(RoundedCornerShape(16.dp))
+            .background(AutoPulseSurface)
+            .border(
+                width = 1.dp,
+                color = AutoPulseCyan.copy(alpha = 0.55f),
+                shape = RoundedCornerShape(16.dp)
+            )
+            .padding(18.dp)
     ) {
-        Column {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = "Current Trip",
-                    color = NeonCyan,
-                    fontWeight = FontWeight.Bold
-                )
-                Text(
-                    text = duration,
-                    fontSize = 32.sp,
-                    fontWeight = FontWeight.Black,
-                    color = Color.White
-                )
-            }
-            Spacer(modifier = Modifier.height(16.dp))
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                TripStatItem(label = "Distance", value = distance)
-                TripStatItem(label = "Avg Speed", value = avgSpeed)
-            }
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = "CURRENT TRIP",
+                color = AutoPulseCyan,
+                style = MaterialTheme.typography.labelMedium,
+                fontWeight = FontWeight.Bold
+            )
+
+            Text(
+                text = duration,
+                color = AutoPulseCyan,
+                style = MaterialTheme.typography.headlineSmall,
+                fontWeight = FontWeight.Bold
+            )
+        }
+
+        Spacer(modifier = Modifier.height(18.dp))
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            TripStatItem(
+                label = "DISTANCE",
+                value = distance
+            )
+
+            TripStatItem(
+                label = "AVG SPEED",
+                value = avgSpeed
+            )
         }
     }
 }
 
 @Composable
-private fun TripStatItem(label: String, value: String) {
+private fun TripStatItem(
+    label: String,
+    value: String
+) {
     Column {
-        Text(text = label, color = Color.White.copy(alpha = 0.6f), fontSize = 12.sp)
-        Text(text = value, color = Color.White, fontWeight = FontWeight.Bold, fontSize = 16.sp)
+        Text(
+            text = label,
+            color = AutoPulseTextMuted,
+            style = MaterialTheme.typography.labelSmall
+        )
+
+        Spacer(modifier = Modifier.height(3.dp))
+
+        Text(
+            text = value,
+            color = AutoPulseText,
+            style = MaterialTheme.typography.titleMedium
+        )
     }
 }

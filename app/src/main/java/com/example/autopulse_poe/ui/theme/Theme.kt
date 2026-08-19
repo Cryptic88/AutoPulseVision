@@ -10,36 +10,61 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
-private val NeonDarkColorScheme = darkColorScheme(
-    primary = NeonMagenta,
-    secondary = NeonCyan,
-    tertiary = NeonPurple,
-    background = DarkBackground,
-    surface = DarkSurface,
-    onPrimary = Color.White,
-    onSecondary = Color.Black,
-    onBackground = Color.White,
-    onSurface = Color.White,
-    error = NeonRed
+private val AutoPulseDarkColorScheme = darkColorScheme(
+
+    primary = AutoPulseCyan,
+    onPrimary = Color.Black,
+
+    primaryContainer = Color(0xFF003544),
+    onPrimaryContainer = AutoPulseCyan,
+
+    secondary = AutoPulsePurple,
+    onSecondary = Color.White,
+
+    secondaryContainer = Color(0xFF211D4A),
+    onSecondaryContainer = Color(0xFFD8D4FF),
+
+    tertiary = AutoPulseSuccess,
+    onTertiary = Color.Black,
+
+    background = AutoPulseBackground,
+    onBackground = AutoPulseText,
+
+    surface = AutoPulseSurface,
+    onSurface = AutoPulseText,
+
+    surfaceVariant = AutoPulseSurfaceVariant,
+    onSurfaceVariant = AutoPulseTextSecondary,
+
+    outline = AutoPulseBorder,
+    outlineVariant = AutoPulseBorderStrong,
+
+    error = AutoPulseError,
+    onError = Color.White
 )
 
 @Composable
 fun AutoPulsePOETheme(
-    darkTheme: Boolean = true, // Force Dark
-    dynamicColor: Boolean = false, // Disable dynamic to keep neon branding
+    darkTheme: Boolean = true,
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val view = LocalView.current
+
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
-            window.statusBarColor = DarkBackground.toArgb()
-            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = false
+
+            window.statusBarColor = AutoPulseBackground.toArgb()
+
+            WindowCompat
+                .getInsetsController(window, view)
+                .isAppearanceLightStatusBars = false
         }
     }
 
     MaterialTheme(
-        colorScheme = NeonDarkColorScheme,
+        colorScheme = AutoPulseDarkColorScheme,
         typography = Typography,
         content = content
     )

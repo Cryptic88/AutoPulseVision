@@ -13,6 +13,10 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.autopulse_poe.ui.navigation.NavGraph
 import com.example.autopulse_poe.ui.navigation.Screen
+import com.example.autopulse_poe.ui.theme.AutoPulseBackground
+import com.example.autopulse_poe.ui.theme.AutoPulseCyan
+import com.example.autopulse_poe.ui.theme.AutoPulseText
+import com.example.autopulse_poe.ui.theme.AutoPulseTextMuted
 import com.example.autopulse_poe.ui.theme.DarkBackground
 import com.example.autopulse_poe.ui.theme.NeonCyan
 import com.example.autopulse_poe.ui.theme.NeonGreen
@@ -37,37 +41,61 @@ fun MainScaffold() {
         bottomBar = {
             if (showBottomBar) {
                 NavigationBar(
-                    containerColor = DarkBackground,
-                    contentColor = Color.White,
-                    tonalElevation = 8.dp
+                    containerColor = AutoPulseBackground,
+                    contentColor = AutoPulseText,
+                    tonalElevation = 0.dp
                 ) {
                     Screen.bottomNavItems.forEach { screen ->
-                        val selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true
+
+                        val selected =
+                            currentDestination
+                                ?.hierarchy
+                                ?.any { it.route == screen.route } == true
+
                         NavigationBarItem(
-                            icon = { 
-                                screen.icon?.let { 
+                            icon = {
+                                screen.icon?.let {
                                     Icon(
-                                        it, 
+                                        imageVector = it,
                                         contentDescription = screen.title,
-                                        tint = if (selected) NeonCyan else Color.Gray
-                                    ) 
-                                } 
+                                        tint = if (selected) {
+                                            AutoPulseCyan
+                                        } else {
+                                            AutoPulseTextMuted
+                                        }
+                                    )
+                                }
                             },
-                            label = { 
+
+                            label = {
                                 Text(
-                                    screen.title, 
-                                    color = if (selected) NeonCyan else Color.Gray
-                                ) 
+                                    text = screen.title,
+                                    color = if (selected) {
+                                        AutoPulseCyan
+                                    } else {
+                                        AutoPulseTextMuted
+                                    }
+                                )
                             },
+
                             selected = selected,
+
                             colors = NavigationBarItemDefaults.colors(
-                                indicatorColor = NeonCyan.copy(alpha = 0.1f)
+                                selectedIconColor = AutoPulseCyan,
+                                selectedTextColor = AutoPulseCyan,
+                                unselectedIconColor = AutoPulseTextMuted,
+                                unselectedTextColor = AutoPulseTextMuted,
+                                indicatorColor = AutoPulseCyan.copy(alpha = 0.10f)
                             ),
+
                             onClick = {
                                 navController.navigate(screen.route) {
-                                    popUpTo(navController.graph.findStartDestination().id) {
+                                    popUpTo(
+                                        navController.graph.findStartDestination().id
+                                    ) {
                                         saveState = true
                                     }
+
                                     launchSingleTop = true
                                     restoreState = true
                                 }
