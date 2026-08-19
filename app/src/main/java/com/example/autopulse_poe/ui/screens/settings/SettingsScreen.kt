@@ -5,6 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
@@ -14,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.Magenta
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -26,120 +28,397 @@ fun SettingsScreen(
     onNavigateToVehicleEditor: () -> Unit = {},
     onNavigateToBluetooth: () -> Unit = {},
     onNavigateToVehicleProfiles: () -> Unit = {},
-    onNavigateToEditProfile: () -> Unit = {}
+    onNavigateToEditProfile: () -> Unit = {},
+    onNavigateToPrivacy: () -> Unit = {},
+    onNavigateToBackup: () -> Unit = {}
 ) {
+
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(DarkBackground)
+            .background(AutoPulseBackground)
             .verticalScroll(rememberScrollState())
             .padding(20.dp)
     ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(bottom = 32.dp)
-        ) {
-            Box(
-                modifier = Modifier
-                    .size(80.dp)
-                    .clip(CircleShape)
-                    .background(NeonPurple.copy(alpha = 0.2f))
-                    .padding(4.dp)
-            ) {
-                Icon(
-                    Icons.Default.Person,
-                    contentDescription = null,
-                    tint = NeonPurple,
-                    modifier = Modifier.fillMaxSize()
-                )
-            }
-            Spacer(modifier = Modifier.width(20.dp))
-            Column {
-                Text(text = "Alex Smith", fontSize = 24.sp, fontWeight = FontWeight.Black, color = Color.White)
-                Text(text = "Premium Member", color = NeonCyan, fontSize = 14.sp)
-            }
-            Spacer(modifier = Modifier.weight(1f))
-            IconButton(onClick = onNavigateToEditProfile) {
-                Icon(Icons.Default.Edit, contentDescription = null, tint = Color.LightGray)
-            }
-        }
+
+        // ----------------------------------------------------
+        // HEADER
+        // ----------------------------------------------------
 
         Text(
-            text = "User Profile",
+            text = "Settings",
+            color = AutoPulseText,
             fontSize = 28.sp,
-            fontWeight = FontWeight.Black,
-            color = Color.White,
-            modifier = Modifier.padding(bottom = 24.dp)
+            fontWeight = FontWeight.Black
         )
 
-        NeonSettingsSection(title = "Vehicle Management", borderColor = NeonCyan) {
-            SettingsItem(icon = Icons.Default.DirectionsCar, label = "Vehicle Profiles", onClick = onNavigateToVehicleProfiles)
-            SettingsItem(icon = Icons.Default.Bluetooth, label = "OBD-II Adapter Setup", onClick = onNavigateToBluetooth)
-            SettingsItem(icon = Icons.Default.Edit, label = "Last Active Vehicle", onClick = onNavigateToVehicleEditor)
+        Text(
+            text = "Manage your AutoPulse experience",
+            color = AutoPulseTextSecondary,
+            fontSize = 12.sp,
+            modifier = Modifier.padding(top = 4.dp)
+        )
+
+        Spacer(modifier = Modifier.height(24.dp))
+
+
+        // ----------------------------------------------------
+        // PROFILE
+        // ----------------------------------------------------
+
+        NeonCard(
+            borderColor = AutoPulsePurple.copy(alpha = 0.55f),
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable(onClick = onNavigateToEditProfile)
+        ) {
+
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+
+                Box(
+                    modifier = Modifier
+                        .size(62.dp)
+                        .clip(CircleShape)
+                        .background(
+                            AutoPulsePurple.copy(alpha = 0.14f)
+                        ),
+                    contentAlignment = Alignment.Center
+                ) {
+
+                    Icon(
+                        imageVector = Icons.Default.Person,
+                        contentDescription = null,
+                        tint = AutoPulsePurple,
+                        modifier = Modifier.size(34.dp)
+                    )
+                }
+
+                Spacer(modifier = Modifier.width(16.dp))
+
+                Column(
+                    modifier = Modifier.weight(1f)
+                ) {
+
+                    Text(
+                        text = "Alex Smith",
+                        color = AutoPulseText,
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+
+                    Text(
+                        text = "Manage your profile",
+                        color = AutoPulseTextMuted,
+                        fontSize = 10.sp,
+                        modifier = Modifier.padding(top = 3.dp)
+                    )
+                }
+
+                Icon(
+                    imageVector = Icons.Default.ChevronRight,
+                    contentDescription = null,
+                    tint = AutoPulseTextMuted
+                )
+            }
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
 
-        NeonSettingsSection(title = "Preferences", borderColor = NeonMagenta) {
-            SettingsItem(icon = Icons.Default.Palette, label = "App Theme")
-            SettingsItem(icon = Icons.Default.Language, label = "Language Settings")
-            SettingsItem(icon = Icons.Default.Notifications, label = "Notification Alerts")
+        Spacer(modifier = Modifier.height(28.dp))
+
+
+        // ----------------------------------------------------
+        // VEHICLE
+        // ----------------------------------------------------
+
+        SettingsSectionTitle(
+            title = "VEHICLE",
+            color = AutoPulseCyan
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        NeonSettingsSection(
+            title = "",
+            borderColor = AutoPulseCyan
+        ) {
+
+            SettingsItem(
+                icon = Icons.Default.DirectionsCar,
+                label = "Vehicle Profiles",
+                description = "Manage your saved vehicles",
+                onClick = onNavigateToVehicleProfiles
+            )
+
+            SettingsItem(
+                icon = Icons.Default.Edit,
+                label = "Active Vehicle",
+                description = "Tesla Model S • 2024",
+                onClick = onNavigateToVehicleEditor
+            )
+
+            SettingsItem(
+                icon = Icons.Default.Bluetooth,
+                label = "OBD-II Adapter",
+                description = "Connected • OBDLink MX+",
+                onClick = onNavigateToBluetooth
+            )
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
 
-        NeonSettingsSection(title = "Security", borderColor = NeonOrange) {
-            SettingsItem(icon = Icons.Default.Fingerprint, label = "Biometric Access")
-            SettingsItem(icon = Icons.Default.PrivacyTip, label = "Privacy & Data")
+        Spacer(modifier = Modifier.height(20.dp))
+
+
+        // ----------------------------------------------------
+        // APP PREFERENCES
+        // ----------------------------------------------------
+
+        SettingsSectionTitle(
+            title = "APP PREFERENCES",
+            color = AutoPulseCyanDark
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        NeonSettingsSection(
+            title = "",
+            borderColor = AutoPulseCyanDark
+        ) {
+
+            SettingsItem(
+                icon = Icons.Default.Palette,
+                label = "Appearance",
+                description = "Theme and display preferences"
+            )
+
+            SettingsItem(
+                icon = Icons.Default.Language,
+                label = "Language",
+                description = "English"
+            )
+
+            SettingsItem(
+                icon = Icons.Default.Notifications,
+                label = "Notifications",
+                description = "Alerts and vehicle warnings"
+            )
         }
-        
-        Spacer(modifier = Modifier.height(40.dp))
+
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+
+        // ----------------------------------------------------
+        // DATA & PRIVACY
+        // ----------------------------------------------------
+
+        SettingsSectionTitle(
+            title = "DATA & PRIVACY",
+            color = AutoPulseWarning
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        NeonSettingsSection(
+            title = "",
+            borderColor = AutoPulseWarning
+        ) {
+
+            SettingsItem(
+                icon = Icons.Default.PrivacyTip,
+                label = "Privacy Controls",
+                description = "Manage data collection and sharing",
+                onClick = onNavigateToPrivacy
+            )
+
+            SettingsItem(
+                icon = Icons.Default.CloudSync,
+                label = "Backup & Restore",
+                description = "Sync your vehicle data",
+                onClick = onNavigateToBackup
+            )
+        }
+
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+
+        // ----------------------------------------------------
+        // SECURITY
+        // ----------------------------------------------------
+
+        SettingsSectionTitle(
+            title = "SECURITY",
+            color = AutoPulsePurple
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        NeonSettingsSection(
+            title = "",
+            borderColor = AutoPulsePurple
+        ) {
+
+            SettingsItem(
+                icon = Icons.Default.Fingerprint,
+                label = "Biometric Access",
+                description = "Use fingerprint or face authentication"
+            )
+
+            SettingsItem(
+                icon = Icons.Default.Lock,
+                label = "App Security",
+                description = "Authentication and account security"
+            )
+        }
+
+
+        Spacer(modifier = Modifier.height(36.dp))
+
+        Text(
+            text = "AUTOPULSE",
+            color = AutoPulseTextMuted,
+            fontSize = 10.sp,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.align(Alignment.CenterHorizontally)
+        )
+
+        Text(
+            text = "Version 1.0.0",
+            color = AutoPulseTextMuted.copy(alpha = 0.6f),
+            fontSize = 9.sp,
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+                .padding(top = 3.dp)
+        )
+
+        Spacer(modifier = Modifier.height(20.dp))
     }
 }
 
+
+// ------------------------------------------------------------
+// SECTION TITLE
+// ------------------------------------------------------------
+
 @Composable
-fun NeonSettingsSection(title: String, borderColor: Color, content: @Composable ColumnScope.() -> Unit) {
+fun SettingsSectionTitle(
+    title: String,
+    color: Color
+) {
+    Text(
+        text = title,
+        color = color.copy(alpha = 0.75f),
+        fontSize = 11.sp,
+        fontWeight = FontWeight.Bold,
+        letterSpacing = 1.sp
+    )
+}
+
+
+// ------------------------------------------------------------
+// SETTINGS SECTION
+// ------------------------------------------------------------
+
+@Composable
+fun NeonSettingsSection(
+    title: String,
+    borderColor: Color,
+    content: @Composable ColumnScope.() -> Unit
+) {
+
     Column {
-        Text(
-            text = title,
-            fontSize = 12.sp,
-            fontWeight = FontWeight.Bold,
-            color = borderColor.copy(alpha = 0.7f),
-            modifier = Modifier.padding(start = 4.dp, bottom = 8.dp)
-        )
-        NeonCard(borderColor = borderColor) {
+
+        if (title.isNotEmpty()) {
+            Text(
+                text = title,
+                fontSize = 12.sp,
+                fontWeight = FontWeight.Bold,
+                color = borderColor.copy(alpha = 0.7f),
+                modifier = Modifier.padding(
+                    start = 4.dp,
+                    bottom = 8.dp
+                )
+            )
+        }
+
+        NeonCard(
+            borderColor = borderColor.copy(alpha = 0.45f)
+        ) {
             content()
         }
     }
 }
 
+
+// ------------------------------------------------------------
+// SETTINGS ITEM
+// ------------------------------------------------------------
+
 @Composable
-fun SettingsItem(icon: ImageVector, label: String, onClick: () -> Unit = {}) {
+fun SettingsItem(
+    icon: ImageVector,
+    label: String,
+    description: String = "",
+    onClick: () -> Unit = {}
+) {
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .clickable(onClick = onClick)
-            .padding(vertical = 12.dp),
+            .padding(vertical = 13.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Icon(
-            icon,
-            contentDescription = null,
-            modifier = Modifier.size(20.dp),
-            tint = Color.White.copy(alpha = 0.8f)
-        )
-        Spacer(modifier = Modifier.width(16.dp))
-        Text(
-            text = label,
-            fontSize = 15.sp,
-            color = Color.White,
+
+        Box(
+            modifier = Modifier
+                .size(40.dp)
+                .background(
+                    AutoPulseSurfaceElevated,
+                    RoundedCornerShape(10.dp)
+                ),
+            contentAlignment = Alignment.Center
+        ) {
+
+            Icon(
+                imageVector = icon,
+                contentDescription = null,
+                tint = AutoPulseTextSecondary,
+                modifier = Modifier.size(19.dp)
+            )
+        }
+
+        Spacer(modifier = Modifier.width(13.dp))
+
+        Column(
             modifier = Modifier.weight(1f)
-        )
+        ) {
+
+            Text(
+                text = label,
+                color = AutoPulseText,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Bold
+            )
+
+            if (description.isNotEmpty()) {
+
+                Text(
+                    text = description,
+                    color = AutoPulseTextMuted,
+                    fontSize = 10.sp,
+                    modifier = Modifier.padding(top = 2.dp)
+                )
+            }
+        }
+
         Icon(
-            Icons.Default.ChevronRight,
+            imageVector = Icons.Default.ChevronRight,
             contentDescription = null,
-            modifier = Modifier.size(16.dp),
-            tint = Color.White.copy(alpha = 0.3f)
+            tint = AutoPulseTextMuted,
+            modifier = Modifier.size(18.dp)
         )
     }
 }

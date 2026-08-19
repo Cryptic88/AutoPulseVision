@@ -114,13 +114,27 @@ fun NavGraph(navController: NavHostController) {
         composable(Screen.TripHistory.route) { 
             TripsScreen(onNavigateToDetails = { navController.navigate(Screen.TripDetails.route) }) 
         }
-        composable(Screen.Profile.route) { 
+        composable(Screen.Profile.route) {
             SettingsScreen(
-                onNavigateToVehicleEditor = { navController.navigate(Screen.VehicleEditor.route) },
-                onNavigateToBluetooth = { navController.navigate(Screen.BluetoothSettings.route) },
-                onNavigateToVehicleProfiles = { navController.navigate(Screen.VehicleProfiles.route) },
-                onNavigateToEditProfile = { navController.navigate(Screen.EditProfile.route) }
-            ) 
+                onNavigateToVehicleEditor = {
+                    navController.navigate(Screen.VehicleEditor.route)
+                },
+                onNavigateToBluetooth = {
+                    navController.navigate(Screen.BluetoothSettings.route)
+                },
+                onNavigateToVehicleProfiles = {
+                    navController.navigate(Screen.VehicleProfiles.route)
+                },
+                onNavigateToEditProfile = {
+                    navController.navigate(Screen.EditProfile.route)
+                },
+                onNavigateToPrivacy = {
+                    navController.navigate(Screen.PrivacyControls.route)
+                },
+                onNavigateToBackup = {
+                    navController.navigate(Screen.BackupRestore.route)
+                }
+            )
         }
         composable(Screen.EditProfile.route) { EditProfileScreen(onBack = { navController.popBackStack() }) }
         

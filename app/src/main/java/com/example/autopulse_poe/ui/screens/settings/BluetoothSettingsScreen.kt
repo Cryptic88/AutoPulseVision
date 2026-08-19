@@ -4,10 +4,14 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Bluetooth
+import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Speed
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -20,100 +24,511 @@ import com.example.autopulse_poe.ui.components.NeonCard
 import com.example.autopulse_poe.ui.theme.*
 
 @Composable
-fun BluetoothSettingsScreen(onBack: () -> Unit) {
+fun BluetoothSettingsScreen(
+    onBack: () -> Unit
+) {
+
     var isScanning by remember { mutableStateOf(false) }
+
     val devices = listOf(
-        OBDDevice("OBDLink MX+", "AA:BB:CC:DD:EE:FF", true),
-        OBDDevice("Vgate iCar Pro", "11:22:33:44:55:66", false),
-        OBDDevice("ELM327 Interface", "77:88:99:00:11:22", false)
+        OBDDevice(
+            name = "OBDLink MX+",
+            address = "AA:BB:CC:DD:EE:FF",
+            isConnected = true
+        ),
+        OBDDevice(
+            name = "Vgate iCar Pro",
+            address = "11:22:33:44:55:66",
+            isConnected = false
+        ),
+        OBDDevice(
+            name = "ELM327 Interface",
+            address = "77:88:99:00:11:22",
+            isConnected = false
+        )
     )
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(DarkBackground)
+            .background(AutoPulseBackground)
     ) {
-        // Header
+
+        // ----------------------------------------------------
+        // HEADER
+        // ----------------------------------------------------
+
         Row(
-            modifier = Modifier.padding(16.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            IconButton(onClick = onBack) {
-                Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null, tint = Color.White)
+
+            IconButton(
+                onClick = onBack
+            ) {
+                Icon(
+                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                    contentDescription = "Back",
+                    tint = AutoPulseText
+                )
             }
-            Text(
-                text = "OBD-II Adapter",
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Black,
-                color = Color.White,
+
+            Column(
                 modifier = Modifier.padding(start = 8.dp)
-            )
+            ) {
+
+                Text(
+                    text = "OBD-II Adapter",
+                    color = AutoPulseText,
+                    fontSize = 22.sp,
+                    fontWeight = FontWeight.Black
+                )
+
+                Text(
+                    text = "Manage your vehicle connection",
+                    color = AutoPulseTextMuted,
+                    fontSize = 10.sp
+                )
+            }
+
             Spacer(modifier = Modifier.weight(1f))
-            IconButton(onClick = { isScanning = !isScanning }) {
-                Icon(Icons.Default.Refresh, contentDescription = "Scan", tint = NeonCyan)
+
+            IconButton(
+                onClick = {
+                    isScanning = !isScanning
+                }
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Refresh,
+                    contentDescription = "Scan for devices",
+                    tint = AutoPulseCyan
+                )
             }
         }
 
-        Column(modifier = Modifier.padding(horizontal = 20.dp)) {
+
+        // ----------------------------------------------------
+        // CONTENT
+        // ----------------------------------------------------
+
+        LazyColumn(
+            modifier = Modifier.fillMaxSize(),
+            contentPadding = PaddingValues(
+                horizontal = 20.dp,
+                vertical = 12.dp
+            ),
+            verticalArrangement = Arrangement.spacedBy(20.dp)
+        ) {
+
+            // ------------------------------------------------
+            // SCANNING
+            // ------------------------------------------------
+
             if (isScanning) {
-                LinearProgressIndicator(
-                    modifier = Modifier.fillMaxWidth().height(2.dp),
-                    color = NeonCyan,
-                    trackColor = Color.Transparent
-                )
-                Spacer(modifier = Modifier.height(16.dp))
-            }
 
-            Text(text = "Paired Device", color = NeonCyan, fontWeight = FontWeight.Bold, fontSize = 14.sp)
-            Spacer(modifier = Modifier.height(12.dp))
-            
-            NeonCard(borderColor = NeonCyan) {
-                DeviceItem(devices[0], true)
-            }
+                item {
 
-            Spacer(modifier = Modifier.height(32.dp))
+                    Column {
 
-            Text(text = "Available Devices", color = Color.White.copy(alpha = 0.5f), fontWeight = FontWeight.Bold, fontSize = 14.sp)
-            Spacer(modifier = Modifier.height(12.dp))
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
 
-            LazyColumn(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                items(devices.drop(1)) { device ->
-                    NeonCard(borderColor = Color.White.copy(alpha = 0.05f)) {
-                        DeviceItem(device, false)
+                            CircularProgressIndicator(
+                                modifier = Modifier.size(18.dp),
+                                color = AutoPulseCyan,
+                                strokeWidth = 2.dp
+                            )
+
+                            Spacer(modifier = Modifier.width(10.dp))
+
+                            Text(
+                                text = "Scanning for nearby adapters...",
+                                color = AutoPulseCyan,
+                                fontSize = 11.sp,
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
+
+                        Spacer(modifier = Modifier.height(10.dp))
+
+                        LinearProgressIndicator(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(2.dp),
+                            color = AutoPulseCyan,
+                            trackColor = AutoPulseSurfaceElevated
+                        )
                     }
                 }
             }
-            
-            Spacer(modifier = Modifier.height(32.dp))
-            
-            NeonCard(borderColor = NeonPurple) {
-                Text(text = "Adapter Diagnostics", color = Color.White, fontWeight = FontWeight.Bold)
-                Text(text = "Firmware: v5.6.1 • ELM327 v2.2 compatible", color = Color.White.copy(alpha = 0.6f), fontSize = 12.sp)
-                Button(
-                    onClick = { /* Run Test */ },
-                    modifier = Modifier.padding(top = 12.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = NeonPurple)
+
+
+            // ------------------------------------------------
+            // CONNECTED DEVICE
+            // ------------------------------------------------
+
+            item {
+
+                SettingsSectionTitle(
+                    title = "CONNECTED DEVICE",
+                    color = AutoPulseCyan
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                NeonCard(
+                    borderColor = AutoPulseCyan.copy(alpha = 0.6f)
                 ) {
-                    Text("Run Interface Test")
+
+                    DeviceItem(
+                        device = devices[0],
+                        isConnected = true
+                    )
                 }
+            }
+
+
+            // ------------------------------------------------
+            // AVAILABLE DEVICES
+            // ------------------------------------------------
+
+            item {
+
+                SettingsSectionTitle(
+                    title = "AVAILABLE DEVICES",
+                    color = AutoPulseTextSecondary
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
+            }
+
+            items(devices.drop(1)) { device ->
+
+                NeonCard(
+                    borderColor = AutoPulseBorder
+                ) {
+
+                    DeviceItem(
+                        device = device,
+                        isConnected = false
+                    )
+                }
+            }
+
+
+            // ------------------------------------------------
+            // ADAPTER DIAGNOSTICS
+            // ------------------------------------------------
+
+            item {
+
+                SettingsSectionTitle(
+                    title = "ADAPTER DIAGNOSTICS",
+                    color = AutoPulsePurple
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                NeonCard(
+                    borderColor = AutoPulsePurple.copy(alpha = 0.5f)
+                ) {
+
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+
+                        Box(
+                            modifier = Modifier
+                                .size(44.dp)
+                                .background(
+                                    AutoPulsePurple.copy(alpha = 0.12f),
+                                    RoundedCornerShape(10.dp)
+                                ),
+                            contentAlignment = Alignment.Center
+                        ) {
+
+                            Icon(
+                                imageVector = Icons.Default.Settings,
+                                contentDescription = null,
+                                tint = AutoPulsePurple,
+                                modifier = Modifier.size(22.dp)
+                            )
+                        }
+
+                        Spacer(modifier = Modifier.width(14.dp))
+
+                        Column(
+                            modifier = Modifier.weight(1f)
+                        ) {
+
+                            Text(
+                                text = "Adapter Diagnostics",
+                                color = AutoPulseText,
+                                fontSize = 15.sp,
+                                fontWeight = FontWeight.Bold
+                            )
+
+                            Text(
+                                text = "Check communication and adapter compatibility",
+                                color = AutoPulseTextMuted,
+                                fontSize = 10.sp,
+                                lineHeight = 14.sp
+                            )
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(18.dp))
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+
+                        DiagnosticValue(
+                            label = "Firmware",
+                            value = "v5.6.1"
+                        )
+
+                        DiagnosticValue(
+                            label = "Protocol",
+                            value = "ELM327"
+                        )
+
+                        DiagnosticValue(
+                            label = "Status",
+                            value = "Ready",
+                            valueColor = AutoPulseSuccess
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(18.dp))
+
+                    Button(
+                        onClick = { },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(48.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = AutoPulsePurple,
+                            contentColor = Color.White
+                        ),
+                        shape = RoundedCornerShape(10.dp)
+                    ) {
+
+                        Icon(
+                            imageVector = Icons.Default.Speed,
+                            contentDescription = null,
+                            modifier = Modifier.size(18.dp)
+                        )
+
+                        Spacer(modifier = Modifier.width(8.dp))
+
+                        Text(
+                            text = "Run Interface Test",
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+                }
+            }
+
+
+            // ------------------------------------------------
+            // FOOTER
+            // ------------------------------------------------
+
+            item {
+
+                Spacer(modifier = Modifier.height(4.dp))
+
+                Text(
+                    text = "AutoPulse Bluetooth Connection",
+                    color = AutoPulseTextMuted,
+                    fontSize = 9.sp,
+                    modifier = Modifier.align(Alignment.CenterHorizontally)
+                )
+
+                Text(
+                    text = "Only pair with adapters you trust.",
+                    color = AutoPulseTextMuted.copy(alpha = 0.6f),
+                    fontSize = 9.sp,
+                    modifier = Modifier
+                        .align(Alignment.CenterHorizontally)
+                        .padding(top = 3.dp)
+                )
+
+                Spacer(modifier = Modifier.height(20.dp))
             }
         }
     }
 }
 
-data class OBDDevice(val name: String, val address: String, val isConnected: Boolean)
+
+// ------------------------------------------------------------
+// DEVICE ITEM
+// ------------------------------------------------------------
 
 @Composable
-fun DeviceItem(device: OBDDevice, isConnected: Boolean) {
-    Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
-        Icon(Icons.Default.Bluetooth, contentDescription = null, tint = if (isConnected) NeonCyan else Color.White.copy(alpha = 0.3f))
-        Spacer(modifier = Modifier.width(16.dp))
-        Column(modifier = Modifier.weight(1f)) {
-            Text(text = device.name, color = Color.White, fontWeight = FontWeight.Bold)
-            Text(text = device.address, color = Color.White.copy(alpha = 0.5f), fontSize = 11.sp)
+fun DeviceItem(
+    device: OBDDevice,
+    isConnected: Boolean
+) {
+
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+
+        // Bluetooth icon
+        Box(
+            modifier = Modifier
+                .size(44.dp)
+                .background(
+                    if (isConnected)
+                        AutoPulseCyan.copy(alpha = 0.12f)
+                    else
+                        AutoPulseSurfaceElevated,
+                    RoundedCornerShape(10.dp)
+                ),
+            contentAlignment = Alignment.Center
+        ) {
+
+            Icon(
+                imageVector = Icons.Default.Bluetooth,
+                contentDescription = null,
+                tint = if (isConnected)
+                    AutoPulseCyan
+                else
+                    AutoPulseTextMuted,
+                modifier = Modifier.size(22.dp)
+            )
         }
+
+        Spacer(modifier = Modifier.width(14.dp))
+
+        Column(
+            modifier = Modifier.weight(1f)
+        ) {
+
+            Text(
+                text = device.name,
+                color = AutoPulseText,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Bold
+            )
+
+            Spacer(modifier = Modifier.height(3.dp))
+
+            Text(
+                text = device.address,
+                color = AutoPulseTextMuted,
+                fontSize = 10.sp
+            )
+        }
+
         if (isConnected) {
-            Text(text = "CONNECTED", color = NeonGreen, fontSize = 10.sp, fontWeight = FontWeight.Black)
+
+            Column(
+                horizontalAlignment = Alignment.End
+            ) {
+
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+
+                    Icon(
+                        imageVector = Icons.Default.CheckCircle,
+                        contentDescription = null,
+                        tint = AutoPulseSuccess,
+                        modifier = Modifier.size(14.dp)
+                    )
+
+                    Spacer(modifier = Modifier.width(4.dp))
+
+                    Text(
+                        text = "CONNECTED",
+                        color = AutoPulseSuccess,
+                        fontSize = 9.sp,
+                        fontWeight = FontWeight.Black
+                    )
+                }
+
+                Text(
+                    text = "Active",
+                    color = AutoPulseTextMuted,
+                    fontSize = 9.sp
+                )
+            }
+
+        } else {
+
+            OutlinedButton(
+                onClick = { },
+                modifier = Modifier.height(36.dp),
+                contentPadding = PaddingValues(
+                    horizontal = 12.dp
+                ),
+                border = androidx.compose.foundation.BorderStroke(
+                    1.dp,
+                    AutoPulseCyan.copy(alpha = 0.5f)
+                ),
+                colors = ButtonDefaults.outlinedButtonColors(
+                    contentColor = AutoPulseCyan
+                ),
+                shape = RoundedCornerShape(8.dp)
+            ) {
+
+                Text(
+                    text = "Connect",
+                    fontSize = 10.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
         }
     }
 }
+
+
+// ------------------------------------------------------------
+// DIAGNOSTIC VALUE
+// ------------------------------------------------------------
+
+@Composable
+private fun DiagnosticValue(
+    label: String,
+    value: String,
+    valueColor: Color = AutoPulseText
+) {
+
+    Column {
+
+        Text(
+            text = label,
+            color = AutoPulseTextMuted,
+            fontSize = 9.sp
+        )
+
+        Spacer(modifier = Modifier.height(3.dp))
+
+        Text(
+            text = value,
+            color = valueColor,
+            fontSize = 12.sp,
+            fontWeight = FontWeight.Bold
+        )
+    }
+}
+
+
+// ------------------------------------------------------------
+// DATA MODEL
+// ------------------------------------------------------------
+
+data class OBDDevice(
+    val name: String,
+    val address: String,
+    val isConnected: Boolean
+)

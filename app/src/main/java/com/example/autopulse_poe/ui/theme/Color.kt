@@ -25,6 +25,8 @@ val AutoPulseCyan = Color(0xFF00D4FF)
 val AutoPulseCyanDark = Color(0xFF009CC2)
 val AutoPulseBlue = Color(0xFF3B82F6)
 
+val AutoPulseMagenta = Color(0xFFC2185B)
+
 // ---------- Status ----------
 
 val AutoPulseSuccess = Color(0xFF22C55E)
