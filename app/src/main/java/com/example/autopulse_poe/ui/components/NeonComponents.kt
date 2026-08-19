@@ -1,5 +1,6 @@
 package com.example.autopulse_poe.ui.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -8,6 +9,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -17,59 +19,85 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.autopulse_poe.ui.theme.AutoPulseBorder
 import com.example.autopulse_poe.ui.theme.AutoPulseCyan
-import com.example.autopulse_poe.ui.theme.AutoPulseSurface
-import com.example.autopulse_poe.ui.theme.AutoPulseText
+import com.example.autopulse_poe.ui.theme.AutoPulseMagenta
+import com.example.autopulse_poe.ui.theme.AutoPulsePurple
 import com.example.autopulse_poe.ui.theme.AutoPulseTextMuted
-import com.example.autopulse_poe.ui.theme.NeonCyan
-import com.example.autopulse_poe.ui.theme.NeonMagenta
-import com.example.autopulse_poe.ui.theme.NeonPurple
+
+// ============================================================
+// AutoPulse Card
+// ============================================================
 
 @Composable
 fun NeonCard(
     modifier: Modifier = Modifier,
-    borderColor: Color = AutoPulseBorder,
+    borderColor: Color = MaterialTheme.colorScheme.primary,
     content: @Composable ColumnScope.() -> Unit
 ) {
-    Column(
-        modifier = modifier
-            .clip(RoundedCornerShape(16.dp))
-            .background(AutoPulseSurface)
-            .border(
-                width = 1.dp,
-                color = borderColor,
-                shape = RoundedCornerShape(16.dp)
-            )
-            .padding(16.dp)
+    Card(
+        modifier = modifier,
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surface
+        ),
+        border = BorderStroke(
+            width = 1.dp,
+            color = borderColor.copy(alpha = 0.45f)
+        ),
+        shape = RoundedCornerShape(16.dp)
     ) {
-        content()
+        Column(
+            modifier = Modifier.padding(16.dp),
+            content = content
+        )
     }
 }
+
+
+// ============================================================
+// AutoPulse Gradient Button
+// ============================================================
 
 @Composable
 fun NeonButton(
     text: String,
     icon: ImageVector,
-    gradientColors: List<Color>,
     modifier: Modifier = Modifier,
+    gradientColors: List<Color>? = null,
     onClick: () -> Unit = {}
 ) {
+    val colors = gradientColors ?: listOf(
+        MaterialTheme.colorScheme.primary,
+        MaterialTheme.colorScheme.secondary
+    )
+
+    val contentColor = MaterialTheme.colorScheme.onPrimary
+
     Box(
         modifier = modifier
             .height(60.dp)
             .clip(RoundedCornerShape(16.dp))
-            .background(Brush.linearGradient(gradientColors))
+            .background(
+                brush = Brush.linearGradient(colors)
+            )
             .clickable(onClick = onClick)
             .padding(horizontal = 16.dp),
         contentAlignment = Alignment.CenterStart
     ) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            Icon(icon, contentDescription = null, tint = Color.White, modifier = Modifier.size(24.dp))
+        Row(
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(
+                imageVector = icon,
+                contentDescription = null,
+                tint = contentColor,
+                modifier = Modifier.size(24.dp)
+            )
+
             Spacer(modifier = Modifier.width(12.dp))
+
             Text(
                 text = text,
-                color = Color.White,
+                color = contentColor,
                 fontWeight = FontWeight.Bold,
                 fontSize = 16.sp
             )
@@ -77,22 +105,44 @@ fun NeonButton(
     }
 }
 
+
+// ============================================================
+// Circular Score Indicator
+// ============================================================
+
 @Composable
 fun CircularScoreIndicator(
     score: Int,
     label: String,
     modifier: Modifier = Modifier,
-    color: Color = NeonMagenta
+    color: Color = AutoPulseMagenta
 ) {
-    Box(modifier = modifier.size(120.dp), contentAlignment = Alignment.Center) {
-        Canvas(modifier = Modifier.fillMaxSize()) {
+    // Get theme colours in the Composable scope
+    val trackColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.10f)
+    val textColor = MaterialTheme.colorScheme.onSurface
+    val secondaryTextColor = MaterialTheme.colorScheme.onSurfaceVariant
+
+    Box(
+        modifier = modifier.size(120.dp),
+        contentAlignment = Alignment.Center
+    ) {
+
+        Canvas(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            // Background track
             drawArc(
-                color = Color.White.copy(alpha = 0.1f),
+                color = trackColor,
                 startAngle = 0f,
                 sweepAngle = 360f,
                 useCenter = false,
-                style = Stroke(width = 8.dp.toPx(), cap = StrokeCap.Round)
+                style = Stroke(
+                    width = 8.dp.toPx(),
+                    cap = StrokeCap.Round
+                )
             )
+
+            // Score
             drawArc(
                 color = color,
                 startAngle = -90f,
@@ -104,21 +154,30 @@ fun CircularScoreIndicator(
                 )
             )
         }
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
             Text(
                 text = score.toString(),
                 fontSize = 36.sp,
                 fontWeight = FontWeight.Black,
-                color = Color.White
+                color = textColor
             )
+
             Text(
                 text = label,
                 fontSize = 12.sp,
-                color = Color.White.copy(alpha = 0.7f)
+                color = secondaryTextColor
             )
         }
     }
 }
+
+
+// ============================================================
+// Live Trip Summary Card
+// ============================================================
 
 @Composable
 fun LiveTripSummaryCard(
@@ -131,10 +190,10 @@ fun LiveTripSummaryCard(
         modifier = modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(16.dp))
-            .background(AutoPulseSurface)
+            .background(MaterialTheme.colorScheme.surface)
             .border(
                 width = 1.dp,
-                color = AutoPulseCyan.copy(alpha = 0.55f),
+                color = MaterialTheme.colorScheme.primary.copy(alpha = 0.55f),
                 shape = RoundedCornerShape(16.dp)
             )
             .padding(18.dp)
@@ -147,14 +206,14 @@ fun LiveTripSummaryCard(
         ) {
             Text(
                 text = "CURRENT TRIP",
-                color = AutoPulseCyan,
+                color = MaterialTheme.colorScheme.primary,
                 style = MaterialTheme.typography.labelMedium,
                 fontWeight = FontWeight.Bold
             )
 
             Text(
                 text = duration,
-                color = AutoPulseCyan,
+                color = MaterialTheme.colorScheme.primary,
                 style = MaterialTheme.typography.headlineSmall,
                 fontWeight = FontWeight.Bold
             )
@@ -179,6 +238,11 @@ fun LiveTripSummaryCard(
     }
 }
 
+
+// ============================================================
+// Trip Statistic
+// ============================================================
+
 @Composable
 private fun TripStatItem(
     label: String,
@@ -195,7 +259,7 @@ private fun TripStatItem(
 
         Text(
             text = value,
-            color = AutoPulseText,
+            color = MaterialTheme.colorScheme.onSurface,
             style = MaterialTheme.typography.titleMedium
         )
     }

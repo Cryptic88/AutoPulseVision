@@ -11,44 +11,82 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.autopulse_poe.ui.theme.*
+import com.example.autopulse_poe.ui.theme.AutoPulseError
+import com.example.autopulse_poe.ui.theme.AutoPulseWarning
 
 @Composable
-fun ClearDtcDialog(onConfirm: () -> Unit, onDismiss: () -> Unit) {
+fun ClearDtcDialog(
+    onConfirm: () -> Unit,
+    onDismiss: () -> Unit
+) {
     AlertDialog(
         onDismissRequest = onDismiss,
-        containerColor = DarkSurface,
+
+        containerColor = MaterialTheme.colorScheme.surface,
+
+        titleContentColor = MaterialTheme.colorScheme.onSurface,
+
+        textContentColor = MaterialTheme.colorScheme.onSurfaceVariant,
+
         title = {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Icon(Icons.Default.Warning, contentDescription = null, tint = NeonRed)
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Warning,
+                    contentDescription = null,
+                    tint = AutoPulseError
+                )
+
                 Spacer(modifier = Modifier.width(12.dp))
-                Text(text = "Reset ECU?", color = Color.White, fontWeight = FontWeight.Black)
+
+                Text(
+                    text = "Reset ECU?",
+                    color = MaterialTheme.colorScheme.onSurface,
+                    fontWeight = FontWeight.Black
+                )
             }
         },
+
         text = {
             Column {
                 Text(
                     text = "This will clear all Diagnostic Trouble Codes and reset the Check Engine Light (MIL).",
-                    color = Color.White.copy(alpha = 0.8f),
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 14.sp
                 )
+
                 Spacer(modifier = Modifier.height(12.dp))
+
                 Text(
                     text = "Note: Ensure repairs are completed before clearing codes.",
-                    color = NeonOrange,
+                    color = AutoPulseWarning,
                     fontSize = 12.sp,
                     fontWeight = FontWeight.Bold
                 )
             }
         },
+
         confirmButton = {
-            TextButton(onClick = onConfirm) {
-                Text("CLEAR ALL", color = NeonRed, fontWeight = FontWeight.Black)
+            TextButton(
+                onClick = onConfirm
+            ) {
+                Text(
+                    text = "CLEAR ALL",
+                    color = AutoPulseError,
+                    fontWeight = FontWeight.Black
+                )
             }
         },
+
         dismissButton = {
-            TextButton(onClick = onDismiss) {
-                Text("CANCEL", color = Color.White.copy(alpha = 0.6f))
+            TextButton(
+                onClick = onDismiss
+            ) {
+                Text(
+                    text = "CANCEL",
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
             }
         }
     )

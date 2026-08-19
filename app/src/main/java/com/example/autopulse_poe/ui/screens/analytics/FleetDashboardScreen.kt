@@ -1,18 +1,20 @@
 package com.example.autopulse_poe.ui.screens.analytics
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.DirectionsCar
+import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -21,11 +23,37 @@ import com.example.autopulse_poe.ui.theme.*
 
 @Composable
 fun FleetDashboardScreen() {
+
     val vehicles = listOf(
-        FleetVehicle("Tesla Model S", "EV-942-CA", 94, NeonCyan),
-        FleetVehicle("Ford F-150", "TRK-021-TX", 82, NeonOrange),
-        FleetVehicle("BMW M3", "DRV-155-DE", 88, NeonMagenta)
+        FleetVehicle(
+            name = "Tesla Model S",
+            plate = "EV-942-CA",
+            health = 94,
+            status = "Healthy",
+            lastSeen = "2 min ago",
+            color = NeonCyan
+        ),
+        FleetVehicle(
+            name = "Ford F-150",
+            plate = "TRK-021-TX",
+            health = 82,
+            status = "Attention",
+            lastSeen = "8 min ago",
+            color = NeonOrange
+        ),
+        FleetVehicle(
+            name = "BMW M3",
+            plate = "DRV-155-DE",
+            health = 88,
+            status = "Healthy",
+            lastSeen = "14 min ago",
+            color = NeonMagenta
+        )
     )
+
+    val healthyVehicles = vehicles.count { it.health >= 85 }
+    val attentionVehicles = vehicles.count { it.health in 70..84 }
+    val criticalVehicles = vehicles.count { it.health < 70 }
 
     Column(
         modifier = Modifier
@@ -33,43 +61,400 @@ fun FleetDashboardScreen() {
             .background(DarkBackground)
             .padding(20.dp)
     ) {
+
+        // ----------------------------------------------------
+        // HEADER
+        // ----------------------------------------------------
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+
+            Column(
+                modifier = Modifier.weight(1f)
+            ) {
+
+                Text(
+                    text = "Fleet Dashboard",
+                    fontSize = 28.sp,
+                    fontWeight = FontWeight.Black,
+                    color = Color.White
+                )
+
+                Text(
+                    text = "Real-time vehicle overview",
+                    color = Color.White.copy(alpha = 0.55f),
+                    fontSize = 12.sp
+                )
+            }
+
+            Box(
+                modifier = Modifier
+                    .size(42.dp)
+                    .clip(CircleShape)
+                    .background(NeonCyan.copy(alpha = 0.12f)),
+                contentAlignment = Alignment.Center
+            ) {
+
+                Icon(
+                    Icons.Default.DirectionsCar,
+                    contentDescription = null,
+                    tint = NeonCyan
+                )
+            }
+        }
+
+        Spacer(modifier = Modifier.height(24.dp))
+
+        // ----------------------------------------------------
+        // FLEET SUMMARY
+        // ----------------------------------------------------
+
         Text(
-            text = "Fleet Dashboard",
-            fontSize = 28.sp,
-            fontWeight = FontWeight.Black,
-            color = Color.White,
-            modifier = Modifier.padding(bottom = 24.dp)
+            text = "FLEET STATUS",
+            color = NeonCyan,
+            fontSize = 11.sp,
+            fontWeight = FontWeight.Bold,
+            letterSpacing = 1.sp
         )
 
-        LazyColumn(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+        Spacer(modifier = Modifier.height(12.dp))
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(10.dp)
+        ) {
+
+            FleetSummaryCard(
+                title = "Healthy",
+                value = healthyVehicles.toString(),
+                icon = Icons.Default.CheckCircle,
+                color = NeonGreen,
+                modifier = Modifier.weight(1f)
+            )
+
+            FleetSummaryCard(
+                title = "Attention",
+                value = attentionVehicles.toString(),
+                icon = Icons.Default.Warning,
+                color = NeonOrange,
+                modifier = Modifier.weight(1f)
+            )
+
+            FleetSummaryCard(
+                title = "Critical",
+                value = criticalVehicles.toString(),
+                icon = Icons.Default.Error,
+                color = NeonRed,
+                modifier = Modifier.weight(1f)
+            )
+        }
+
+        Spacer(modifier = Modifier.height(24.dp))
+
+        // ----------------------------------------------------
+        // FLEET HEALTH
+        // ----------------------------------------------------
+
+        NeonCard(
+            borderColor = NeonPurple.copy(alpha = 0.5f)
+        ) {
+
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+
+                Icon(
+                    Icons.Default.HealthAndSafety,
+                    contentDescription = null,
+                    tint = NeonPurple,
+                    modifier = Modifier.size(28.dp)
+                )
+
+                Spacer(modifier = Modifier.width(12.dp))
+
+                Column {
+                    Text(
+                        text = "Overall Fleet Health",
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold
+                    )
+
+                    Text(
+                        text = "Strong performance across all vehicles",
+                        color = Color.White.copy(alpha = 0.5f),
+                        fontSize = 11.sp
+                    )
+                }
+
+                Spacer(modifier = Modifier.weight(1f))
+
+                Text(
+                    text = "88%",
+                    color = NeonPurple,
+                    fontSize = 22.sp,
+                    fontWeight = FontWeight.Black
+                )
+            }
+
+            Spacer(modifier = Modifier.height(14.dp))
+
+            LinearProgressIndicator(
+                progress = { 0.88f },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(7.dp)
+                    .clip(CircleShape),
+                color = NeonPurple,
+                trackColor = Color.White.copy(alpha = 0.08f)
+            )
+        }
+
+        Spacer(modifier = Modifier.height(24.dp))
+
+        // ----------------------------------------------------
+        // VEHICLES
+        // ----------------------------------------------------
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+
+            Text(
+                text = "YOUR VEHICLES",
+                color = Color.White,
+                fontWeight = FontWeight.Bold,
+                fontSize = 16.sp,
+                modifier = Modifier.weight(1f)
+            )
+
+            Text(
+                text = "${vehicles.size} VEHICLES",
+                color = NeonCyan,
+                fontSize = 10.sp,
+                fontWeight = FontWeight.Bold
+            )
+        }
+
+        Spacer(modifier = Modifier.height(12.dp))
+
+        LazyColumn(
+            verticalArrangement = Arrangement.spacedBy(14.dp)
+        ) {
+
             items(vehicles) { vehicle ->
-                FleetCard(vehicle)
+
+                FleetCard(
+                    vehicle = vehicle,
+                    onClick = {
+                        // Future: navigate to vehicle details
+                    }
+                )
             }
         }
     }
 }
 
-data class FleetVehicle(val name: String, val plate: String, val health: Int, val color: Color)
+// ------------------------------------------------------------
+// DATA
+// ------------------------------------------------------------
+
+data class FleetVehicle(
+    val name: String,
+    val plate: String,
+    val health: Int,
+    val status: String,
+    val lastSeen: String,
+    val color: Color
+)
+
+// ------------------------------------------------------------
+// SUMMARY CARD
+// ------------------------------------------------------------
 
 @Composable
-fun FleetCard(vehicle: FleetVehicle) {
-    NeonCard(borderColor = vehicle.color.copy(alpha = 0.3f)) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
+fun FleetSummaryCard(
+    title: String,
+    value: String,
+    icon: ImageVector,
+    color: Color,
+    modifier: Modifier = Modifier
+) {
+
+    NeonCard(
+        borderColor = color.copy(alpha = 0.3f),
+        modifier = modifier
+    ) {
+
+        Icon(
+            icon,
+            contentDescription = null,
+            tint = color,
+            modifier = Modifier.size(20.dp)
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Text(
+            text = value,
+            color = color,
+            fontSize = 24.sp,
+            fontWeight = FontWeight.Black
+        )
+
+        Text(
+            text = title,
+            color = Color.White.copy(alpha = 0.5f),
+            fontSize = 10.sp
+        )
+    }
+}
+
+// ------------------------------------------------------------
+// VEHICLE CARD
+// ------------------------------------------------------------
+
+@Composable
+fun FleetCard(
+    vehicle: FleetVehicle,
+    onClick: () -> Unit
+) {
+
+    val statusColor = when {
+        vehicle.health >= 85 -> NeonGreen
+        vehicle.health >= 70 -> NeonOrange
+        else -> NeonRed
+    }
+
+    NeonCard(
+        borderColor = vehicle.color.copy(alpha = 0.35f),
+        modifier = Modifier.clickable {
+            onClick()
+        }
+    ) {
+
+        Row(
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+
+            // Vehicle icon
+
             Box(
-                modifier = Modifier.size(48.dp).clip(CircleShape).background(vehicle.color.copy(alpha = 0.1f)),
+                modifier = Modifier
+                    .size(52.dp)
+                    .clip(CircleShape)
+                    .background(vehicle.color.copy(alpha = 0.12f)),
                 contentAlignment = Alignment.Center
             ) {
-                Icon(Icons.Default.DirectionsCar, contentDescription = null, tint = vehicle.color)
+
+                Icon(
+                    Icons.Default.DirectionsCar,
+                    contentDescription = null,
+                    tint = vehicle.color,
+                    modifier = Modifier.size(28.dp)
+                )
             }
-            Spacer(modifier = Modifier.width(16.dp))
-            Column(modifier = Modifier.weight(1f)) {
-                Text(text = vehicle.name, color = Color.White, fontWeight = FontWeight.Bold, fontSize = 16.sp)
-                Text(text = vehicle.plate, color = Color.White.copy(alpha = 0.5f), fontSize = 12.sp)
+
+            Spacer(modifier = Modifier.width(14.dp))
+
+            Column(
+                modifier = Modifier.weight(1f)
+            ) {
+
+                Text(
+                    text = vehicle.name,
+                    color = Color.White,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 15.sp
+                )
+
+                Text(
+                    text = vehicle.plate,
+                    color = Color.White.copy(alpha = 0.45f),
+                    fontSize = 11.sp
+                )
+
+                Spacer(modifier = Modifier.height(5.dp))
+
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+
+                    Box(
+                        modifier = Modifier
+                            .size(7.dp)
+                            .clip(CircleShape)
+                            .background(statusColor)
+                    )
+
+                    Spacer(modifier = Modifier.width(5.dp))
+
+                    Text(
+                        text = vehicle.status,
+                        color = statusColor,
+                        fontSize = 10.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+
+                    Spacer(modifier = Modifier.width(8.dp))
+
+                    Text(
+                        text = "• ${vehicle.lastSeen}",
+                        color = Color.White.copy(alpha = 0.35f),
+                        fontSize = 10.sp
+                    )
+                }
             }
-            Column(horizontalAlignment = Alignment.End) {
-                Text(text = "${vehicle.health}%", color = vehicle.color, fontSize = 20.sp, fontWeight = FontWeight.Black)
-                Text(text = "Health", color = Color.White.copy(alpha = 0.4f), fontSize = 10.sp)
+
+            // Health
+
+            Column(
+                horizontalAlignment = Alignment.End
+            ) {
+
+                Text(
+                    text = "${vehicle.health}%",
+                    color = statusColor,
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Black
+                )
+
+                Text(
+                    text = "HEALTH",
+                    color = Color.White.copy(alpha = 0.35f),
+                    fontSize = 8.sp,
+                    fontWeight = FontWeight.Bold
+                )
             }
+        }
+
+        Spacer(modifier = Modifier.height(14.dp))
+
+        LinearProgressIndicator(
+            progress = { vehicle.health / 100f },
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(5.dp)
+                .clip(CircleShape),
+            color = statusColor,
+            trackColor = Color.White.copy(alpha = 0.07f)
+        )
+
+        Spacer(modifier = Modifier.height(10.dp))
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.End
+        ) {
+
+            Text(
+                text = "VIEW VEHICLE  →",
+                color = vehicle.color,
+                fontSize = 10.sp,
+                fontWeight = FontWeight.Bold
+            )
         }
     }
 }

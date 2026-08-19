@@ -58,14 +58,18 @@ fun NavGraph(navController: NavHostController) {
                 onNavigateToAchievements = { navController.navigate(Screen.Achievements.route) },
                 onNavigateToPerformance = { navController.navigate(Screen.Performance.route) },
                 onNavigateToFuel = { navController.navigate(Screen.FuelHub.route) },
-                onNavigateToMaintenance = { navController.navigate(Screen.Maintenance.route) }
+                onNavigateToMaintenance = { navController.navigate(Screen.Maintenance.route) },
+                onNavigateToReports = { navController.navigate(Screen.ReportsHub.route) },
+                onNavigateToAnalytics = { navController.navigate(Screen.AnalyticsDashboard.route) },
+                onNavigateToVehicleProfiles = { navController.navigate(Screen.VehicleProfiles.route) },
+                onNavigateToBackup = { navController.navigate(Screen.BackupRestore.route) }
             )
         }
-        composable(Screen.DashboardEditor.route) { 
+        composable(Screen.DashboardEditor.route) {
             DashboardEditorScreen(
                 onBack = { navController.popBackStack() },
                 onNavigateToThemePicker = { navController.navigate(Screen.ThemePicker.route) }
-            ) 
+            )
         }
         composable(Screen.ThemePicker.route) { ThemePickerScreen(onBack = { navController.popBackStack() }) }
         composable(Screen.FuelHub.route) { FuelManagementScreen() }
@@ -99,7 +103,7 @@ fun NavGraph(navController: NavHostController) {
                 onNavigateToDetail = { navController.navigate(Screen.DtcDetail.route) }
             )
         }
-        composable(Screen.Alerts.route) { 
+        composable(Screen.Alerts.route) {
             DiagnosticsMainScreen(
                 onNavigateToDtcList = { navController.navigate(Screen.DtcList.route) },
                 onNavigateToAdvanced = { navController.navigate(Screen.Emissions.route) },
@@ -107,16 +111,16 @@ fun NavGraph(navController: NavHostController) {
                 onNavigateToVehicleInfo = { navController.navigate(Screen.VehicleInfo.route) },
                 onNavigateToHistory = { navController.navigate(Screen.DtcHistory.route) },
                 onClearCodes = { }
-            ) 
+            )
         }
-        composable(Screen.Performance.route) { 
+        composable(Screen.Performance.route) {
             PerformanceMenuScreen(
                 onNavigateToMetrics = { navController.navigate(Screen.PerformanceMetrics.route) },
                 onNavigateToAcceleration = { navController.navigate(Screen.AccelerationTimer.route) },
                 onNavigateToBraking = { navController.navigate(Screen.BrakingDistance.route) },
                 onNavigateToCustomPids = { navController.navigate(Screen.CustomPids.route) },
                 onNavigateToStock = { navController.navigate(Screen.StockComparison.route) }
-            ) 
+            )
         }
         composable(Screen.PerformanceMetrics.route) {
             PerformanceMetricsHubScreen(
@@ -126,8 +130,8 @@ fun NavGraph(navController: NavHostController) {
                 }
             )
         }
-        composable(Screen.TripHistory.route) { 
-            TripsScreen(onNavigateToDetails = { navController.navigate(Screen.TripDetails.route) }) 
+        composable(Screen.TripHistory.route) {
+            TripsScreen(onNavigateToDetails = { navController.navigate(Screen.TripDetails.route) })
         }
         composable(Screen.Profile.route) {
             SettingsScreen(
@@ -152,7 +156,7 @@ fun NavGraph(navController: NavHostController) {
             )
         }
         composable(Screen.EditProfile.route) { EditProfileScreen(onBack = { navController.popBackStack() }) }
-        
+
         composable(Screen.Auth.route) {
             LoginScreen(
                 onLoginSuccess = {
@@ -197,13 +201,13 @@ fun NavGraph(navController: NavHostController) {
         composable(Screen.VehicleInfo.route) { VehicleInfoScreen(onBack = { navController.popBackStack() }) }
         composable(Screen.TripDetails.route) { TripDetailsScreen(onBack = { navController.popBackStack() }) }
         composable(Screen.VehicleEditor.route) { VehicleEditorScreen(onBack = { navController.popBackStack() }) }
-        composable(Screen.Achievements.route) { 
+        composable(Screen.Achievements.route) {
             AchievementsScreen(
                 onNavigateToLeaderboards = { navController.navigate(Screen.Leaderboards.route) },
                 onNavigateToChallenges = { navController.navigate(Screen.WeeklyChallenges.route) }
             )
         }
-        
+
         composable(Screen.Dyno.route) { AdvancedPerformanceScreen(onBack = { navController.popBackStack() }) }
         composable(Screen.AccelerationTimer.route) { AccelerationTimerScreen(onBack = { navController.popBackStack() }) }
         composable(Screen.BrakingDistance.route) { BrakingDistanceScreen(onBack = { navController.popBackStack() }) }
@@ -214,23 +218,23 @@ fun NavGraph(navController: NavHostController) {
         composable(Screen.WeeklyChallenges.route) { WeeklyChallengesScreen(onBack = { navController.popBackStack() }) }
         composable(Screen.Maintenance.route) { MaintenanceScreen(onBack = { navController.popBackStack() }) }
 
-        composable(Screen.ReportsHub.route) { 
+        composable(Screen.ReportsHub.route) {
             ReportsHubScreen(
                 onNavigateToMechanic = { navController.navigate(Screen.MechanicDashboard.route) },
                 onNavigateToViewer = { navController.navigate(Screen.ReportViewer.route) }
-            ) 
+            )
         }
         composable(Screen.ReportViewer.route) { ReportViewerScreen(onBack = { navController.popBackStack() }) }
         composable(Screen.AnalyticsDashboard.route) { AnalyticsDashboardScreen() }
         composable(Screen.FleetDashboard.route) { FleetDashboardScreen() }
         composable(Screen.MechanicDashboard.route) { MechanicDashboardScreen(onBack = { navController.popBackStack() }) }
-        
+
         composable(Screen.BluetoothSettings.route) { BluetoothSettingsScreen(onBack = { navController.popBackStack() }) }
-        composable(Screen.VehicleProfiles.route) { 
+        composable(Screen.VehicleProfiles.route) {
             VehicleProfilesScreen(
                 onBack = { navController.popBackStack() },
                 onAddVehicle = { navController.navigate(Screen.VehicleEditor.route) }
-            ) 
+            )
         }
 
         composable(Screen.HudCustomization.route) { HudCustomizationScreen(onBack = { navController.popBackStack() }) }

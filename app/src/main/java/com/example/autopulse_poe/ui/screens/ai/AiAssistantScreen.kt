@@ -77,6 +77,7 @@ fun AiAssistantScreen(onBack: () -> Unit) {
         modifier = Modifier
             .fillMaxSize()
             .background(AutoPulseBackground)
+            .imePadding()
     ) {
 
         // ============================================================

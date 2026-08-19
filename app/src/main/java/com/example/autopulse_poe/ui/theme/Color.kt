@@ -70,3 +70,27 @@ val NeonMagenta = AutoPulsePurple
 val Purple80 = Color(0xFFD0BCFF)
 val PurpleGrey80 = Color(0xFFCCC2DC)
 val Pink80 = Color(0xFFEFB8C8)
+
+
+// ============================================================
+// AutoPulse Light Theme
+// ============================================================
+
+val AutoPulseLightBackground = Color(0xFFF5F8FA)
+val AutoPulseLightSurface = Color(0xFFFFFFFF)
+val AutoPulseLightSurfaceVariant = Color(0xFFE8EEF2)
+val AutoPulseLightSurfaceElevated = Color(0xFFFFFFFF)
+
+val AutoPulseLightBorder = Color(0xFFD5E0E7)
+val AutoPulseLightBorderStrong = Color(0xFFB8CAD5)
+
+val AutoPulseLightText = Color(0xFF17212B)
+val AutoPulseLightTextSecondary = Color(0xFF526575)
+val AutoPulseLightTextMuted = Color(0xFF7A8B99)
+
+// Slightly darker accents for readability on white
+val AutoPulseLightCyan = Color(0xFF008DB3)
+val AutoPulseLightPurple = Color(0xFF6355D9)
+val AutoPulseLightGreen = Color(0xFF159447)
+val AutoPulseLightRed = Color(0xFFD93636)
+val AutoPulseLightOrange = Color(0xFFD98200)
