@@ -48,7 +48,7 @@ fun NavGraph(navController: NavHostController) {
                 }
             })
         }
-        composable(Screen.Home.route) { 
+        composable(Screen.Home.route) {
             DashboardScreen(
                 onNavigateToHUD = { navController.navigate(Screen.HUD.route) },
                 onNavigateToAi = { navController.navigate(Screen.AiAssistant.route) },
@@ -57,8 +57,9 @@ fun NavGraph(navController: NavHostController) {
                 onNavigateToSettings = { navController.navigate(Screen.Profile.route) },
                 onNavigateToAchievements = { navController.navigate(Screen.Achievements.route) },
                 onNavigateToPerformance = { navController.navigate(Screen.Performance.route) },
-                onNavigateToFuel = { navController.navigate(Screen.FuelHub.route) }
-            ) 
+                onNavigateToFuel = { navController.navigate(Screen.FuelHub.route) },
+                onNavigateToMaintenance = { navController.navigate(Screen.Maintenance.route) }
+            )
         }
         composable(Screen.DashboardEditor.route) { 
             DashboardEditorScreen(

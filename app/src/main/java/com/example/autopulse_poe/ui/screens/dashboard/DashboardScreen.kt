@@ -62,7 +62,8 @@ fun DashboardScreen(
     onNavigateToSettings: () -> Unit = {},
     onNavigateToAchievements: () -> Unit = {},
     onNavigateToPerformance: () -> Unit = {},
-    onNavigateToFuel: () -> Unit = {}
+    onNavigateToFuel: () -> Unit = {},
+    onNavigateToMaintenance: () -> Unit
 ) {
     LazyColumn(
         modifier = Modifier
@@ -402,7 +403,7 @@ fun DashboardScreen(
 
                 AutoPulseMaintenanceCard(
                     modifier = Modifier.weight(1.2f),
-                    onClick = onNavigateToDiagnostics
+                    onClick = onNavigateToMaintenance
                 )
 
                 AutoPulseSafetyCard(
