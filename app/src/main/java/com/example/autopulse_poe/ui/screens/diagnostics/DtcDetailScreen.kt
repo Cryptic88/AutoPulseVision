@@ -19,7 +19,7 @@ import com.example.autopulse_poe.ui.components.NeonCard
 import com.example.autopulse_poe.ui.theme.*
 
 @Composable
-fun DtcDetailScreen(onBack: () -> Unit) {
+fun DtcDetailScreen(onBack: () -> Unit, onNavigateToAiAssistant: () -> Unit) {
 
     Column(
         modifier = Modifier
@@ -105,7 +105,7 @@ fun DtcDetailScreen(onBack: () -> Unit) {
 
             // AI
             NeonCard(
-                borderColor = AutoPulseCyanDark.copy(alpha = 0.55f)
+                borderColor = AutoPulsePurple.copy(alpha = 0.55f)
             ) {
 
                 Row(
@@ -114,7 +114,7 @@ fun DtcDetailScreen(onBack: () -> Unit) {
                     Icon(
                         Icons.Default.AutoAwesome,
                         contentDescription = null,
-                        tint = AutoPulseCyanDark
+                        tint = AutoPulsePurple
                     )
 
                     Spacer(modifier = Modifier.width(10.dp))
@@ -146,13 +146,21 @@ fun DtcDetailScreen(onBack: () -> Unit) {
                         Spacer(modifier = Modifier.height(12.dp))
 
                         Button(
-                            onClick = {},
+                            onClick = onNavigateToAiAssistant,
                             colors = ButtonDefaults.buttonColors(
                                 containerColor = AutoPulseCyanDark
                             )
                         ) {
+                            Icon(
+                                imageVector = Icons.Default.AutoAwesome,
+                                contentDescription = null,
+                                modifier = Modifier.size(18.dp)
+                            )
+
+                            Spacer(modifier = Modifier.width(8.dp))
+
                             Text(
-                                text = "Start Repair Chat",
+                                text = "Start AI Diagnostic Chat",
                                 fontWeight = FontWeight.Bold
                             )
                         }

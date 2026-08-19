@@ -173,8 +173,24 @@ fun NavGraph(navController: NavHostController) {
             )
         }
 
-        composable(Screen.AiAssistant.route) { AiAssistantScreen() }
-        composable(Screen.DtcDetail.route) { DtcDetailScreen(onBack = { navController.popBackStack() }) }
+        composable(Screen.AiAssistant.route) {
+            AiAssistantScreen(
+                onBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
+
+        composable(Screen.DtcDetail.route) {
+            DtcDetailScreen(
+                onBack = {
+                    navController.popBackStack()
+                },
+                onNavigateToAiAssistant = {
+                    navController.navigate(Screen.AiAssistant.route)
+                }
+            )
+        }
         composable(Screen.DtcHistory.route) { DtcHistoryScreen(onBack = { navController.popBackStack() }) }
         composable(Screen.FreezeFrame.route) { FreezeFrameScreen(onBack = { navController.popBackStack() }) }
         composable(Screen.VehicleInfo.route) { VehicleInfoScreen(onBack = { navController.popBackStack() }) }

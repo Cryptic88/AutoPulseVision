@@ -170,6 +170,7 @@ fun DashboardScreen(
             }
         }
 
+
         // ----------------------------------------------------
         // WELCOME
         // ----------------------------------------------------
@@ -191,6 +192,22 @@ fun DashboardScreen(
                     fontSize = 14.sp
                 )
             }
+        }
+
+        // ----------------------------------------------------
+        // HUD
+        // ----------------------------------------------------
+
+        item {
+
+            AutoPulseOutlineButton(
+                modifier = Modifier.fillMaxWidth(),
+                text = "OPEN LIVE HUD",
+                icon = Icons.Default.Visibility,
+                onClick = onNavigateToHUD
+            )
+
+            Spacer(modifier = Modifier.height(20.dp))
         }
 
         // ----------------------------------------------------
@@ -283,7 +300,7 @@ fun DashboardScreen(
         // LIVE TELEMETRY
         // ----------------------------------------------------
 
-        item {
+        /*item {
             Column {
 
                 SectionTitle("LIVE TELEMETRY")
@@ -348,7 +365,7 @@ fun DashboardScreen(
                     )
                 }
             }
-        }
+        }*/
 
         // ----------------------------------------------------
         // AI MECHANIC
@@ -393,22 +410,6 @@ fun DashboardScreen(
                     onClick = onNavigateToAchievements
                 )
             }
-        }
-
-        // ----------------------------------------------------
-        // HUD
-        // ----------------------------------------------------
-
-        item {
-
-            AutoPulseOutlineButton(
-                modifier = Modifier.fillMaxWidth(),
-                text = "OPEN LIVE HUD",
-                icon = Icons.Default.Visibility,
-                onClick = onNavigateToHUD
-            )
-
-            Spacer(modifier = Modifier.height(20.dp))
         }
     }
 }
