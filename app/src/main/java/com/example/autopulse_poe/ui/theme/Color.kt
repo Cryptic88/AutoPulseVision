@@ -23,6 +23,7 @@ val AutoPulseBorderStrong = Color(0xFF24465A)
 
 val AutoPulseCyan = Color(0xFF00D4FF)
 val AutoPulseCyanDark = Color(0xFF009CC2)
+val AutoPulseBlue = Color(0xFF3B82F6)
 
 // ---------- Status ----------
 

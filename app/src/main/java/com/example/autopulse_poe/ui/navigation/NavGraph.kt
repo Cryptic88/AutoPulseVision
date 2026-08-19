@@ -103,7 +103,14 @@ fun NavGraph(navController: NavHostController) {
                 onNavigateToStock = { navController.navigate(Screen.StockComparison.route) }
             ) 
         }
-        composable(Screen.PerformanceMetrics.route) { PerformanceMetricsHubScreen(onBack = { navController.popBackStack() }) }
+        composable(Screen.PerformanceMetrics.route) {
+            PerformanceMetricsHubScreen(
+                onBack = { navController.popBackStack() },
+                onNavigateToDyno = {
+                    navController.navigate(Screen.Dyno.route)
+                }
+            )
+        }
         composable(Screen.TripHistory.route) { 
             TripsScreen(onNavigateToDetails = { navController.navigate(Screen.TripDetails.route) }) 
         }

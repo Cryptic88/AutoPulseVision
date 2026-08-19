@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Info
@@ -12,7 +13,9 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -21,111 +24,629 @@ import com.example.autopulse_poe.ui.components.NeonCard
 import com.example.autopulse_poe.ui.theme.*
 
 @Composable
-fun AdvancedPerformanceScreen(onBack: () -> Unit) {
+fun AdvancedPerformanceScreen(
+    onBack: () -> Unit
+) {
+
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(DarkBackground)
-            .verticalScroll(rememberScrollState())
+            .background(AutoPulseBackground)
     ) {
-        // Header
+
+        // ----------------------------------------------------
+        // HEADER
+        // ----------------------------------------------------
+
         Row(
-            modifier = Modifier.padding(16.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(
+                    horizontal = 12.dp,
+                    vertical = 8.dp
+                ),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            IconButton(onClick = onBack) {
-                Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null, tint = Color.White)
+
+            IconButton(
+                onClick = onBack
+            ) {
+
+                Icon(
+                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                    contentDescription = "Back",
+                    tint = AutoPulseText
+                )
             }
+
+            Column(
+                modifier = Modifier.padding(start = 4.dp)
+            ) {
+
+                Text(
+                    text = "DYNO ANALYSIS",
+                    color = AutoPulseText,
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold
+                )
+
+                Text(
+                    text = "Power & torque performance",
+                    color = AutoPulseTextSecondary,
+                    fontSize = 12.sp
+                )
+            }
+        }
+
+        // ----------------------------------------------------
+        // CONTENT
+        // ----------------------------------------------------
+
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
+                .padding(horizontal = 20.dp)
+        ) {
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            // ------------------------------------------------
+            // PERFORMANCE GRAPH
+            // ------------------------------------------------
+
+            NeonCard(
+                borderColor = AutoPulsePurple.copy(alpha = 0.45f),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(330.dp)
+            ) {
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+
+                    Column {
+
+                        Text(
+                            text = "POWER & TORQUE",
+                            color = AutoPulseText,
+                            fontSize = 13.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+
+                        Spacer(modifier = Modifier.height(3.dp))
+
+                        Text(
+                            text = "RPM PERFORMANCE CURVE",
+                            color = AutoPulseTextMuted,
+                            fontSize = 10.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+
+                    Column(
+                        horizontalAlignment = Alignment.End
+                    ) {
+
+                        LegendItem(
+                            label = "Power",
+                            color = AutoPulsePurple
+                        )
+
+                        LegendItem(
+                            label = "Torque",
+                            color = AutoPulseCyan
+                        )
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                // Graph
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f)
+                        .background(
+                            color = Color.Black.copy(alpha = 0.22f),
+                            shape = RoundedCornerShape(12.dp)
+                        )
+                        .padding(12.dp)
+                ) {
+
+                    Canvas(
+                        modifier = Modifier.fillMaxSize()
+                    ) {
+
+                        // ------------------------------------
+                        // GRID
+                        // ------------------------------------
+
+                        val horizontalLines = 4
+                        val verticalLines = 5
+
+                        for (i in 0..horizontalLines) {
+
+                            val y =
+                                size.height * i / horizontalLines
+
+                            drawLine(
+                                color = AutoPulseBorder.copy(alpha = 0.45f),
+                                start = androidx.compose.ui.geometry.Offset(
+                                    0f,
+                                    y
+                                ),
+                                end = androidx.compose.ui.geometry.Offset(
+                                    size.width,
+                                    y
+                                ),
+                                strokeWidth = 1.dp.toPx()
+                            )
+                        }
+
+                        for (i in 0..verticalLines) {
+
+                            val x =
+                                size.width * i / verticalLines
+
+                            drawLine(
+                                color = AutoPulseBorder.copy(alpha = 0.35f),
+                                start = androidx.compose.ui.geometry.Offset(
+                                    x,
+                                    0f
+                                ),
+                                end = androidx.compose.ui.geometry.Offset(
+                                    x,
+                                    size.height
+                                ),
+                                strokeWidth = 1.dp.toPx()
+                            )
+                        }
+
+                        // ------------------------------------
+                        // POWER CURVE
+                        // ------------------------------------
+
+                        val powerPath = Path().apply {
+
+                            moveTo(
+                                0f,
+                                size.height * 0.90f
+                            )
+
+                            quadraticTo(
+                                size.width * 0.18f,
+                                size.height * 0.75f,
+                                size.width * 0.35f,
+                                size.height * 0.48f
+                            )
+
+                            quadraticTo(
+                                size.width * 0.52f,
+                                size.height * 0.22f,
+                                size.width * 0.72f,
+                                size.height * 0.15f
+                            )
+
+                            quadraticTo(
+                                size.width * 0.88f,
+                                size.height * 0.10f,
+                                size.width,
+                                size.height * 0.25f
+                            )
+                        }
+
+                        // ------------------------------------
+                        // TORQUE CURVE
+                        // ------------------------------------
+
+                        val torquePath = Path().apply {
+
+                            moveTo(
+                                0f,
+                                size.height * 0.68f
+                            )
+
+                            quadraticTo(
+                                size.width * 0.15f,
+                                size.height * 0.30f,
+                                size.width * 0.32f,
+                                size.height * 0.22f
+                            )
+
+                            quadraticTo(
+                                size.width * 0.48f,
+                                size.height * 0.18f,
+                                size.width * 0.62f,
+                                size.height * 0.32f
+                            )
+
+                            quadraticTo(
+                                size.width * 0.80f,
+                                size.height * 0.48f,
+                                size.width,
+                                size.height * 0.55f
+                            )
+                        }
+
+                        drawPath(
+                            path = powerPath,
+                            color = AutoPulsePurple,
+                            style = Stroke(
+                                width = 3.dp.toPx(),
+                                cap = StrokeCap.Round
+                            )
+                        )
+
+                        drawPath(
+                            path = torquePath,
+                            color = AutoPulseCyan,
+                            style = Stroke(
+                                width = 3.dp.toPx(),
+                                cap = StrokeCap.Round
+                            )
+                        )
+                    }
+
+                    // X-axis label
+                    Text(
+                        text = "RPM",
+                        color = AutoPulseTextMuted,
+                        fontSize = 9.sp,
+                        modifier = Modifier
+                            .align(Alignment.BottomEnd)
+                            .padding(4.dp)
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            // ------------------------------------------------
+            // PEAK VALUES
+            // ------------------------------------------------
+
             Text(
-                text = "Dyno Mode",
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Black,
-                color = Color.White,
-                modifier = Modifier.padding(start = 8.dp)
+                text = "PEAK PERFORMANCE",
+                color = AutoPulseTextSecondary,
+                fontSize = 12.sp,
+                fontWeight = FontWeight.Bold
+            )
+
+            Spacer(modifier = Modifier.height(10.dp))
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+
+                PeakValueCard(
+                    label = "PEAK POWER",
+                    value = "285 HP",
+                    subValue = "@ 6,400 RPM",
+                    color = AutoPulsePurple,
+                    modifier = Modifier.weight(1f)
+                )
+
+                PeakValueCard(
+                    label = "PEAK TORQUE",
+                    value = "420 Nm",
+                    subValue = "@ 3,200 RPM",
+                    color = AutoPulseCyan,
+                    modifier = Modifier.weight(1f)
+                )
+            }
+
+            Spacer(modifier = Modifier.height(28.dp))
+
+            // ------------------------------------------------
+            // PERFORMANCE GAIN
+            // ------------------------------------------------
+
+            Text(
+                text = "PERFORMANCE GAIN",
+                color = AutoPulseTextSecondary,
+                fontSize = 12.sp,
+                fontWeight = FontWeight.Bold
+            )
+
+            Spacer(modifier = Modifier.height(10.dp))
+
+            NeonCard(
+                borderColor = AutoPulseSuccess.copy(alpha = 0.4f)
+            ) {
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+
+                    Box(
+                        modifier = Modifier
+                            .size(40.dp)
+                            .background(
+                                AutoPulseSuccess.copy(alpha = 0.12f),
+                                RoundedCornerShape(12.dp)
+                            ),
+                        contentAlignment = Alignment.Center
+                    ) {
+
+                        Icon(
+                            imageVector = Icons.Default.Info,
+                            contentDescription = null,
+                            tint = AutoPulseSuccess,
+                            modifier = Modifier.size(21.dp)
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.width(12.dp))
+
+                    Column {
+
+                        Text(
+                            text = "ABOVE STOCK PERFORMANCE",
+                            color = AutoPulseSuccess,
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight.Black
+                        )
+
+                        Spacer(modifier = Modifier.height(3.dp))
+
+                        Text(
+                            text = "Current output is higher than factory specifications.",
+                            color = AutoPulseTextSecondary,
+                            fontSize = 11.sp
+                        )
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(18.dp))
+
+                PerformanceGainRow(
+                    label = "Horsepower",
+                    value = "+15 HP",
+                    percentage = "+5.6%",
+                    color = AutoPulsePurple
+                )
+
+                PerformanceGainRow(
+                    label = "Torque",
+                    value = "+25 Nm",
+                    percentage = "+6.3%",
+                    color = AutoPulseCyan
+                )
+
+                PerformanceGainRow(
+                    label = "Weight",
+                    value = "-12 kg",
+                    percentage = "-1.2%",
+                    color = AutoPulseSuccess
+                )
+            }
+
+            Spacer(modifier = Modifier.height(28.dp))
+
+            // ------------------------------------------------
+            // TEST INFORMATION
+            // ------------------------------------------------
+
+            Text(
+                text = "TEST INFORMATION",
+                color = AutoPulseTextSecondary,
+                fontSize = 12.sp,
+                fontWeight = FontWeight.Bold
+            )
+
+            Spacer(modifier = Modifier.height(10.dp))
+
+            NeonCard {
+
+                PerformanceInfoRow(
+                    label = "Peak Power RPM",
+                    value = "6,400 RPM"
+                )
+
+                PerformanceInfoRow(
+                    label = "Peak Torque RPM",
+                    value = "3,200 RPM"
+                )
+
+                PerformanceInfoRow(
+                    label = "Test Type",
+                    value = "Rolling Dyno"
+                )
+
+                PerformanceInfoRow(
+                    label = "Measurement",
+                    value = "Estimated"
+                )
+            }
+
+            Spacer(modifier = Modifier.height(32.dp))
+        }
+    }
+}
+
+
+// ============================================================
+// LEGEND
+// ============================================================
+
+@Composable
+private fun LegendItem(
+    label: String,
+    color: Color
+) {
+
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.padding(bottom = 4.dp)
+    ) {
+
+        Box(
+            modifier = Modifier
+                .size(7.dp)
+                .background(
+                    color = color,
+                    shape = RoundedCornerShape(50)
+                )
+        )
+
+        Spacer(modifier = Modifier.width(6.dp))
+
+        Text(
+            text = label,
+            color = AutoPulseTextSecondary,
+            fontSize = 9.sp,
+            fontWeight = FontWeight.Bold
+        )
+    }
+}
+
+
+// ============================================================
+// PEAK VALUE CARD
+// ============================================================
+
+@Composable
+private fun PeakValueCard(
+    label: String,
+    value: String,
+    subValue: String,
+    color: Color,
+    modifier: Modifier = Modifier
+) {
+
+    NeonCard(
+        modifier = modifier,
+        borderColor = color.copy(alpha = 0.35f)
+    ) {
+
+        Text(
+            text = label,
+            color = AutoPulseTextMuted,
+            fontSize = 10.sp,
+            fontWeight = FontWeight.Bold
+        )
+
+        Spacer(modifier = Modifier.height(7.dp))
+
+        Text(
+            text = value,
+            color = color,
+            fontSize = 24.sp,
+            fontWeight = FontWeight.Black
+        )
+
+        Spacer(modifier = Modifier.height(3.dp))
+
+        Text(
+            text = subValue,
+            color = AutoPulseTextMuted,
+            fontSize = 10.sp
+        )
+    }
+}
+
+
+// ============================================================
+// PERFORMANCE GAIN ROW
+// ============================================================
+
+@Composable
+private fun PerformanceGainRow(
+    label: String,
+    value: String,
+    percentage: String,
+    color: Color
+) {
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 7.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+
+        Box(
+            modifier = Modifier
+                .size(8.dp)
+                .background(
+                    color = color,
+                    shape = RoundedCornerShape(50)
+                )
+        )
+
+        Spacer(modifier = Modifier.width(10.dp))
+
+        Text(
+            text = label,
+            color = AutoPulseTextSecondary,
+            fontSize = 13.sp,
+            modifier = Modifier.weight(1f)
+        )
+
+        Text(
+            text = value,
+            color = color,
+            fontSize = 13.sp,
+            fontWeight = FontWeight.Bold
+        )
+
+        Spacer(modifier = Modifier.width(10.dp))
+
+        Surface(
+            color = color.copy(alpha = 0.10f),
+            shape = RoundedCornerShape(50)
+        ) {
+
+            Text(
+                text = percentage,
+                color = color,
+                fontSize = 10.sp,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(
+                    horizontal = 8.dp,
+                    vertical = 4.dp
+                )
             )
         }
-
-        Column(modifier = Modifier.padding(horizontal = 20.dp)) {
-            // Dyno Graph
-            NeonCard(borderColor = NeonPurple, modifier = Modifier.height(300.dp)) {
-                Text(text = "Power & Torque Curve", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 14.sp)
-                Spacer(modifier = Modifier.height(16.dp))
-                Box(modifier = Modifier.fillMaxSize()) {
-                    Canvas(modifier = Modifier.fillMaxSize()) {
-                        val powerPath = Path().apply {
-                            moveTo(0f, size.height * 0.9f)
-                            quadraticTo(size.width * 0.4f, size.height * 0.6f, size.width * 0.8f, size.height * 0.2f)
-                            lineTo(size.width, size.height * 0.25f)
-                        }
-                        val torquePath = Path().apply {
-                            moveTo(0f, size.height * 0.7f)
-                            quadraticTo(size.width * 0.3f, size.height * 0.3f, size.width * 0.6f, size.height * 0.35f)
-                            quadraticTo(size.width * 0.8f, size.height * 0.45f, size.width, size.height * 0.6f)
-                        }
-                        
-                        drawPath(path = powerPath, color = NeonMagenta, style = Stroke(width = 3.dp.toPx()))
-                        drawPath(path = torquePath, color = NeonCyan, style = Stroke(width = 3.dp.toPx()))
-                    }
-                    
-                    // Legend
-                    Column(modifier = Modifier.align(Alignment.TopEnd)) {
-                        LegendItem(label = "Power (HP)", color = NeonMagenta)
-                        LegendItem(label = "Torque (Nm)", color = NeonCyan)
-                    }
-                }
-            }
-
-            Spacer(modifier = Modifier.height(24.dp))
-
-            // Peak Values
-            Row(modifier = Modifier.fillMaxWidth()) {
-                PeakValueCard(label = "Peak Power", value = "285 HP", subValue = "@ 6,400 RPM", color = NeonMagenta, modifier = Modifier.weight(1f))
-                Spacer(modifier = Modifier.width(16.dp))
-                PeakValueCard(label = "Peak Torque", value = "420 Nm", subValue = "@ 3,200 RPM", color = NeonCyan, modifier = Modifier.weight(1f))
-            }
-
-            Spacer(modifier = Modifier.height(24.dp))
-
-            // Comparison to Stock
-            NeonCard(borderColor = NeonOrange) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(Icons.Default.Info, contentDescription = null, tint = NeonOrange)
-                    Spacer(modifier = Modifier.width(12.dp))
-                    Text(text = "Comparison to Stock", color = Color.White, fontWeight = FontWeight.Bold)
-                }
-                Spacer(modifier = Modifier.height(16.dp))
-                ComparisonRow(label = "Horsepower", current = "+15 HP", color = NeonGreen)
-                ComparisonRow(label = "Torque", current = "+25 Nm", color = NeonGreen)
-                ComparisonRow(label = "Weight Reduction", current = "-12 kg", color = NeonCyan)
-            }
-            
-            Spacer(modifier = Modifier.height(40.dp))
-        }
     }
 }
 
-@Composable
-fun LegendItem(label: String, color: Color) {
-    Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(bottom = 4.dp)) {
-        Box(modifier = Modifier.size(10.dp).background(color, shape = StrokeCap.Butt.let { androidx.compose.foundation.shape.CircleShape }))
-        Spacer(modifier = Modifier.width(8.dp))
-        Text(text = label, color = Color.White.copy(alpha = 0.7f), fontSize = 10.sp)
-    }
-}
+
+// ============================================================
+// INFORMATION ROW
+// ============================================================
 
 @Composable
-fun PeakValueCard(label: String, value: String, subValue: String, color: Color, modifier: Modifier = Modifier) {
-    NeonCard(borderColor = color.copy(alpha = 0.4f), modifier = modifier) {
-        Text(text = label, color = Color.White.copy(alpha = 0.6f), fontSize = 11.sp)
-        Text(text = value, color = color, fontSize = 24.sp, fontWeight = FontWeight.Black)
-        Text(text = subValue, color = Color.White.copy(alpha = 0.4f), fontSize = 10.sp)
-    }
-}
+private fun PerformanceInfoRow(
+    label: String,
+    value: String
+) {
 
-@Composable
-fun ComparisonRow(label: String, current: String, color: Color) {
-    Row(modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp), horizontalArrangement = Arrangement.SpaceBetween) {
-        Text(text = label, color = Color.White.copy(alpha = 0.8f), fontSize = 14.sp)
-        Text(text = current, color = color, fontWeight = FontWeight.Bold, fontSize = 14.sp)
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 7.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+
+        Text(
+            text = label,
+            color = AutoPulseTextSecondary,
+            fontSize = 13.sp
+        )
+
+        Text(
+            text = value,
+            color = AutoPulseText,
+            fontSize = 13.sp,
+            fontWeight = FontWeight.Bold
+        )
     }
 }

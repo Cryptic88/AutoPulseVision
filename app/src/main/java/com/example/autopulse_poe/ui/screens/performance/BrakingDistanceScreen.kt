@@ -2,9 +2,12 @@ package com.example.autopulse_poe.ui.screens.performance
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.Warning
+import androidx.compose.material.icons.filled.Speed
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -17,89 +20,474 @@ import com.example.autopulse_poe.ui.components.NeonCard
 import com.example.autopulse_poe.ui.theme.*
 
 @Composable
-fun BrakingDistanceScreen(onBack: () -> Unit) {
+fun BrakingDistanceScreen(
+    onBack: () -> Unit
+) {
+
     var isMonitoring by remember { mutableStateOf(false) }
+
+    // --------------------------------------------------------
+    // STATE COLOURS
+    // --------------------------------------------------------
+
+    val statusColor = if (isMonitoring) {
+        AutoPulseError
+    } else {
+        AutoPulseCyan
+    }
+
+    val statusText = if (isMonitoring) {
+        "BRAKING TEST ACTIVE"
+    } else {
+        "READY TO TEST"
+    }
+
+    val buttonText = if (isMonitoring) {
+        "CANCEL BRAKING TEST"
+    } else {
+        "START BRAKING TEST"
+    }
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(DarkBackground)
+            .background(AutoPulseBackground)
     ) {
-        // Header
+
+        // ----------------------------------------------------
+        // HEADER
+        // ----------------------------------------------------
+
         Row(
-            modifier = Modifier.padding(16.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(
+                    horizontal = 12.dp,
+                    vertical = 8.dp
+                ),
             verticalAlignment = Alignment.CenterVertically
         ) {
+
             IconButton(onClick = onBack) {
-                Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null, tint = Color.White)
+
+                Icon(
+                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                    contentDescription = "Back",
+                    tint = AutoPulseText
+                )
             }
-            Text(
-                text = "Braking Distance",
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color.White,
-                modifier = Modifier.padding(start = 8.dp)
-            )
+
+            Column(
+                modifier = Modifier.padding(start = 4.dp)
+            ) {
+
+                Text(
+                    text = "BRAKING DISTANCE",
+                    color = AutoPulseText,
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold
+                )
+
+                Text(
+                    text = "Deceleration testing",
+                    color = AutoPulseTextSecondary,
+                    fontSize = 12.sp
+                )
+            }
         }
+
+        // ----------------------------------------------------
+        // CONTENT
+        // ----------------------------------------------------
 
         Column(
             modifier = Modifier
-                .weight(1f)
-                .fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
+                .padding(horizontal = 20.dp)
         ) {
-            Text(
-                text = if (isMonitoring) "BRAKING DETECTED" else "AWAITING DECELERATION",
-                color = if (isMonitoring) NeonRed else NeonOrange,
-                fontWeight = FontWeight.Black,
-                fontSize = 18.sp
-            )
-            
-            Text(
-                text = "38.5",
-                fontSize = 120.sp,
-                fontWeight = FontWeight.Black,
-                color = Color.White
-            )
-            
-            Text(
-                text = "METERS (100-0 km/h)",
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Bold,
-                color = NeonCyan
-            )
 
-            Spacer(modifier = Modifier.height(48.dp))
+            Spacer(modifier = Modifier.height(12.dp))
 
-            NeonCard(borderColor = NeonMagenta, modifier = Modifier.padding(horizontal = 40.dp)) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(Icons.Default.Warning, contentDescription = null, tint = NeonMagenta)
-                    Spacer(modifier = Modifier.width(12.dp))
+            // ------------------------------------------------
+            // TEST STATUS + MAIN RESULT
+            // ------------------------------------------------
+
+            NeonCard(
+                borderColor = statusColor.copy(alpha = 0.55f)
+            ) {
+
+                // --------------------------------------------
+                // STATUS HEADER
+                // --------------------------------------------
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+
                     Column {
-                        Text(text = "Peak Deceleration", color = Color.White.copy(alpha = 0.6f), fontSize = 12.sp)
-                        Text(text = "1.12 G", color = Color.White, fontWeight = FontWeight.Black, fontSize = 24.sp)
+
+                        Text(
+                            text = "TEST STATUS",
+                            color = AutoPulseTextMuted,
+                            fontSize = 11.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+
+                        Spacer(modifier = Modifier.height(6.dp))
+
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+
+                            // Status indicator
+                            Box(
+                                modifier = Modifier
+                                    .size(9.dp)
+                                    .background(
+                                        color = statusColor,
+                                        shape = RoundedCornerShape(50)
+                                    )
+                            )
+
+                            Spacer(modifier = Modifier.width(8.dp))
+
+                            Text(
+                                text = statusText,
+                                color = statusColor,
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 14.sp
+                            )
+                        }
                     }
+
+                    Icon(
+                        imageVector = Icons.Default.Speed,
+                        contentDescription = null,
+                        tint = statusColor,
+                        modifier = Modifier.size(28.dp)
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(28.dp))
+
+                // --------------------------------------------
+                // MAIN BRAKING DISTANCE
+                // --------------------------------------------
+
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+
+                    Text(
+                        text = "BRAKING DISTANCE",
+                        color = AutoPulseTextMuted,
+                        fontSize = 11.sp,
+                        fontWeight = FontWeight.Bold,
+                        letterSpacing = 1.5.sp
+                    )
+
+                    Spacer(modifier = Modifier.height(4.dp))
+
+                    Row(
+                        verticalAlignment = Alignment.Bottom
+                    ) {
+
+                        Text(
+                            text = "38.5",
+                            color = AutoPulseText,
+                            fontSize = 72.sp,
+                            fontWeight = FontWeight.Black,
+                            letterSpacing = (-2).sp
+                        )
+
+                        Spacer(modifier = Modifier.width(8.dp))
+
+                        Text(
+                            text = "m",
+                            color = AutoPulseCyan,
+                            fontSize = 24.sp,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier.padding(bottom = 12.dp)
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(6.dp))
+
+                    Text(
+                        text = "100 → 0 KM/H",
+                        color = AutoPulseCyan,
+                        fontSize = 13.sp,
+                        fontWeight = FontWeight.Bold,
+                        letterSpacing = 1.sp
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(24.dp))
+
+                // --------------------------------------------
+                // DECELERATION
+                // --------------------------------------------
+
+                Text(
+                    text = "DECELERATION",
+                    color = AutoPulseTextMuted,
+                    fontSize = 10.sp,
+                    fontWeight = FontWeight.Bold
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                LinearProgressIndicator(
+                    progress = {
+                        if (isMonitoring) {
+                            0.78f
+                        } else {
+                            1f
+                        }
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(5.dp),
+                    color = statusColor,
+                    trackColor = AutoPulseSurfaceVariant
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+
+                    Text(
+                        text = "0 G",
+                        color = AutoPulseTextMuted,
+                        fontSize = 10.sp
+                    )
+
+                    Text(
+                        text = "1.12 G PEAK",
+                        color = AutoPulseTextMuted,
+                        fontSize = 10.sp,
+                        fontWeight = FontWeight.Bold
+                    )
                 }
             }
-        }
 
-        Button(
-            onClick = { isMonitoring = !isMonitoring },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(32.dp)
-                .height(64.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = if (isMonitoring) NeonRed else NeonCyan,
-                contentColor = Color.Black
-            )
-        ) {
+            Spacer(modifier = Modifier.height(24.dp))
+
+            // ------------------------------------------------
+            // ACTION BUTTON
+            // ------------------------------------------------
+
+            Button(
+                onClick = {
+                    isMonitoring = !isMonitoring
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(58.dp),
+                shape = RoundedCornerShape(14.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = if (isMonitoring) {
+                        AutoPulseError
+                    } else {
+                        AutoPulseCyan
+                    },
+                    contentColor = if (isMonitoring) {
+                        Color.White
+                    } else {
+                        Color.Black
+                    }
+                )
+            ) {
+
+                Text(
+                    text = buttonText,
+                    fontWeight = FontWeight.Black,
+                    fontSize = 15.sp
+                )
+            }
+
+            Spacer(modifier = Modifier.height(32.dp))
+
+            // ------------------------------------------------
+            // PERFORMANCE RESULTS
+            // ------------------------------------------------
+
             Text(
-                text = if (isMonitoring) "CANCEL TEST" else "ARM SENSORS",
-                fontWeight = FontWeight.Black,
-                fontSize = 18.sp
+                text = "PERFORMANCE RESULTS",
+                color = AutoPulseTextSecondary,
+                fontSize = 12.sp,
+                fontWeight = FontWeight.Bold
             )
+
+            Spacer(modifier = Modifier.height(10.dp))
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+
+                BrakingResultCard(
+                    modifier = Modifier.weight(1f),
+                    label = "100–0 KM/H",
+                    value = "38.5 m",
+                    accent = AutoPulseCyan
+                )
+
+                BrakingResultCard(
+                    modifier = Modifier.weight(1f),
+                    label = "PEAK DECEL",
+                    value = "1.12 G",
+                    accent = AutoPulseError
+                )
+            }
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+
+                BrakingResultCard(
+                    modifier = Modifier.weight(1f),
+                    label = "80–0 KM/H",
+                    value = "24.1 m",
+                    accent = AutoPulseSuccess
+                )
+
+                BrakingResultCard(
+                    modifier = Modifier.weight(1f),
+                    label = "STOP TIME",
+                    value = "2.91 s",
+                    accent = AutoPulsePurple
+                )
+            }
+
+            Spacer(modifier = Modifier.height(28.dp))
+
+            // ------------------------------------------------
+            // TEST CONDITIONS
+            // ------------------------------------------------
+
+            Text(
+                text = "TEST CONDITIONS",
+                color = AutoPulseTextSecondary,
+                fontSize = 12.sp,
+                fontWeight = FontWeight.Bold
+            )
+
+            Spacer(modifier = Modifier.height(10.dp))
+
+            NeonCard {
+
+                BrakingConditionRow(
+                    label = "Starting Speed",
+                    value = "100 km/h"
+                )
+
+                BrakingConditionRow(
+                    label = "Final Speed",
+                    value = "0 km/h"
+                )
+
+                BrakingConditionRow(
+                    label = "Peak Deceleration",
+                    value = "1.12 G"
+                )
+
+                BrakingConditionRow(
+                    label = "Surface",
+                    value = "Dry"
+                )
+
+                BrakingConditionRow(
+                    label = "Test Status",
+                    value = if (isMonitoring) {
+                        "In Progress"
+                    } else {
+                        "Ready"
+                    }
+                )
+            }
+
+            Spacer(modifier = Modifier.height(28.dp))
         }
+    }
+}
+
+
+// ============================================================
+// RESULT CARD
+// ============================================================
+
+@Composable
+private fun BrakingResultCard(
+    label: String,
+    value: String,
+    accent: Color,
+    modifier: Modifier = Modifier
+) {
+
+    NeonCard(
+        modifier = modifier,
+        borderColor = accent.copy(alpha = 0.35f)
+    ) {
+
+        Text(
+            text = label,
+            color = AutoPulseTextMuted,
+            fontSize = 10.sp,
+            fontWeight = FontWeight.Bold
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Text(
+            text = value,
+            color = accent,
+            fontSize = 23.sp,
+            fontWeight = FontWeight.Black
+        )
+    }
+}
+
+
+// ============================================================
+// CONDITION ROW
+// ============================================================
+
+@Composable
+private fun BrakingConditionRow(
+    label: String,
+    value: String
+) {
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 7.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+
+        Text(
+            text = label,
+            color = AutoPulseTextSecondary,
+            fontSize = 13.sp
+        )
+
+        Text(
+            text = value,
+            color = AutoPulseText,
+            fontSize = 13.sp,
+            fontWeight = FontWeight.Bold
+        )
     }
 }

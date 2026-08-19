@@ -3,6 +3,7 @@ package com.example.autopulse_poe.ui.screens.performance
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
@@ -14,7 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.autopulse_poe.ui.components.NeonButton
+import com.example.autopulse_poe.ui.components.NeonCard
 import com.example.autopulse_poe.ui.theme.*
 
 @Composable
@@ -25,120 +26,202 @@ fun PerformanceMenuScreen(
     onNavigateToCustomPids: () -> Unit,
     onNavigateToStock: () -> Unit
 ) {
+
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(DarkBackground)
+            .background(AutoPulseBackground)
             .verticalScroll(rememberScrollState())
             .padding(20.dp)
     ) {
+
+        // ----------------------------------------------------
+        // HEADER
+        // ----------------------------------------------------
+
         Text(
-            text = "Performance Suite",
-            fontSize = 28.sp,
-            fontWeight = FontWeight.Black,
-            color = Color.White,
-            modifier = Modifier.padding(bottom = 32.dp)
+            text = "Performance",
+            color = AutoPulseText,
+            fontSize = 30.sp,
+            fontWeight = FontWeight.Bold
         )
 
-        PerformanceMenuButton(
-            title = "Performance Metrics Hub",
-            subtitle = "Live Horsepower & Torque Estimator",
+        Spacer(modifier = Modifier.height(6.dp))
+
+        Text(
+            text = "Monitor and measure your vehicle's performance",
+            color = AutoPulseTextSecondary,
+            fontSize = 14.sp
+        )
+
+        Spacer(modifier = Modifier.height(28.dp))
+
+
+        // ----------------------------------------------------
+        // PERFORMANCE METRICS
+        // ----------------------------------------------------
+
+        PerformanceMenuCard(
+            title = "Performance Metrics",
+            subtitle = "Live horsepower, torque and engine data",
             icon = Icons.Default.BarChart,
-            gradient = listOf(NeonMagenta, NeonPurple),
+            accent = AutoPulsePurple,
             onClick = onNavigateToMetrics
         )
 
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(14.dp))
 
-        PerformanceMenuButton(
+
+        // ----------------------------------------------------
+        // ACCELERATION
+        // ----------------------------------------------------
+
+        PerformanceMenuCard(
             title = "Acceleration Timer",
-            subtitle = "0-100 km/h & 1/4 Mile Racing",
+            subtitle = "Measure 0–100 km/h and quarter mile times",
             icon = Icons.Default.Timer,
-            gradient = listOf(NeonCyan, NeonBlue),
+            accent = AutoPulseCyan,
             onClick = onNavigateToAcceleration
         )
 
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(14.dp))
 
-        PerformanceMenuButton(
+
+        // ----------------------------------------------------
+        // BRAKING
+        // ----------------------------------------------------
+
+        PerformanceMenuCard(
             title = "Braking Distance",
-            subtitle = "Precision Stopping Power Measurement",
+            subtitle = "Measure stopping distance and deceleration",
             icon = Icons.Default.Warning,
-            gradient = listOf(NeonOrange, Color(0xFFFF4500)),
+            accent = AutoPulseWarning,
             onClick = onNavigateToBraking
         )
 
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(14.dp))
 
-        PerformanceMenuButton(
-            title = "Custom PIDs Setup",
-            subtitle = "Advanced formula definition for tuners",
+
+        // ----------------------------------------------------
+        // CUSTOM PIDS
+        // ----------------------------------------------------
+
+        PerformanceMenuCard(
+            title = "Custom PIDs",
+            subtitle = "Configure advanced ECU parameters",
             icon = Icons.Default.SettingsInputComponent,
-            gradient = listOf(Color.Gray, Color.DarkGray),
+            accent = AutoPulseBlue,
             onClick = onNavigateToCustomPids
         )
 
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(14.dp))
 
-        PerformanceMenuButton(
+
+        // ----------------------------------------------------
+        // STOCK COMPARISON
+        // ----------------------------------------------------
+
+        PerformanceMenuCard(
             title = "Comparison to Stock",
-            subtitle = "Current sensor data vs. Factory specs",
+            subtitle = "Compare your vehicle against factory specifications",
             icon = Icons.Default.CompareArrows,
-            gradient = listOf(NeonGreen, Color(0xFF006400)),
+            accent = AutoPulseSuccess,
             onClick = onNavigateToStock
         )
-        
-        Spacer(modifier = Modifier.height(40.dp))
+
+        Spacer(modifier = Modifier.height(32.dp))
     }
 }
 
+
 @Composable
-fun PerformanceMenuButton(
+private fun PerformanceMenuCard(
     title: String,
     subtitle: String,
     icon: androidx.compose.ui.graphics.vector.ImageVector,
-    gradient: List<Color>,
+    accent: Color,
     onClick: () -> Unit
 ) {
-    Button(
-        onClick = onClick,
+
+    NeonCard(
         modifier = Modifier
-            .fillMaxWidth()
-            .height(100.dp),
-        colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
-        contentPadding = PaddingValues(0.dp)
+            .fillMaxWidth(),
+        borderColor = accent.copy(alpha = 0.45f)
     ) {
-        Box(
+
+        Row(
             modifier = Modifier
-                .fillMaxSize()
-                .background(
-                    brush = androidx.compose.ui.graphics.Brush.linearGradient(gradient),
-                    shape = MaterialTheme.shapes.large
-                )
-                .padding(20.dp)
+                .fillMaxWidth()
+                .heightIn(min = 76.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
+
+            // ------------------------------------------------
+            // ICON CONTAINER
+            // ------------------------------------------------
+
+            Box(
+                modifier = Modifier
+                    .size(54.dp)
+                    .background(
+                        color = accent.copy(alpha = 0.12f),
+                        shape = RoundedCornerShape(14.dp)
+                    ),
+                contentAlignment = Alignment.Center
+            ) {
+
                 Icon(
-                    icon,
+                    imageVector = icon,
                     contentDescription = null,
-                    tint = Color.White,
-                    modifier = Modifier.size(40.dp)
+                    tint = accent,
+                    modifier = Modifier.size(27.dp)
                 )
-                Spacer(modifier = Modifier.width(20.dp))
-                Column {
-                    Text(
-                        text = title,
-                        color = Color.White,
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.Black
-                    )
-                    Text(
-                        text = subtitle,
-                        color = Color.White.copy(alpha = 0.7f),
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.Medium
-                    )
-                }
+            }
+
+            Spacer(modifier = Modifier.width(16.dp))
+
+
+            // ------------------------------------------------
+            // TEXT
+            // ------------------------------------------------
+
+            Column(
+                modifier = Modifier.weight(1f)
+            ) {
+
+                Text(
+                    text = title,
+                    color = AutoPulseText,
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold
+                )
+
+                Spacer(modifier = Modifier.height(4.dp))
+
+                Text(
+                    text = subtitle,
+                    color = AutoPulseTextSecondary,
+                    fontSize = 12.sp,
+                    lineHeight = 17.sp
+                )
+            }
+
+            Spacer(modifier = Modifier.width(8.dp))
+
+
+            // ------------------------------------------------
+            // ARROW
+            // ------------------------------------------------
+
+            IconButton(
+                onClick = onClick
+            ) {
+
+                Icon(
+                    imageVector = Icons.Default.ChevronRight,
+                    contentDescription = "Open $title",
+                    tint = AutoPulseTextMuted
+                )
             }
         }
     }

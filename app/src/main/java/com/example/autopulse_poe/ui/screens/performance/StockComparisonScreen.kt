@@ -3,10 +3,12 @@ package com.example.autopulse_poe.ui.screens.performance
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.CompareArrows
+import androidx.compose.material.icons.filled.DirectionsCar
 import androidx.compose.material.icons.filled.TrendingUp
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -16,103 +18,466 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.autopulse_poe.ui.components.CircularScoreIndicator
 import com.example.autopulse_poe.ui.components.NeonCard
 import com.example.autopulse_poe.ui.theme.*
 
 @Composable
-fun StockComparisonScreen(onBack: () -> Unit) {
+fun StockComparisonScreen(
+    onBack: () -> Unit
+) {
+
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(DarkBackground)
+            .background(AutoPulseBackground)
     ) {
-        // Header
+
+        // ----------------------------------------------------
+        // HEADER
+        // ----------------------------------------------------
+
         Row(
-            modifier = Modifier.padding(16.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(
+                    horizontal = 12.dp,
+                    vertical = 8.dp
+                ),
             verticalAlignment = Alignment.CenterVertically
         ) {
+
             IconButton(onClick = onBack) {
-                Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null, tint = Color.White)
+
+                Icon(
+                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                    contentDescription = "Back",
+                    tint = AutoPulseText
+                )
             }
-            Text(
-                text = "Stock Comparison",
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color.White,
-                modifier = Modifier.padding(start = 8.dp)
-            )
+
+            Column(
+                modifier = Modifier.padding(start = 4.dp)
+            ) {
+
+                Text(
+                    text = "STOCK COMPARISON",
+                    color = AutoPulseText,
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold
+                )
+
+                Text(
+                    text = "Vehicle performance analysis",
+                    color = AutoPulseTextSecondary,
+                    fontSize = 12.sp
+                )
+            }
         }
+
+        // ----------------------------------------------------
+        // CONTENT
+        // ----------------------------------------------------
 
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
-                .padding(20.dp)
+                .padding(horizontal = 20.dp)
         ) {
-            Text(text = "Vehicle: 2024 Tesla Model S Plaid", color = NeonCyan, fontWeight = FontWeight.Bold, fontSize = 14.sp)
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            // ------------------------------------------------
+            // VEHICLE
+            // ------------------------------------------------
+
+            NeonCard(
+                borderColor = AutoPulseCyan.copy(alpha = 0.45f)
+            ) {
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+
+                    Box(
+                        modifier = Modifier
+                            .size(46.dp)
+                            .background(
+                                AutoPulseCyan.copy(alpha = 0.10f),
+                                RoundedCornerShape(12.dp)
+                            ),
+                        contentAlignment = Alignment.Center
+                    ) {
+
+                        Icon(
+                            imageVector = Icons.Default.DirectionsCar,
+                            contentDescription = null,
+                            tint = AutoPulseCyan,
+                            modifier = Modifier.size(25.dp)
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.width(14.dp))
+
+                    Column(
+                        modifier = Modifier.weight(1f)
+                    ) {
+
+                        Text(
+                            text = "CURRENT VEHICLE",
+                            color = AutoPulseTextMuted,
+                            fontSize = 10.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+
+                        Spacer(modifier = Modifier.height(3.dp))
+
+                        Text(
+                            text = "2024 Tesla Model S Plaid",
+                            color = AutoPulseText,
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+
+                    Text(
+                        text = "CONNECTED",
+                        color = AutoPulseSuccess,
+                        fontSize = 9.sp,
+                        fontWeight = FontWeight.Black
+                    )
+                }
+            }
+
             Spacer(modifier = Modifier.height(24.dp))
 
-            ComparisonCard("Max Horsepower", "1,020 HP", "1,035 HP", "+1.5%", NeonMagenta)
-            Spacer(modifier = Modifier.height(16.dp))
-            ComparisonCard("Max Torque", "1,420 Nm", "1,445 Nm", "+1.1%", NeonCyan)
-            Spacer(modifier = Modifier.height(16.dp))
-            ComparisonCard("0-100 km/h", "2.10 s", "1.98 s", "-9.5%", NeonGreen)
+            // ------------------------------------------------
+            // OVERALL RESULT
+            // ------------------------------------------------
 
-            Spacer(modifier = Modifier.height(32.dp))
+            Text(
+                text = "PERFORMANCE OVERVIEW",
+                color = AutoPulseTextSecondary,
+                fontSize = 12.sp,
+                fontWeight = FontWeight.Bold
+            )
 
-            NeonCard(borderColor = NeonOrange) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(Icons.Default.TrendingUp, contentDescription = null, tint = NeonOrange)
-                    Spacer(modifier = Modifier.width(12.dp))
-                    Text(text = "Tuning Insights", color = Color.White, fontWeight = FontWeight.Bold)
+            Spacer(modifier = Modifier.height(10.dp))
+
+            NeonCard(
+                borderColor = AutoPulseSuccess.copy(alpha = 0.45f)
+            ) {
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+
+                    Column(
+                        modifier = Modifier.weight(1f)
+                    ) {
+
+                        Text(
+                            text = "OVERALL RESULT",
+                            color = AutoPulseTextMuted,
+                            fontSize = 10.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+
+                        Spacer(modifier = Modifier.height(6.dp))
+
+                        Text(
+                            text = "ABOVE STOCK",
+                            color = AutoPulseSuccess,
+                            fontSize = 22.sp,
+                            fontWeight = FontWeight.Black
+                        )
+
+                        Spacer(modifier = Modifier.height(4.dp))
+
+                        Text(
+                            text = "Vehicle is performing above factory specifications.",
+                            color = AutoPulseTextSecondary,
+                            fontSize = 11.sp
+                        )
+                    }
+
+                    CircularScoreIndicator(
+                        score = 97,
+                        label = "SCORE",
+                        color = AutoPulseSuccess
+                    )
                 }
-                Spacer(modifier = Modifier.height(12.dp))
-                Text(
-                    text = "Your vehicle is currently performing slightly above stock specifications in power delivery. Torque gains are consistent with a Stage 1 software optimization.",
-                    color = Color.White.copy(alpha = 0.7f),
-                    fontSize = 14.sp
-                )
             }
-            
-            Spacer(modifier = Modifier.height(40.dp))
+
+            Spacer(modifier = Modifier.height(28.dp))
+
+            // ------------------------------------------------
+            // PERFORMANCE COMPARISON
+            // ------------------------------------------------
+
+            Text(
+                text = "PERFORMANCE COMPARISON",
+                color = AutoPulseTextSecondary,
+                fontSize = 12.sp,
+                fontWeight = FontWeight.Bold
+            )
+
+            Spacer(modifier = Modifier.height(10.dp))
+
+            StockComparisonCard(
+                label = "MAX HORSEPOWER",
+                factory = "1,020 HP",
+                current = "1,035 HP",
+                difference = "+15 HP",
+                percentage = "+1.5%",
+                accent = AutoPulsePurple,
+                positive = true
+            )
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            StockComparisonCard(
+                label = "MAX TORQUE",
+                factory = "1,420 Nm",
+                current = "1,445 Nm",
+                difference = "+25 Nm",
+                percentage = "+1.8%",
+                accent = AutoPulseCyan,
+                positive = true
+            )
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            StockComparisonCard(
+                label = "0–100 KM/H",
+                factory = "2.10 s",
+                current = "1.98 s",
+                difference = "-0.12 s",
+                percentage = "-5.7%",
+                accent = AutoPulseSuccess,
+                positive = true
+            )
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            StockComparisonCard(
+                label = "BRAKING DISTANCE",
+                factory = "34.2 m",
+                current = "32.8 m",
+                difference = "-1.4 m",
+                percentage = "-4.1%",
+                accent = AutoPulseWarning,
+                positive = true
+            )
+
+            Spacer(modifier = Modifier.height(28.dp))
+
+            // ------------------------------------------------
+            // INSIGHTS
+            // ------------------------------------------------
+
+            Text(
+                text = "AUTOPULSE INSIGHTS",
+                color = AutoPulseTextSecondary,
+                fontSize = 12.sp,
+                fontWeight = FontWeight.Bold
+            )
+
+            Spacer(modifier = Modifier.height(10.dp))
+
+            NeonCard(
+                borderColor = AutoPulseCyan.copy(alpha = 0.35f)
+            ) {
+
+                Row(
+                    verticalAlignment = Alignment.Top
+                ) {
+
+                    Icon(
+                        imageVector = Icons.Default.TrendingUp,
+                        contentDescription = null,
+                        tint = AutoPulseCyan,
+                        modifier = Modifier.size(22.dp)
+                    )
+
+                    Spacer(modifier = Modifier.width(12.dp))
+
+                    Column {
+
+                        Text(
+                            text = "Performance Analysis",
+                            color = AutoPulseText,
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+
+                        Spacer(modifier = Modifier.height(8.dp))
+
+                        Text(
+                            text = "Current measurements indicate improved power delivery compared with the factory baseline. Acceleration and braking performance are also showing measurable improvements.",
+                            color = AutoPulseTextSecondary,
+                            fontSize = 12.sp,
+                            lineHeight = 18.sp
+                        )
+                    }
+                }
+            }
+
+            Spacer(modifier = Modifier.height(28.dp))
         }
     }
 }
 
 @Composable
-fun ComparisonCard(label: String, stock: String, current: String, gain: String, color: Color) {
-    NeonCard(borderColor = color.copy(alpha = 0.3f)) {
-        Column {
-            Text(text = label, color = Color.White.copy(alpha = 0.6f), fontSize = 12.sp)
-            Row(
-                modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
+private fun StockComparisonCard(
+    label: String,
+    factory: String,
+    current: String,
+    difference: String,
+    percentage: String,
+    accent: Color,
+    positive: Boolean,
+    modifier: Modifier = Modifier
+) {
+
+    NeonCard(
+        modifier = modifier.fillMaxWidth(),
+        borderColor = accent.copy(alpha = 0.35f)
+    ) {
+
+        // ----------------------------------------------------
+        // TITLE
+        // ----------------------------------------------------
+
+        Text(
+            text = label,
+            color = AutoPulseTextMuted,
+            fontSize = 10.sp,
+            fontWeight = FontWeight.Bold,
+            letterSpacing = 0.8.sp
+        )
+
+        Spacer(modifier = Modifier.height(14.dp))
+
+        // ----------------------------------------------------
+        // FACTORY VS CURRENT
+        // ----------------------------------------------------
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+
+            Column(
+                modifier = Modifier.weight(1f)
             ) {
-                Column {
-                    Text(text = "FACTORY", color = Color.White.copy(alpha = 0.4f), fontSize = 10.sp, fontWeight = FontWeight.Bold)
-                    Text(text = stock, color = Color.White, fontSize = 18.sp, fontWeight = FontWeight.Bold)
-                }
-                Icon(Icons.Default.CompareArrows, contentDescription = null, tint = color.copy(alpha = 0.5f))
-                Column(horizontalAlignment = Alignment.End) {
-                    Text(text = "CURRENT", color = color.copy(alpha = 0.7f), fontSize = 10.sp, fontWeight = FontWeight.Black)
-                    Text(text = current, color = color, fontSize = 24.sp, fontWeight = FontWeight.Black)
-                }
-            }
-            Spacer(modifier = Modifier.height(8.dp))
-            Surface(
-                color = if (gain.startsWith("+") || label.contains("0-100")) NeonGreen.copy(alpha = 0.1f) else NeonRed.copy(alpha = 0.1f),
-                shape = androidx.compose.foundation.shape.CircleShape,
-                modifier = Modifier.align(Alignment.End)
-            ) {
+
                 Text(
-                    text = gain,
-                    color = if (gain.startsWith("+") || label.contains("0-100")) NeonGreen else NeonRed,
-                    fontSize = 11.sp,
-                    fontWeight = FontWeight.Black,
-                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp)
+                    text = "FACTORY",
+                    color = AutoPulseTextMuted,
+                    fontSize = 9.sp,
+                    fontWeight = FontWeight.Bold
                 )
+
+                Spacer(modifier = Modifier.height(4.dp))
+
+                Text(
+                    text = factory,
+                    color = AutoPulseText,
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+
+            Icon(
+                imageVector = Icons.Default.CompareArrows,
+                contentDescription = null,
+                tint = accent.copy(alpha = 0.55f),
+                modifier = Modifier.size(24.dp)
+            )
+
+            Column(
+                modifier = Modifier.weight(1f),
+                horizontalAlignment = Alignment.End
+            ) {
+
+                Text(
+                    text = "AUTOPULSE",
+                    color = accent,
+                    fontSize = 9.sp,
+                    fontWeight = FontWeight.Black
+                )
+
+                Spacer(modifier = Modifier.height(4.dp))
+
+                Text(
+                    text = current,
+                    color = accent,
+                    fontSize = 22.sp,
+                    fontWeight = FontWeight.Black
+                )
+            }
+        }
+
+        Spacer(modifier = Modifier.height(14.dp))
+
+        // ----------------------------------------------------
+        // RESULT
+        // ----------------------------------------------------
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.End,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+
+            Surface(
+                color = if (positive) {
+                    AutoPulseSuccess.copy(alpha = 0.10f)
+                } else {
+                    AutoPulseError.copy(alpha = 0.10f)
+                },
+                shape = RoundedCornerShape(50)
+            ) {
+
+                Row(
+                    modifier = Modifier.padding(
+                        horizontal = 9.dp,
+                        vertical = 5.dp
+                    ),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+
+                    Text(
+                        text = difference,
+                        color = if (positive) {
+                            AutoPulseSuccess
+                        } else {
+                            AutoPulseError
+                        },
+                        fontSize = 11.sp,
+                        fontWeight = FontWeight.Black
+                    )
+
+                    Spacer(modifier = Modifier.width(6.dp))
+
+                    Text(
+                        text = percentage,
+                        color = if (positive) {
+                            AutoPulseSuccess
+                        } else {
+                            AutoPulseError
+                        },
+                        fontSize = 10.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
             }
         }
     }
 }
+
+
