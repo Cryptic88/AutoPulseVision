@@ -29,7 +29,7 @@ fun ReportViewerScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(DarkBackground)
+            .background(MaterialTheme.colorScheme.background)
     ) {
 
         // Header
@@ -42,7 +42,7 @@ fun ReportViewerScreen(
                 Icon(
                     Icons.AutoMirrored.Filled.ArrowBack,
                     contentDescription = null,
-                    tint = Color.White
+                    tint = MaterialTheme.colorScheme.onSurface
                 )
             }
 
@@ -50,7 +50,7 @@ fun ReportViewerScreen(
                 text = "Health Report",
                 fontSize = 21.sp,
                 fontWeight = FontWeight.Black,
-                color = Color.White,
+                color = MaterialTheme.colorScheme.onSurface,
                 modifier = Modifier.padding(start = 8.dp)
             )
 
@@ -70,7 +70,7 @@ fun ReportViewerScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color.White)
+                .background(MaterialTheme.colorScheme.onSurface)
                 .verticalScroll(rememberScrollState())
                 .padding(28.dp)
         ) {

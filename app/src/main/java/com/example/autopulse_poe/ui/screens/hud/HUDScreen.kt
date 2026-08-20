@@ -29,7 +29,7 @@ fun HUDScreen() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(AutoPulseBackground)
+            .background(MaterialTheme.colorScheme.background)
     ) {
 
         // CONNECTION STATUS
@@ -78,7 +78,7 @@ fun HUDScreen() {
                 text = speed.toString(),
                 fontSize = 150.sp,
                 fontWeight = FontWeight.Black,
-                color = AutoPulseText
+                color = MaterialTheme.colorScheme.onSurface
             )
 
             Text(
@@ -121,7 +121,7 @@ fun HUDScreen() {
 
                 Text(
                     text = "LIMIT",
-                    color = AutoPulseTextMuted,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 10.sp,
                     fontWeight = FontWeight.Bold
                 )
@@ -130,15 +130,15 @@ fun HUDScreen() {
 
                 Surface(
                     shape = CircleShape,
-                    color = Color.White.copy(alpha = 0.08f),
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.08f),
                     border = androidx.compose.foundation.BorderStroke(
                         1.dp,
-                        AutoPulseTextMuted.copy(alpha = 0.4f)
+                        MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.4f)
                     )
                 ) {
                     Text(
                         text = speedLimit.toString(),
-                        color = AutoPulseText,
+                        color = MaterialTheme.colorScheme.onSurface,
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier.padding(12.dp)
@@ -163,14 +163,14 @@ fun HUDScreen() {
             Column {
                 Text(
                     text = "TRIP",
-                    color = AutoPulseTextMuted,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 8.sp,
                     fontWeight = FontWeight.Bold
                 )
 
                 Text(
                     text = "42.8 km",
-                    color = AutoPulseText,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontSize = 13.sp,
                     fontWeight = FontWeight.Bold
                 )
@@ -182,7 +182,7 @@ fun HUDScreen() {
 
                 Text(
                     text = "ENGINE",
-                    color = AutoPulseTextMuted,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 8.sp,
                     fontWeight = FontWeight.Bold
                 )
@@ -201,14 +201,14 @@ fun HUDScreen() {
 
                 Text(
                     text = "OBD LATENCY",
-                    color = AutoPulseTextMuted,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 8.sp,
                     fontWeight = FontWeight.Bold
                 )
 
                 Text(
                     text = "42 ms",
-                    color = AutoPulseText,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontSize = 13.sp,
                     fontWeight = FontWeight.Bold
                 )
@@ -228,7 +228,7 @@ fun HUDStatItem(
 
         Text(
             text = label,
-            color = AutoPulseTextMuted,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 11.sp,
             fontWeight = FontWeight.Bold
         )
@@ -237,7 +237,7 @@ fun HUDStatItem(
 
         Text(
             text = value,
-            color = AutoPulseText,
+            color = MaterialTheme.colorScheme.onSurface,
             fontSize = 25.sp,
             fontWeight = FontWeight.Black
         )

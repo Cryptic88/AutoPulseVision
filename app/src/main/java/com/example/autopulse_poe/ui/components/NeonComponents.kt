@@ -10,6 +10,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -21,8 +22,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.autopulse_poe.ui.theme.AutoPulseCyan
 import com.example.autopulse_poe.ui.theme.AutoPulseMagenta
-import com.example.autopulse_poe.ui.theme.AutoPulsePurple
-import com.example.autopulse_poe.ui.theme.AutoPulseTextMuted
 
 // ============================================================
 // AutoPulse Card
@@ -61,29 +60,36 @@ fun NeonCard(
 fun NeonButton(
     text: String,
     icon: ImageVector,
+    gradientColors: List<Color>,
     modifier: Modifier = Modifier,
-    gradientColors: List<Color>? = null,
     onClick: () -> Unit = {}
 ) {
-    val colors = gradientColors ?: listOf(
-        MaterialTheme.colorScheme.primary,
-        MaterialTheme.colorScheme.secondary
-    )
+    val isDark = isSystemInDarkTheme()
 
-    val contentColor = MaterialTheme.colorScheme.onPrimary
+    val containerColor =
+        if (isDark) {
+            gradientColors.firstOrNull()
+                ?: MaterialTheme.colorScheme.primary
+        } else {
+            MaterialTheme.colorScheme.primaryContainer
+        }
 
-    Box(
+    val contentColor =
+        if (isDark) {
+            Color.White
+        } else {
+            MaterialTheme.colorScheme.onPrimaryContainer
+        }
+
+    Surface(
         modifier = modifier
             .height(60.dp)
-            .clip(RoundedCornerShape(16.dp))
-            .background(
-                brush = Brush.linearGradient(colors)
-            )
-            .clickable(onClick = onClick)
-            .padding(horizontal = 16.dp),
-        contentAlignment = Alignment.CenterStart
+            .clickable(onClick = onClick),
+        shape = RoundedCornerShape(16.dp),
+        color = containerColor
     ) {
         Row(
+            modifier = Modifier.padding(horizontal = 16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
@@ -104,7 +110,6 @@ fun NeonButton(
         }
     }
 }
-
 
 // ============================================================
 // Circular Score Indicator
@@ -251,7 +256,7 @@ private fun TripStatItem(
     Column {
         Text(
             text = label,
-            color = AutoPulseTextMuted,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             style = MaterialTheme.typography.labelSmall
         )
 

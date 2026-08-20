@@ -26,20 +26,20 @@ fun DashboardEditorScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(DarkBackground)
+            .background(MaterialTheme.colorScheme.background)
     ) {
         Row(
             modifier = Modifier.padding(16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             IconButton(onClick = onBack) {
-                Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null, tint = Color.White)
+                Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null, tint = MaterialTheme.colorScheme.onSurface)
             }
             Text(
                 text = "Edit Dashboard",
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Black,
-                color = Color.White,
+                color = MaterialTheme.colorScheme.onSurface,
                 modifier = Modifier.padding(start = 8.dp)
             )
             Spacer(modifier = Modifier.weight(1f))
@@ -61,11 +61,11 @@ fun DashboardEditorScreen(
             Button(
                 onClick = { },
                 modifier = Modifier.fillMaxWidth().height(56.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = DarkSurface)
+                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.surface)
             ) {
                 Icon(Icons.Default.Add, contentDescription = null, tint = NeonCyan)
                 Spacer(modifier = Modifier.width(12.dp))
-                Text("Add New Widget", color = Color.White)
+                Text("Add New Widget", color = MaterialTheme.colorScheme.onSurface)
             }
         }
     }
@@ -75,9 +75,9 @@ fun DashboardEditorScreen(
 fun WidgetEditorItem(name: String, color: Color) {
     NeonCard(borderColor = color.copy(alpha = 0.3f), modifier = Modifier.padding(bottom = 12.dp)) {
         Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
-            Icon(Icons.Default.DragIndicator, contentDescription = null, tint = Color.White.copy(alpha = 0.3f))
+            Icon(Icons.Default.DragIndicator, contentDescription = null, tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3f))
             Spacer(modifier = Modifier.width(16.dp))
-            Text(text = name, color = Color.White, modifier = Modifier.weight(1f))
+            Text(text = name, color = MaterialTheme.colorScheme.onSurface, modifier = Modifier.weight(1f))
             TextButton(onClick = { }) {
                 Text("Remove", color = NeonRed, fontSize = 12.sp)
             }

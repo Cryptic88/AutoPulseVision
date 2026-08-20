@@ -1,5 +1,6 @@
 package com.example.autopulse_poe.ui.screens.fuel
 
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -8,7 +9,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.AttachMoney
 import androidx.compose.material.icons.filled.LocalGasStation
 import androidx.compose.material.icons.filled.Speed
 import androidx.compose.material.icons.filled.TrendingUp
@@ -21,10 +21,9 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.foundation.Canvas
 import com.example.autopulse_poe.ui.components.NeonCard
 import com.example.autopulse_poe.ui.theme.*
 
@@ -42,43 +41,125 @@ fun FuelManagementScreen() {
         l * p
     }
 
+    // ============================================================
+    // ADD FUEL DIALOG
+    // ============================================================
+
     if (showFuelDialog) {
+
         AlertDialog(
             onDismissRequest = {
                 showFuelDialog = false
             },
+
+            containerColor = MaterialTheme.colorScheme.surface,
+
+            titleContentColor = MaterialTheme.colorScheme.onSurface,
+
+            textContentColor = MaterialTheme.colorScheme.onSurfaceVariant,
+
             title = {
                 Text(
                     text = "Add Fuel Purchase",
-                    fontWeight = FontWeight.Black
+                    fontWeight = FontWeight.Black,
+                    color = MaterialTheme.colorScheme.onSurface
                 )
             },
+
             text = {
+
                 Column(
                     verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
 
                     OutlinedTextField(
                         value = litres,
-                        onValueChange = { litres = it },
+                        onValueChange = {
+                            litres = it
+                        },
                         label = {
-                            Text("Litres")
+                            Text(
+                                text = "Litres"
+                            )
                         },
                         singleLine = true,
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
+
+                        colors = OutlinedTextFieldDefaults.colors(
+                            focusedTextColor =
+                                MaterialTheme.colorScheme.onSurface,
+
+                            unfocusedTextColor =
+                                MaterialTheme.colorScheme.onSurface,
+
+                            focusedLabelColor =
+                                AutoPulseCyan,
+
+                            unfocusedLabelColor =
+                                MaterialTheme.colorScheme.onSurfaceVariant,
+
+                            focusedBorderColor =
+                                AutoPulseCyan,
+
+                            unfocusedBorderColor =
+                                MaterialTheme.colorScheme.outline,
+
+                            cursorColor =
+                                AutoPulseCyan,
+
+                            focusedContainerColor =
+                                MaterialTheme.colorScheme.surfaceVariant,
+
+                            unfocusedContainerColor =
+                                MaterialTheme.colorScheme.surfaceVariant
+                        )
                     )
 
                     OutlinedTextField(
                         value = pricePerLitre,
-                        onValueChange = { pricePerLitre = it },
+                        onValueChange = {
+                            pricePerLitre = it
+                        },
                         label = {
-                            Text("Price per litre (R)")
+                            Text(
+                                text = "Price per litre (R)"
+                            )
                         },
                         singleLine = true,
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
+
+                        colors = OutlinedTextFieldDefaults.colors(
+                            focusedTextColor =
+                                MaterialTheme.colorScheme.onSurface,
+
+                            unfocusedTextColor =
+                                MaterialTheme.colorScheme.onSurface,
+
+                            focusedLabelColor =
+                                AutoPulseCyan,
+
+                            unfocusedLabelColor =
+                                MaterialTheme.colorScheme.onSurfaceVariant,
+
+                            focusedBorderColor =
+                                AutoPulseCyan,
+
+                            unfocusedBorderColor =
+                                MaterialTheme.colorScheme.outline,
+
+                            cursorColor =
+                                AutoPulseCyan,
+
+                            focusedContainerColor =
+                                MaterialTheme.colorScheme.surfaceVariant,
+
+                            unfocusedContainerColor =
+                                MaterialTheme.colorScheme.surfaceVariant
+                        )
                     )
 
                     if (totalCost > 0) {
+
                         Text(
                             text = "Estimated total: R${"%.2f".format(totalCost)}",
                             color = AutoPulseCyan,
@@ -87,38 +168,52 @@ fun FuelManagementScreen() {
                     }
                 }
             },
+
             confirmButton = {
+
                 Button(
                     onClick = {
                         showFuelDialog = false
                     },
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = AutoPulseCyan
+                        containerColor = AutoPulseCyan,
+                        contentColor = MaterialTheme.colorScheme.background
                     )
                 ) {
+
                     Text(
                         text = "SAVE",
-                        color = Color.Black,
                         fontWeight = FontWeight.Black
                     )
                 }
             },
+
             dismissButton = {
+
                 TextButton(
                     onClick = {
                         showFuelDialog = false
-                    }
+                    },
+                    colors = ButtonDefaults.textButtonColors(
+                        contentColor =
+                            MaterialTheme.colorScheme.onSurfaceVariant
+                    )
                 ) {
+
                     Text("Cancel")
                 }
             }
         )
     }
 
+    // ============================================================
+    // SCREEN
+    // ============================================================
+
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(AutoPulseBackground)
+            .background(MaterialTheme.colorScheme.background)
             .verticalScroll(rememberScrollState())
             .padding(horizontal = 20.dp)
             .padding(bottom = 32.dp)
@@ -126,29 +221,29 @@ fun FuelManagementScreen() {
 
         Spacer(modifier = Modifier.height(12.dp))
 
-        // ----------------------------------------------------
+        // ========================================================
         // HEADER
-        // ----------------------------------------------------
+        // ========================================================
 
         Text(
             text = "Fuel Management",
             fontSize = 28.sp,
             fontWeight = FontWeight.Black,
-            color = AutoPulseText
+            color = MaterialTheme.colorScheme.onSurface
         )
 
         Text(
             text = "Track consumption, fuel costs & efficiency",
-            color = AutoPulseTextSecondary,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 12.sp,
             modifier = Modifier.padding(top = 4.dp)
         )
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        // ----------------------------------------------------
+        // ========================================================
         // FUEL EFFICIENCY HERO
-        // ----------------------------------------------------
+        // ========================================================
 
         NeonCard(
             borderColor = AutoPulseSuccess.copy(alpha = 0.65f)
@@ -168,6 +263,7 @@ fun FuelManagementScreen() {
                         ),
                     contentAlignment = Alignment.Center
                 ) {
+
                     Icon(
                         imageVector = Icons.Default.WaterDrop,
                         contentDescription = null,
@@ -184,7 +280,7 @@ fun FuelManagementScreen() {
 
                     Text(
                         text = "CURRENT EFFICIENCY",
-                        color = AutoPulseTextSecondary,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                         fontSize = 10.sp,
                         fontWeight = FontWeight.Bold,
                         letterSpacing = 1.sp
@@ -205,7 +301,7 @@ fun FuelManagementScreen() {
 
                         Text(
                             text = "L/100km",
-                            color = AutoPulseTextMuted,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
                             fontSize = 13.sp,
                             modifier = Modifier.padding(bottom = 7.dp)
                         )
@@ -232,7 +328,7 @@ fun FuelManagementScreen() {
 
                     Text(
                         text = "vs last month",
-                        color = AutoPulseTextMuted,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                         fontSize = 9.sp
                     )
                 }
@@ -241,7 +337,7 @@ fun FuelManagementScreen() {
             Spacer(modifier = Modifier.height(18.dp))
 
             HorizontalDivider(
-                color = AutoPulseText.copy(alpha = 0.05f)
+                color = MaterialTheme.colorScheme.outline.copy(alpha = 0.5f)
             )
 
             Spacer(modifier = Modifier.height(14.dp))
@@ -270,9 +366,9 @@ fun FuelManagementScreen() {
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        // ----------------------------------------------------
+        // ========================================================
         // RANGE
-        // ----------------------------------------------------
+        // ========================================================
 
         NeonCard(
             borderColor = AutoPulseCyan.copy(alpha = 0.35f)
@@ -297,7 +393,7 @@ fun FuelManagementScreen() {
 
                     Text(
                         text = "ESTIMATED RANGE",
-                        color = AutoPulseTextSecondary,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                         fontSize = 10.sp,
                         fontWeight = FontWeight.Bold,
                         letterSpacing = 1.sp
@@ -305,7 +401,7 @@ fun FuelManagementScreen() {
 
                     Text(
                         text = "486 km",
-                        color = AutoPulseText,
+                        color = MaterialTheme.colorScheme.onSurface,
                         fontSize = 24.sp,
                         fontWeight = FontWeight.Black
                     )
@@ -317,7 +413,7 @@ fun FuelManagementScreen() {
 
                     Text(
                         text = "FUEL LEVEL",
-                        color = AutoPulseTextMuted,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                         fontSize = 9.sp
                     )
 
@@ -338,22 +434,25 @@ fun FuelManagementScreen() {
                     .fillMaxWidth()
                     .height(6.dp),
                 color = AutoPulseCyan,
-                trackColor = AutoPulseText.copy(alpha = 0.08f)
+                trackColor =
+                    MaterialTheme.colorScheme.onSurface.copy(
+                        alpha = 0.08f
+                    )
             )
         }
 
         Spacer(modifier = Modifier.height(28.dp))
 
-        // ----------------------------------------------------
+        // ========================================================
         // FUEL PURCHASE
-        // ----------------------------------------------------
+        // ========================================================
 
         SectionHeading("FUEL PURCHASE")
 
         Spacer(modifier = Modifier.height(12.dp))
 
         NeonCard(
-            borderColor = AutoPulseCyanDark.copy(alpha = 0.45f)
+            borderColor = AutoPulseCyan.copy(alpha = 0.45f)
         ) {
 
             Row(
@@ -364,7 +463,7 @@ fun FuelManagementScreen() {
                     modifier = Modifier
                         .size(42.dp)
                         .background(
-                            AutoPulseCyanDark.copy(alpha = 0.10f),
+                            AutoPulseCyan.copy(alpha = 0.10f),
                             CircleShape
                         ),
                     contentAlignment = Alignment.Center
@@ -373,7 +472,7 @@ fun FuelManagementScreen() {
                     Icon(
                         imageVector = Icons.Default.LocalGasStation,
                         contentDescription = null,
-                        tint = AutoPulseCyanDark
+                        tint = AutoPulseCyan
                     )
                 }
 
@@ -385,14 +484,14 @@ fun FuelManagementScreen() {
 
                     Text(
                         text = "Record a fill-up",
-                        color = AutoPulseText,
+                        color = MaterialTheme.colorScheme.onSurface,
                         fontWeight = FontWeight.Bold,
                         fontSize = 15.sp
                     )
 
                     Text(
                         text = "Track your fuel spending and efficiency",
-                        color = AutoPulseTextMuted,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                         fontSize = 11.sp
                     )
                 }
@@ -406,7 +505,7 @@ fun FuelManagementScreen() {
                     Icon(
                         imageVector = Icons.Default.Add,
                         contentDescription = "Add fuel purchase",
-                        tint = AutoPulseCyanDark
+                        tint = AutoPulseCyan
                     )
                 }
             }
@@ -414,9 +513,9 @@ fun FuelManagementScreen() {
 
         Spacer(modifier = Modifier.height(28.dp))
 
-        // ----------------------------------------------------
+        // ========================================================
         // CONSUMPTION TREND
-        // ----------------------------------------------------
+        // ========================================================
 
         SectionHeading("CONSUMPTION TREND")
 
@@ -438,13 +537,13 @@ fun FuelManagementScreen() {
 
                     Text(
                         text = "L/100km",
-                        color = AutoPulseTextMuted,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                         fontSize = 10.sp
                     )
 
                     Text(
                         text = "Last 6 fill-ups",
-                        color = AutoPulseTextMuted,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                         fontSize = 10.sp
                     )
                 }
@@ -526,9 +625,9 @@ fun FuelManagementScreen() {
 
         Spacer(modifier = Modifier.height(28.dp))
 
-        // ----------------------------------------------------
+        // ========================================================
         // FUEL STATISTICS
-        // ----------------------------------------------------
+        // ========================================================
 
         SectionHeading("FUEL STATISTICS")
 
@@ -575,16 +674,16 @@ fun FuelManagementScreen() {
                 title = "Avg Cost",
                 value = "R20.48",
                 unit = "/ litre",
-                color = AutoPulseCyanDark,
+                color = AutoPulseCyan,
                 modifier = Modifier.weight(1f)
             )
         }
 
         Spacer(modifier = Modifier.height(28.dp))
 
-        // ----------------------------------------------------
+        // ========================================================
         // RECENT FILL-UPS
-        // ----------------------------------------------------
+        // ========================================================
 
         SectionHeading("RECENT FILL-UPS")
 
@@ -615,21 +714,29 @@ fun FuelManagementScreen() {
     }
 }
 
-// ------------------------------------------------------------
-// COMPONENTS
-// ------------------------------------------------------------
+
+// ============================================================
+// SECTION HEADING
+// ============================================================
 
 @Composable
-private fun SectionHeading(text: String) {
+private fun SectionHeading(
+    text: String
+) {
 
     Text(
         text = text,
-        color = AutoPulseTextSecondary,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
         fontSize = 11.sp,
         fontWeight = FontWeight.Bold,
         letterSpacing = 1.sp
     )
 }
+
+
+// ============================================================
+// MINI STAT
+// ============================================================
 
 @Composable
 private fun FuelMiniStat(
@@ -641,28 +748,40 @@ private fun FuelMiniStat(
 
         Text(
             text = label,
-            color = AutoPulseTextMuted,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 9.sp
         )
 
         Text(
             text = value,
-            color = AutoPulseText,
+            color = MaterialTheme.colorScheme.onSurface,
             fontSize = 13.sp,
             fontWeight = FontWeight.Bold
         )
     }
 }
 
+
+// ============================================================
+// TREND LABEL
+// ============================================================
+
 @Composable
-private fun TrendLabel(text: String) {
+private fun TrendLabel(
+    text: String
+) {
 
     Text(
         text = text,
-        color = AutoPulseTextMuted,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
         fontSize = 8.sp
     )
 }
+
+
+// ============================================================
+// FUEL STAT CARD
+// ============================================================
 
 @Composable
 private fun FuelStatCard(
@@ -676,7 +795,8 @@ private fun FuelStatCard(
     Card(
         modifier = modifier,
         colors = CardDefaults.cardColors(
-            containerColor = AutoPulseSurface
+            containerColor =
+                MaterialTheme.colorScheme.surface
         ),
         border = androidx.compose.foundation.BorderStroke(
             1.dp,
@@ -691,7 +811,7 @@ private fun FuelStatCard(
 
             Text(
                 text = title,
-                color = AutoPulseTextMuted,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 10.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -707,12 +827,17 @@ private fun FuelStatCard(
 
             Text(
                 text = unit,
-                color = AutoPulseTextMuted,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 9.sp
             )
         }
     }
 }
+
+
+// ============================================================
+// FUEL LOG ITEM
+// ============================================================
 
 @Composable
 fun FuelLogItem(
@@ -723,7 +848,10 @@ fun FuelLogItem(
 ) {
 
     NeonCard(
-        borderColor = AutoPulseText.copy(alpha = 0.08f),
+        borderColor =
+            MaterialTheme.colorScheme.outline.copy(
+                alpha = 0.35f
+            ),
         modifier = Modifier.padding(bottom = 10.dp)
     ) {
 
@@ -743,7 +871,8 @@ fun FuelLogItem(
             ) {
 
                 Icon(
-                    imageVector = Icons.Default.LocalGasStation,
+                    imageVector =
+                        Icons.Default.LocalGasStation,
                     contentDescription = null,
                     tint = AutoPulseSuccess,
                     modifier = Modifier.size(20.dp)
@@ -758,14 +887,14 @@ fun FuelLogItem(
 
                 Text(
                     text = date,
-                    color = AutoPulseText,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontSize = 13.sp,
                     fontWeight = FontWeight.Bold
                 )
 
                 Text(
                     text = "$amount • $cost",
-                    color = AutoPulseTextMuted,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 11.sp
                 )
             }
@@ -783,7 +912,7 @@ fun FuelLogItem(
 
                 Text(
                     text = "efficiency",
-                    color = AutoPulseTextMuted,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 8.sp
                 )
             }

@@ -69,14 +69,14 @@ fun ReportsHubScreen(
             ) {
                 Text(
                     text = "Share Health Report",
-                    color = Color.White,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontWeight = FontWeight.Black,
                     fontSize = 20.sp
                 )
 
                 Text(
                     text = "Choose how you want to share this report.",
-                    color = Color.White.copy(alpha = 0.5f),
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
                     fontSize = 13.sp,
                     modifier = Modifier.padding(top = 4.dp, bottom = 20.dp)
                 )
@@ -111,7 +111,7 @@ fun ReportsHubScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(DarkBackground)
+            .background(MaterialTheme.colorScheme.background)
     ) {
 
         Column(
@@ -123,12 +123,12 @@ fun ReportsHubScreen(
                 text = "Health Reports",
                 fontSize = 28.sp,
                 fontWeight = FontWeight.Black,
-                color = Color.White
+                color = MaterialTheme.colorScheme.onSurface
             )
 
             Text(
                 text = "Vehicle diagnostics & service history",
-                color = Color.White.copy(alpha = 0.5f),
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
                 fontSize = 13.sp,
                 modifier = Modifier.padding(top = 4.dp)
             )
@@ -178,7 +178,7 @@ fun ReportsHubScreen(
                         ) {
                             Text(
                                 text = "Vehicle Health",
-                                color = Color.White,
+                                color = MaterialTheme.colorScheme.onSurface,
                                 fontSize = 18.sp,
                                 fontWeight = FontWeight.Bold
                             )
@@ -192,7 +192,7 @@ fun ReportsHubScreen(
 
                             Text(
                                 text = "1 issue requires attention",
-                                color = Color.White.copy(alpha = 0.5f),
+                                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
                                 fontSize = 12.sp
                             )
                         }
@@ -207,7 +207,7 @@ fun ReportsHubScreen(
                             .height(7.dp)
                             .clip(CircleShape),
                         color = NeonGreen,
-                        trackColor = Color.White.copy(alpha = 0.08f)
+                        trackColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.08f)
                     )
                 }
             }
@@ -270,7 +270,7 @@ fun ReportsHubScreen(
             item {
                 Text(
                     text = "Previous Reports",
-                    color = Color.White,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontWeight = FontWeight.Bold,
                     fontSize = 18.sp,
                     modifier = Modifier.padding(top = 8.dp)
@@ -332,14 +332,14 @@ fun ReportCard(
 
                 Text(
                     text = report.title,
-                    color = Color.White,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontWeight = FontWeight.Bold,
                     fontSize = 15.sp
                 )
 
                 Text(
                     text = report.date,
-                    color = Color.White.copy(alpha = 0.45f),
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.45f),
                     fontSize = 12.sp,
                     modifier = Modifier.padding(top = 2.dp)
                 )
@@ -367,7 +367,7 @@ fun ReportCard(
 
                 Text(
                     text = "HEALTH",
-                    color = Color.White.copy(alpha = 0.35f),
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.35f),
                     fontSize = 9.sp
                 )
             }
@@ -418,7 +418,7 @@ fun ShareOptionItem(
 
         Text(
             text = label,
-            color = Color.White,
+            color = MaterialTheme.colorScheme.onSurface,
             fontSize = 16.sp
         )
     }

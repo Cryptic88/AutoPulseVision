@@ -1,5 +1,6 @@
 package com.example.autopulse_poe.ui.theme
 
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.graphics.Color
 
 // ============================================================
@@ -36,12 +37,6 @@ val AutoPulseError = Color(0xFFEF4444)
 // ---------- Secondary Accent ----------
 
 val AutoPulsePurple = Color(0xFF7C6CFF)
-
-// ---------- Typography ----------
-
-val AutoPulseText = Color(0xFFF4F7FA)
-val AutoPulseTextSecondary = Color(0xFF94A3B8)
-val AutoPulseTextMuted = Color(0xFF64748B)
 
 // ---------- Utility ----------
 

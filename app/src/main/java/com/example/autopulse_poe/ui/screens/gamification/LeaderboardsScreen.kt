@@ -22,7 +22,9 @@ import com.example.autopulse_poe.ui.components.NeonCard
 import com.example.autopulse_poe.ui.theme.*
 
 @Composable
-fun LeaderboardsScreen(onBack: () -> Unit) {
+fun LeaderboardsScreen(
+    onBack: () -> Unit
+) {
 
     val rankingData = listOf(
         Ranking("Marco R.", 98, false),
@@ -36,45 +38,58 @@ fun LeaderboardsScreen(onBack: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(DarkBackground)
+            .background(MaterialTheme.colorScheme.background)
     ) {
 
-        // ----------------------------------------------------
+        // ====================================================
         // HEADER
-        // ----------------------------------------------------
+        // ====================================================
 
         Row(
-            modifier = Modifier.padding(16.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(
+                    start = 12.dp,
+                    end = 20.dp,
+                    top = 12.dp,
+                    bottom = 12.dp
+                ),
             verticalAlignment = Alignment.CenterVertically
         ) {
 
-            IconButton(onClick = onBack) {
+            IconButton(
+                onClick = onBack
+            ) {
 
                 Icon(
-                    Icons.AutoMirrored.Filled.ArrowBack,
+                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                     contentDescription = "Back",
-                    tint = Color.White
+                    tint = MaterialTheme.colorScheme.onSurface
                 )
             }
 
             Column(
-                modifier = Modifier.padding(start = 8.dp)
+                modifier = Modifier.padding(start = 4.dp)
             ) {
 
                 Text(
                     text = "Global Leaderboard",
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Black,
-                    color = Color.White
+                    color = MaterialTheme.colorScheme.onSurface
                 )
 
                 Text(
                     text = "Compete. Improve. Climb.",
-                    color = Color.White.copy(alpha = 0.5f),
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 10.sp
                 )
             }
         }
+
+        // ====================================================
+        // SCROLLABLE CONTENT
+        // ====================================================
 
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
@@ -86,14 +101,14 @@ fun LeaderboardsScreen(onBack: () -> Unit) {
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
 
-            // ------------------------------------------------
+            // ====================================================
             // CURRENT CHALLENGE
-            // ------------------------------------------------
+            // ====================================================
 
             item {
 
                 NeonCard(
-                    borderColor = NeonOrange.copy(alpha = 0.7f)
+                    borderColor = AutoPulseWarning.copy(alpha = 0.55f)
                 ) {
 
                     Row(
@@ -104,14 +119,16 @@ fun LeaderboardsScreen(onBack: () -> Unit) {
                             modifier = Modifier
                                 .size(46.dp)
                                 .clip(CircleShape)
-                                .background(NeonOrange.copy(alpha = 0.12f)),
+                                .background(
+                                    AutoPulseWarning.copy(alpha = 0.10f)
+                                ),
                             contentAlignment = Alignment.Center
                         ) {
 
                             Icon(
-                                Icons.Default.EmojiEvents,
+                                imageVector = Icons.Default.EmojiEvents,
                                 contentDescription = null,
-                                tint = NeonOrange,
+                                tint = AutoPulseWarning,
                                 modifier = Modifier.size(25.dp)
                             )
                         }
@@ -124,14 +141,14 @@ fun LeaderboardsScreen(onBack: () -> Unit) {
 
                             Text(
                                 text = "WEEKLY EFFICIENCY CHALLENGE",
-                                color = Color.White,
+                                color = MaterialTheme.colorScheme.onSurface,
                                 fontWeight = FontWeight.Black,
                                 fontSize = 12.sp
                             )
 
                             Text(
                                 text = "Ends in 2 days",
-                                color = NeonOrange,
+                                color = AutoPulseWarning,
                                 fontSize = 10.sp,
                                 fontWeight = FontWeight.Bold,
                                 modifier = Modifier.padding(top = 3.dp)
@@ -144,14 +161,14 @@ fun LeaderboardsScreen(onBack: () -> Unit) {
 
                             Text(
                                 text = "+500",
-                                color = NeonOrange,
+                                color = AutoPulseWarning,
                                 fontWeight = FontWeight.Black,
                                 fontSize = 16.sp
                             )
 
                             Text(
                                 text = "XP",
-                                color = NeonOrange.copy(alpha = 0.6f),
+                                color = AutoPulseWarning.copy(alpha = 0.60f),
                                 fontSize = 8.sp
                             )
                         }
@@ -159,9 +176,9 @@ fun LeaderboardsScreen(onBack: () -> Unit) {
                 }
             }
 
-            // ------------------------------------------------
-            // PODIUM
-            // ------------------------------------------------
+            // ====================================================
+            // TOP DRIVERS
+            // ====================================================
 
             item {
 
@@ -169,7 +186,7 @@ fun LeaderboardsScreen(onBack: () -> Unit) {
 
                 Text(
                     text = "TOP DRIVERS",
-                    color = NeonCyan,
+                    color = AutoPulseWarning,
                     fontSize = 11.sp,
                     fontWeight = FontWeight.Bold,
                     letterSpacing = 1.sp
@@ -183,37 +200,53 @@ fun LeaderboardsScreen(onBack: () -> Unit) {
                     verticalAlignment = Alignment.Bottom
                 ) {
 
+                    // ------------------------------------------------
+                    // 2ND PLACE
+                    // ------------------------------------------------
+
                     PodiumDriver(
                         name = rankingData[1].name,
                         score = rankingData[1].score,
                         rank = 2,
                         color = Color.LightGray,
-                        modifier = Modifier.weight(1f)
+                        modifier = Modifier
+                            .weight(1f)
+                            .height(135.dp)
                     )
+
+                    // ------------------------------------------------
+                    // 1ST PLACE
+                    // ------------------------------------------------
 
                     PodiumDriver(
                         name = rankingData[0].name,
                         score = rankingData[0].score,
                         rank = 1,
-                        color = NeonOrange,
+                        color = AutoPulseWarning,
                         modifier = Modifier
                             .weight(1f)
-                            .height(145.dp)
+                            .height(175.dp)
                     )
+
+                    // ------------------------------------------------
+                    // 3RD PLACE
+                    // ------------------------------------------------
 
                     PodiumDriver(
                         name = rankingData[2].name,
                         score = rankingData[2].score,
                         rank = 3,
                         color = Color(0xFFCD7F32),
-                        modifier = Modifier.weight(1f)
+                        modifier = Modifier
+                            .weight(1f)
+                            .height(135.dp)
                     )
                 }
             }
 
-            // ------------------------------------------------
+            // ====================================================
             // RANKINGS
-            // ------------------------------------------------
+            // ====================================================
 
             item {
 
@@ -221,13 +254,15 @@ fun LeaderboardsScreen(onBack: () -> Unit) {
 
                 Text(
                     text = "SAFETY RANKINGS",
-                    color = NeonCyan,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontWeight = FontWeight.Bold,
                     fontSize = 16.sp
                 )
             }
 
-            itemsIndexed(rankingData.drop(3)) { index, ranking ->
+            itemsIndexed(
+                rankingData.drop(3)
+            ) { index, ranking ->
 
                 RankingItem(
                     rank = index + 4,
@@ -235,28 +270,39 @@ fun LeaderboardsScreen(onBack: () -> Unit) {
                 )
             }
 
-            // ------------------------------------------------
+            // ====================================================
             // CURRENT USER
-            // ------------------------------------------------
+            // ====================================================
 
             item {
 
                 Spacer(modifier = Modifier.height(8.dp))
 
                 NeonCard(
-                    borderColor = NeonCyan.copy(alpha = 0.7f)
+                    borderColor = AutoPulseCyan.copy(alpha = 0.60f)
                 ) {
 
                     Row(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
 
-                        Icon(
-                            Icons.Default.Person,
-                            contentDescription = null,
-                            tint = NeonCyan,
-                            modifier = Modifier.size(22.dp)
-                        )
+                        Box(
+                            modifier = Modifier
+                                .size(38.dp)
+                                .clip(CircleShape)
+                                .background(
+                                    AutoPulseCyan.copy(alpha = 0.10f)
+                                ),
+                            contentAlignment = Alignment.Center
+                        ) {
+
+                            Icon(
+                                imageVector = Icons.Default.Person,
+                                contentDescription = null,
+                                tint = AutoPulseCyan,
+                                modifier = Modifier.size(21.dp)
+                            )
+                        }
 
                         Spacer(modifier = Modifier.width(12.dp))
 
@@ -266,25 +312,37 @@ fun LeaderboardsScreen(onBack: () -> Unit) {
 
                             Text(
                                 text = "YOUR POSITION",
-                                color = NeonCyan,
+                                color = AutoPulseCyan,
                                 fontSize = 9.sp,
                                 fontWeight = FontWeight.Black
                             )
 
                             Text(
                                 text = "#3 • Alex Smith",
-                                color = Color.White,
+                                color = MaterialTheme.colorScheme.onSurface,
                                 fontWeight = FontWeight.Bold,
                                 fontSize = 14.sp
                             )
                         }
 
-                        Text(
-                            text = "92 ★",
-                            color = NeonCyan,
-                            fontWeight = FontWeight.Black,
-                            fontSize = 16.sp
-                        )
+                        Column(
+                            horizontalAlignment = Alignment.End
+                        ) {
+
+                            Text(
+                                text = "92",
+                                color = AutoPulseCyan,
+                                fontWeight = FontWeight.Black,
+                                fontSize = 17.sp
+                            )
+
+                            Text(
+                                text = "SCORE",
+                                color = AutoPulseCyan.copy(alpha = 0.55f),
+                                fontSize = 7.sp,
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
                     }
                 }
             }
@@ -292,11 +350,21 @@ fun LeaderboardsScreen(onBack: () -> Unit) {
     }
 }
 
+
+// ============================================================
+// DATA
+// ============================================================
+
 data class Ranking(
     val name: String,
     val score: Int,
     val isUser: Boolean
 )
+
+
+// ============================================================
+// PODIUM DRIVER
+// ============================================================
 
 @Composable
 fun PodiumDriver(
@@ -308,8 +376,10 @@ fun PodiumDriver(
 ) {
 
     NeonCard(
-        borderColor = color.copy(alpha = 0.5f),
-        modifier = modifier.heightIn(min = 125.dp)
+        borderColor = color.copy(
+            alpha = if (rank == 1) 0.70f else 0.45f
+        ),
+        modifier = modifier
     ) {
 
         Column(
@@ -317,42 +387,109 @@ fun PodiumDriver(
             modifier = Modifier.fillMaxWidth()
         ) {
 
+            // ====================================================
+            // RANK CIRCLE
+            // ====================================================
+
             Box(
                 modifier = Modifier
-                    .size(42.dp)
+                    .size(
+                        if (rank == 1) 52.dp else 42.dp
+                    )
                     .clip(CircleShape)
-                    .background(color.copy(alpha = 0.15f)),
+                    .background(
+                        color.copy(
+                            alpha = if (rank == 1) 0.16f else 0.12f
+                        )
+                    ),
                 contentAlignment = Alignment.Center
             ) {
 
-                Text(
-                    text = "#$rank",
-                    color = color,
-                    fontWeight = FontWeight.Black,
-                    fontSize = 14.sp
-                )
+                if (rank == 1) {
+
+                    Icon(
+                        imageVector = Icons.Default.EmojiEvents,
+                        contentDescription = null,
+                        tint = color,
+                        modifier = Modifier.size(27.dp)
+                    )
+
+                } else {
+
+                    Text(
+                        text = "#$rank",
+                        color = color,
+                        fontWeight = FontWeight.Black,
+                        fontSize = 14.sp
+                    )
+                }
             }
 
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(
+                modifier = Modifier.height(
+                    if (rank == 1) 10.dp else 8.dp
+                )
+            )
+
+            // ====================================================
+            // NAME
+            // ====================================================
 
             Text(
                 text = name,
-                color = Color.White,
-                fontSize = 12.sp,
+                color = MaterialTheme.colorScheme.onSurface,
+                fontSize = if (rank == 1) 14.sp else 12.sp,
+                fontWeight = if (rank == 1) {
+                    FontWeight.Black
+                } else {
+                    FontWeight.Bold
+                }
+            )
+
+            Spacer(modifier = Modifier.height(5.dp))
+
+            // ====================================================
+            // SCORE
+            // ====================================================
+
+            Text(
+                text = "$score",
+                color = color,
+                fontSize = if (rank == 1) 21.sp else 16.sp,
+                fontWeight = FontWeight.Black
+            )
+
+            Text(
+                text = "SCORE",
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                fontSize = 7.sp,
                 fontWeight = FontWeight.Bold
             )
 
-            Spacer(modifier = Modifier.height(4.dp))
+            // ====================================================
+            // WINNER LABEL
+            // ====================================================
 
-            Text(
-                text = "$score ★",
-                color = color,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Black
-            )
+            if (rank == 1) {
+
+                Spacer(modifier = Modifier.height(6.dp))
+
+                Text(
+                    text = "CHAMPION",
+                    color = AutoPulseWarning,
+                    fontSize = 7.sp,
+                    fontWeight = FontWeight.Black,
+                    letterSpacing = 0.8.sp
+                )
+            }
         }
     }
 }
+
+
+// ============================================================
+// RANKING ITEM
+// ============================================================
 
 @Composable
 fun RankingItem(
@@ -364,9 +501,11 @@ fun RankingItem(
 
     Surface(
         color = if (isUser) {
-            NeonCyan.copy(alpha = 0.08f)
+            AutoPulseCyan.copy(alpha = 0.08f)
         } else {
-            Color.White.copy(alpha = 0.035f)
+            MaterialTheme.colorScheme.surfaceVariant.copy(
+                alpha = 0.35f
+            )
         },
         shape = RoundedCornerShape(12.dp),
         modifier = Modifier.fillMaxWidth()
@@ -381,7 +520,12 @@ fun RankingItem(
                 text = "#$rank",
                 fontSize = 15.sp,
                 fontWeight = FontWeight.Black,
-                color = if (rank <= 3) NeonOrange else Color.White.copy(alpha = 0.4f),
+                color = when {
+                    rank == 1 -> AutoPulseWarning
+                    rank == 2 -> Color.LightGray
+                    rank == 3 -> Color(0xFFCD7F32)
+                    else -> MaterialTheme.colorScheme.onSurfaceVariant
+                },
                 modifier = Modifier.width(40.dp)
             )
 
@@ -390,18 +534,25 @@ fun RankingItem(
                     .size(34.dp)
                     .clip(CircleShape)
                     .background(
-                        if (isUser)
-                            NeonCyan.copy(alpha = 0.15f)
-                        else
-                            Color.White.copy(alpha = 0.08f)
+                        if (isUser) {
+                            AutoPulseCyan.copy(alpha = 0.12f)
+                        } else {
+                            MaterialTheme.colorScheme.onSurface.copy(
+                                alpha = 0.06f
+                            )
+                        }
                     ),
                 contentAlignment = Alignment.Center
             ) {
 
                 Icon(
-                    Icons.Default.Person,
+                    imageVector = Icons.Default.Person,
                     contentDescription = null,
-                    tint = if (isUser) NeonCyan else Color.White.copy(alpha = 0.4f),
+                    tint = if (isUser) {
+                        AutoPulseCyan
+                    } else {
+                        MaterialTheme.colorScheme.onSurfaceVariant
+                    },
                     modifier = Modifier.size(19.dp)
                 )
             }
@@ -410,24 +561,32 @@ fun RankingItem(
 
             Text(
                 text = ranking.name,
-                color = if (isUser) NeonCyan else Color.White,
-                fontWeight = if (isUser) FontWeight.Bold else FontWeight.Normal,
+                color = if (isUser) {
+                    AutoPulseCyan
+                } else {
+                    MaterialTheme.colorScheme.onSurface
+                },
+                fontWeight = if (isUser) {
+                    FontWeight.Bold
+                } else {
+                    FontWeight.Normal
+                },
                 modifier = Modifier.weight(1f)
             )
 
             Text(
                 text = "${ranking.score}",
-                color = Color.White,
+                color = MaterialTheme.colorScheme.onSurface,
                 fontWeight = FontWeight.Black
             )
 
-            Spacer(modifier = Modifier.width(4.dp))
+            Spacer(modifier = Modifier.width(5.dp))
 
-            Icon(
-                Icons.Default.Star,
-                contentDescription = null,
-                tint = NeonCyan,
-                modifier = Modifier.size(14.dp)
+            Text(
+                text = "PTS",
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                fontSize = 7.sp,
+                fontWeight = FontWeight.Bold
             )
         }
     }

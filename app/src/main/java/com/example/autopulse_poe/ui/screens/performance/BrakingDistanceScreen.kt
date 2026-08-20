@@ -51,7 +51,7 @@ fun BrakingDistanceScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(AutoPulseBackground)
+            .background(MaterialTheme.colorScheme.background)
     ) {
 
         // ----------------------------------------------------
@@ -73,7 +73,7 @@ fun BrakingDistanceScreen(
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                     contentDescription = "Back",
-                    tint = AutoPulseText
+                    tint = MaterialTheme.colorScheme.onSurface
                 )
             }
 
@@ -83,14 +83,14 @@ fun BrakingDistanceScreen(
 
                 Text(
                     text = "BRAKING DISTANCE",
-                    color = AutoPulseText,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold
                 )
 
                 Text(
                     text = "Deceleration testing",
-                    color = AutoPulseTextSecondary,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 12.sp
                 )
             }
@@ -131,7 +131,7 @@ fun BrakingDistanceScreen(
 
                         Text(
                             text = "TEST STATUS",
-                            color = AutoPulseTextMuted,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
                             fontSize = 11.sp,
                             fontWeight = FontWeight.Bold
                         )
@@ -184,7 +184,7 @@ fun BrakingDistanceScreen(
 
                     Text(
                         text = "BRAKING DISTANCE",
-                        color = AutoPulseTextMuted,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                         fontSize = 11.sp,
                         fontWeight = FontWeight.Bold,
                         letterSpacing = 1.5.sp
@@ -198,7 +198,7 @@ fun BrakingDistanceScreen(
 
                         Text(
                             text = "38.5",
-                            color = AutoPulseText,
+                            color = MaterialTheme.colorScheme.onSurface,
                             fontSize = 72.sp,
                             fontWeight = FontWeight.Black,
                             letterSpacing = (-2).sp
@@ -234,7 +234,7 @@ fun BrakingDistanceScreen(
 
                 Text(
                     text = "DECELERATION",
-                    color = AutoPulseTextMuted,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 10.sp,
                     fontWeight = FontWeight.Bold
                 )
@@ -253,7 +253,7 @@ fun BrakingDistanceScreen(
                         .fillMaxWidth()
                         .height(5.dp),
                     color = statusColor,
-                    trackColor = AutoPulseSurfaceVariant
+                    trackColor = MaterialTheme.colorScheme.surfaceVariant
                 )
 
                 Spacer(modifier = Modifier.height(8.dp))
@@ -265,13 +265,13 @@ fun BrakingDistanceScreen(
 
                     Text(
                         text = "0 G",
-                        color = AutoPulseTextMuted,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                         fontSize = 10.sp
                     )
 
                     Text(
                         text = "1.12 G PEAK",
-                        color = AutoPulseTextMuted,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                         fontSize = 10.sp,
                         fontWeight = FontWeight.Bold
                     )
@@ -299,7 +299,7 @@ fun BrakingDistanceScreen(
                         AutoPulseCyan
                     },
                     contentColor = if (isMonitoring) {
-                        Color.White
+                        MaterialTheme.colorScheme.onSurface
                     } else {
                         Color.Black
                     }
@@ -321,7 +321,7 @@ fun BrakingDistanceScreen(
 
             Text(
                 text = "PERFORMANCE RESULTS",
-                color = AutoPulseTextSecondary,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -378,7 +378,7 @@ fun BrakingDistanceScreen(
 
             Text(
                 text = "TEST CONDITIONS",
-                color = AutoPulseTextSecondary,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -442,7 +442,7 @@ private fun BrakingResultCard(
 
         Text(
             text = label,
-            color = AutoPulseTextMuted,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 10.sp,
             fontWeight = FontWeight.Bold
         )
@@ -479,13 +479,13 @@ private fun BrakingConditionRow(
 
         Text(
             text = label,
-            color = AutoPulseTextSecondary,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 13.sp
         )
 
         Text(
             text = value,
-            color = AutoPulseText,
+            color = MaterialTheme.colorScheme.onSurface,
             fontSize = 13.sp,
             fontWeight = FontWeight.Bold
         )

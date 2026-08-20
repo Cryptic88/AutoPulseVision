@@ -5,6 +5,7 @@ import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -88,7 +89,7 @@ fun DiagnosticsMainScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(AutoPulseBackground)
+            .background(MaterialTheme.colorScheme.background)
             .verticalScroll(rememberScrollState())
             .padding(horizontal = 20.dp)
             .padding(bottom = 32.dp)
@@ -102,14 +103,14 @@ fun DiagnosticsMainScreen(
 
         Text(
             text = "Diagnostics",
-            color = AutoPulseText,
+            color = MaterialTheme.colorScheme.onSurface,
             fontSize = 28.sp,
             fontWeight = FontWeight.Black
         )
 
         Text(
             text = "Vehicle health & fault analysis",
-            color = AutoPulseTextSecondary,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 12.sp,
             modifier = Modifier.padding(top = 4.dp)
         )
@@ -161,7 +162,7 @@ fun DiagnosticsMainScreen(
 
                     Text(
                         text = "OBDLink MX+",
-                        color = AutoPulseText,
+                        color = MaterialTheme.colorScheme.onSurface,
                         fontSize = 15.sp,
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier.padding(top = 3.dp)
@@ -169,7 +170,7 @@ fun DiagnosticsMainScreen(
 
                     Text(
                         text = "Latency 42ms • Stable connection",
-                        color = AutoPulseTextMuted,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                         fontSize = 10.sp,
                         modifier = Modifier.padding(top = 2.dp)
                     )
@@ -192,7 +193,7 @@ fun DiagnosticsMainScreen(
 
         Text(
             text = "FAULT SUMMARY",
-            color = AutoPulseTextSecondary,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 11.sp,
             fontWeight = FontWeight.Bold,
             letterSpacing = 1.sp
@@ -222,7 +223,7 @@ fun DiagnosticsMainScreen(
             FaultSummaryItem(
                 label = "Permanent",
                 count = "0",
-                color = AutoPulseTextMuted,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.weight(1f)
             )
         }
@@ -235,7 +236,7 @@ fun DiagnosticsMainScreen(
 
         Text(
             text = "DIAGNOSTIC ACTIONS",
-            color = AutoPulseTextSecondary,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 11.sp,
             fontWeight = FontWeight.Bold,
             letterSpacing = 1.sp
@@ -243,9 +244,9 @@ fun DiagnosticsMainScreen(
 
         Spacer(modifier = Modifier.height(12.dp))
 
-        /*
-         * FULL ECU SCAN
-         */
+        // ---------------------------------------------------------
+        // FULL ECU SCAN
+        // ---------------------------------------------------------
 
         ScanButton(
             isScanning = isScanning,
@@ -259,9 +260,9 @@ fun DiagnosticsMainScreen(
 
         Spacer(modifier = Modifier.height(12.dp))
 
-        /*
-         * CLEAR CODES
-         */
+        // ---------------------------------------------------------
+        // CLEAR CODES
+        // ---------------------------------------------------------
 
         Button(
             onClick = {
@@ -274,12 +275,15 @@ fun DiagnosticsMainScreen(
                 .fillMaxWidth()
                 .height(54.dp),
             colors = ButtonDefaults.buttonColors(
-                containerColor = AutoPulseSurface,
+                containerColor = MaterialTheme.colorScheme.surface,
                 contentColor = AutoPulseError,
-                disabledContainerColor = AutoPulseSurface.copy(alpha = 0.4f)
+                disabledContainerColor = MaterialTheme.colorScheme.surface.copy(
+                    alpha = 0.4f
+                ),
+                disabledContentColor = AutoPulseError.copy(alpha = 0.4f)
             ),
             shape = MaterialTheme.shapes.medium,
-            border = androidx.compose.foundation.BorderStroke(
+            border = BorderStroke(
                 width = 1.dp,
                 color = AutoPulseError.copy(alpha = 0.35f)
             )
@@ -306,7 +310,7 @@ fun DiagnosticsMainScreen(
 
         Text(
             text = "TECHNICAL DATA",
-            color = AutoPulseTextSecondary,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 11.sp,
             fontWeight = FontWeight.Bold,
             letterSpacing = 1.sp
@@ -314,9 +318,9 @@ fun DiagnosticsMainScreen(
 
         Spacer(modifier = Modifier.height(12.dp))
 
-        /*
-         * Freeze Frame
-         */
+        // ---------------------------------------------------------
+        // FREEZE FRAME
+        // ---------------------------------------------------------
 
         DiagnosticMenuCard(
             title = "Freeze Frame",
@@ -328,9 +332,9 @@ fun DiagnosticsMainScreen(
 
         Spacer(modifier = Modifier.height(10.dp))
 
-        /*
-         * Advanced Tests
-         */
+        // ---------------------------------------------------------
+        // ADVANCED TESTS
+        // ---------------------------------------------------------
 
         DiagnosticMenuCard(
             title = "Advanced Tests",
@@ -342,9 +346,9 @@ fun DiagnosticsMainScreen(
 
         Spacer(modifier = Modifier.height(10.dp))
 
-        /*
-         * Vehicle Information
-         */
+        // ---------------------------------------------------------
+        // VEHICLE INFORMATION
+        // ---------------------------------------------------------
 
         DiagnosticMenuCard(
             title = "Vehicle Information",
@@ -356,9 +360,9 @@ fun DiagnosticsMainScreen(
 
         Spacer(modifier = Modifier.height(10.dp))
 
-        /*
-         * History
-         */
+        // ---------------------------------------------------------
+        // HISTORY
+        // ---------------------------------------------------------
 
         DiagnosticMenuCard(
             title = "Diagnostic History",
@@ -414,18 +418,15 @@ private fun ScanButton(
             contentColor = if (isScanning) {
                 AutoPulseCyan
             } else {
-                AutoPulseBackground
+                MaterialTheme.colorScheme.onPrimary
             },
-            disabledContainerColor = if (isScanning) {
-                AutoPulseCyan.copy(alpha = 0.12f)
-            } else {
-                AutoPulseCyan
-            }
+            disabledContainerColor = AutoPulseCyan.copy(alpha = 0.12f),
+            disabledContentColor = AutoPulseCyan.copy(alpha = 0.5f)
         ),
         border = if (isScanning) {
-            androidx.compose.foundation.BorderStroke(
-                1.dp,
-                AutoPulseCyan.copy(alpha = pulseAlpha)
+            BorderStroke(
+                width = 1.dp,
+                color = AutoPulseCyan.copy(alpha = pulseAlpha)
             )
         } else {
             null
@@ -481,7 +482,7 @@ private fun ScanButton(
 
                 Text(
                     text = "${(progress * 100).toInt()}% • Communicating with ECU",
-                    color = AutoPulseTextMuted,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 9.sp
                 )
             }
@@ -509,9 +510,9 @@ private fun DiagnosticMenuCard(
             .fillMaxWidth()
             .height(76.dp),
         colors = CardDefaults.cardColors(
-            containerColor = AutoPulseSurface
+            containerColor = MaterialTheme.colorScheme.surface
         ),
-        border = androidx.compose.foundation.BorderStroke(
+        border = BorderStroke(
             1.dp,
             color.copy(alpha = 0.25f)
         ),
@@ -549,7 +550,7 @@ private fun DiagnosticMenuCard(
 
                 Text(
                     text = title,
-                    color = AutoPulseText,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontSize = 13.sp,
                     fontWeight = FontWeight.Bold
                 )
@@ -558,7 +559,7 @@ private fun DiagnosticMenuCard(
 
                 Text(
                     text = description,
-                    color = AutoPulseTextMuted,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 10.sp,
                     maxLines = 2
                 )
@@ -567,7 +568,7 @@ private fun DiagnosticMenuCard(
             Icon(
                 imageVector = Icons.Default.ChevronRight,
                 contentDescription = null,
-                tint = AutoPulseTextMuted,
+                tint = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.size(20.dp)
             )
         }
@@ -599,7 +600,7 @@ fun FaultSummaryItem(
 
             Text(
                 text = label,
-                color = AutoPulseTextMuted,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 9.sp,
                 fontWeight = FontWeight.Bold
             )

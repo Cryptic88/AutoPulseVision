@@ -11,6 +11,10 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
+// ============================================================
+// DARK THEME
+// ============================================================
+
 private val AutoPulseDarkColorScheme = darkColorScheme(
 
     primary = AutoPulseCyan,
@@ -29,13 +33,13 @@ private val AutoPulseDarkColorScheme = darkColorScheme(
     onTertiary = Color.Black,
 
     background = AutoPulseBackground,
-    onBackground = AutoPulseText,
+    onBackground = Color(0xFFF4F7FA),
 
     surface = AutoPulseSurface,
-    onSurface = AutoPulseText,
+    onSurface = Color(0xFFF4F7FA),
 
     surfaceVariant = AutoPulseSurfaceVariant,
-    onSurfaceVariant = AutoPulseTextSecondary,
+    onSurfaceVariant = Color(0xFF94A3B8),
 
     outline = AutoPulseBorder,
     outlineVariant = AutoPulseBorderStrong,
@@ -44,6 +48,10 @@ private val AutoPulseDarkColorScheme = darkColorScheme(
     onError = Color.White
 )
 
+
+// ============================================================
+// LIGHT THEME
+// ============================================================
 
 private val AutoPulseLightColorScheme = lightColorScheme(
 
@@ -78,12 +86,18 @@ private val AutoPulseLightColorScheme = lightColorScheme(
     onError = Color.White
 )
 
+
+// ============================================================
+// AUTOPULSE THEME
+// ============================================================
+
 @Composable
 fun AutoPulsePOETheme(
     darkTheme: Boolean = true,
     dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
+
     val colorScheme = if (darkTheme) {
         AutoPulseDarkColorScheme
     } else {
@@ -93,7 +107,9 @@ fun AutoPulsePOETheme(
     val view = LocalView.current
 
     if (!view.isInEditMode) {
+
         SideEffect {
+
             val window = (view.context as Activity).window
 
             window.statusBarColor =

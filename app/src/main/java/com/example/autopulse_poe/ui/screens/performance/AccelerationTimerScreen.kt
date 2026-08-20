@@ -28,7 +28,7 @@ fun AccelerationTimerScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(AutoPulseBackground)
+            .background(MaterialTheme.colorScheme.background)
     ) {
 
         // ====================================================
@@ -49,7 +49,7 @@ fun AccelerationTimerScreen(
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                     contentDescription = "Back",
-                    tint = AutoPulseText
+                    tint = MaterialTheme.colorScheme.onSurface
                 )
             }
 
@@ -59,14 +59,14 @@ fun AccelerationTimerScreen(
 
                 Text(
                     text = "ACCELERATION TIMER",
-                    color = AutoPulseText,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold
                 )
 
                 Text(
                     text = "Performance testing",
-                    color = AutoPulseTextSecondary,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 12.sp
                 )
             }
@@ -109,7 +109,7 @@ fun AccelerationTimerScreen(
 
                         Text(
                             text = "TEST STATUS",
-                            color = AutoPulseTextMuted,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
                             fontSize = 11.sp,
                             fontWeight = FontWeight.Bold
                         )
@@ -174,7 +174,7 @@ fun AccelerationTimerScreen(
 
                     Text(
                         text = "06.42",
-                        color = AutoPulseText,
+                        color = MaterialTheme.colorScheme.onSurface,
                         fontSize = 72.sp,
                         fontWeight = FontWeight.Black,
                         letterSpacing = (-2).sp
@@ -182,7 +182,7 @@ fun AccelerationTimerScreen(
 
                     Text(
                         text = "SECONDS",
-                        color = AutoPulseTextSecondary,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                         fontSize = 12.sp,
                         fontWeight = FontWeight.Bold,
                         letterSpacing = 2.sp
@@ -211,7 +211,7 @@ fun AccelerationTimerScreen(
                     } else {
                         AutoPulseCyan
                     },
-                    trackColor = AutoPulseSurfaceVariant
+                    trackColor = MaterialTheme.colorScheme.surfaceVariant
                 )
             }
 
@@ -236,7 +236,7 @@ fun AccelerationTimerScreen(
                         AutoPulseCyan
                     },
                     contentColor = if (isRacing) {
-                        Color.White
+                        MaterialTheme.colorScheme.onSurface
                     } else {
                         Color.Black
                     }
@@ -262,7 +262,7 @@ fun AccelerationTimerScreen(
 
             Text(
                 text = "PERFORMANCE SPLITS",
-                color = AutoPulseTextSecondary,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -310,7 +310,7 @@ fun AccelerationTimerScreen(
 
                         Text(
                             text = "1/4 MILE",
-                            color = AutoPulseTextMuted,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
                             fontSize = 11.sp,
                             fontWeight = FontWeight.Bold
                         )
@@ -331,7 +331,7 @@ fun AccelerationTimerScreen(
 
                         Text(
                             text = "TRAP SPEED",
-                            color = AutoPulseTextMuted,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
                             fontSize = 10.sp,
                             fontWeight = FontWeight.Bold
                         )
@@ -340,7 +340,7 @@ fun AccelerationTimerScreen(
 
                         Text(
                             text = "158 km/h",
-                            color = AutoPulseText,
+                            color = MaterialTheme.colorScheme.onSurface,
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Bold
                         )
@@ -356,7 +356,7 @@ fun AccelerationTimerScreen(
 
             Text(
                 text = "TEST CONDITIONS",
-                color = AutoPulseTextSecondary,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -410,7 +410,7 @@ private fun AccelerationSplitCard(
 
         Text(
             text = label,
-            color = AutoPulseTextMuted,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 10.sp,
             fontWeight = FontWeight.Bold
         )
@@ -446,13 +446,13 @@ private fun AccelerationConditionRow(
 
         Text(
             text = label,
-            color = AutoPulseTextSecondary,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 13.sp
         )
 
         Text(
             text = value,
-            color = AutoPulseText,
+            color = MaterialTheme.colorScheme.onSurface,
             fontSize = 13.sp,
             fontWeight = FontWeight.Bold
         )

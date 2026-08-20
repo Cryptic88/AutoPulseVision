@@ -31,7 +31,7 @@ fun MaintenanceScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(AutoPulseBackground)
+            .background(MaterialTheme.colorScheme.background)
             .verticalScroll(rememberScrollState())
     ) {
 
@@ -57,7 +57,7 @@ fun MaintenanceScreen(
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                     contentDescription = "Back",
-                    tint = AutoPulseText
+                    tint = MaterialTheme.colorScheme.onSurface
                 )
             }
 
@@ -68,13 +68,13 @@ fun MaintenanceScreen(
                     text = "Maintenance",
                     fontSize = 26.sp,
                     fontWeight = FontWeight.Black,
-                    color = AutoPulseText
+                    color = MaterialTheme.colorScheme.onSurface
                 )
 
                 Text(
                     text = "Keep your vehicle running reliably",
                     fontSize = 11.sp,
-                    color = AutoPulseTextMuted
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
         }
@@ -106,6 +106,7 @@ fun MaintenanceScreen(
                             ),
                         contentAlignment = Alignment.Center
                     ) {
+
                         Icon(
                             imageVector = Icons.Default.Build,
                             contentDescription = null,
@@ -130,7 +131,7 @@ fun MaintenanceScreen(
 
                         Text(
                             text = "2 services upcoming",
-                            color = AutoPulseText,
+                            color = MaterialTheme.colorScheme.onSurface,
                             fontSize = 15.sp,
                             fontWeight = FontWeight.Bold,
                             modifier = Modifier.padding(top = 3.dp)
@@ -219,13 +220,13 @@ fun MaintenanceScreen(
 
             SectionTitle(
                 title = "SERVICE TRACKING",
-                color = AutoPulseTextSecondary
+                color = MaterialTheme.colorScheme.onSurfaceVariant
             )
 
             Spacer(modifier = Modifier.height(12.dp))
 
             NeonCard(
-                borderColor = AutoPulseTextMuted.copy(alpha = 0.20f)
+                borderColor = MaterialTheme.colorScheme.outline.copy(alpha = 0.35f)
             ) {
 
                 Row(
@@ -247,14 +248,14 @@ fun MaintenanceScreen(
 
                         Text(
                             text = "Track completed services",
-                            color = AutoPulseText,
+                            color = MaterialTheme.colorScheme.onSurface,
                             fontSize = 14.sp,
                             fontWeight = FontWeight.Bold
                         )
 
                         Text(
                             text = "Keep a digital record of your vehicle maintenance.",
-                            color = AutoPulseTextMuted,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
                             fontSize = 11.sp,
                             modifier = Modifier.padding(top = 3.dp)
                         )
@@ -266,10 +267,13 @@ fun MaintenanceScreen(
                             showCompleted = it
                         },
                         colors = SwitchDefaults.colors(
-                            checkedThumbColor = AutoPulseCyan,
-                            checkedTrackColor = AutoPulseCyan.copy(alpha = 0.35f),
-                            uncheckedThumbColor = AutoPulseTextMuted,
-                            uncheckedTrackColor = AutoPulseSurfaceElevated
+                            checkedThumbColor = MaterialTheme.colorScheme.onPrimary,
+                            checkedTrackColor = AutoPulseCyan.copy(alpha = 0.45f),
+                            uncheckedThumbColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                            uncheckedTrackColor =
+                                MaterialTheme.colorScheme.surfaceVariant,
+                            uncheckedBorderColor =
+                                MaterialTheme.colorScheme.outline
                         )
                     )
                 }
@@ -283,13 +287,13 @@ fun MaintenanceScreen(
 
             SectionTitle(
                 title = "SERVICE HISTORY",
-                color = AutoPulseTextSecondary
+                color = MaterialTheme.colorScheme.onSurfaceVariant
             )
 
             Spacer(modifier = Modifier.height(12.dp))
 
             NeonCard(
-                borderColor = AutoPulseTextMuted.copy(alpha = 0.15f)
+                borderColor = MaterialTheme.colorScheme.outline.copy(alpha = 0.25f)
             ) {
 
                 HistoryItem(
@@ -301,7 +305,7 @@ fun MaintenanceScreen(
 
                 HorizontalDivider(
                     modifier = Modifier.padding(vertical = 14.dp),
-                    color = AutoPulseText.copy(alpha = 0.06f)
+                    color = MaterialTheme.colorScheme.outline.copy(alpha = 0.35f)
                 )
 
                 HistoryItem(
@@ -315,7 +319,7 @@ fun MaintenanceScreen(
 
                     HorizontalDivider(
                         modifier = Modifier.padding(vertical = 14.dp),
-                        color = AutoPulseText.copy(alpha = 0.06f)
+                        color = MaterialTheme.colorScheme.outline.copy(alpha = 0.35f)
                     )
 
                     HistoryItem(
@@ -364,7 +368,7 @@ fun MaintenanceScreen(
 
                         Text(
                             text = "Regular maintenance can help prevent unexpected faults and keep your vehicle operating efficiently.",
-                            color = AutoPulseText,
+                            color = MaterialTheme.colorScheme.onSurface,
                             fontSize = 12.sp,
                             lineHeight = 18.sp
                         )
@@ -444,7 +448,7 @@ fun MaintenanceAlertItem(
 
                 Text(
                     text = title,
-                    color = AutoPulseText,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontWeight = FontWeight.Bold,
                     fontSize = 15.sp
                 )
@@ -459,7 +463,7 @@ fun MaintenanceAlertItem(
 
                 Text(
                     text = detail,
-                    color = AutoPulseTextMuted,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 11.sp,
                     lineHeight = 16.sp,
                     modifier = Modifier.padding(top = 7.dp)
@@ -478,12 +482,14 @@ fun MaintenanceAlertItem(
                     contentPadding = PaddingValues(
                         horizontal = 14.dp,
                         vertical = 4.dp
+                    ),
+                    colors = ButtonDefaults.outlinedButtonColors(
+                        contentColor = color
                     )
                 ) {
 
                     Text(
                         text = "VIEW SERVICE",
-                        color = color,
                         fontSize = 10.sp,
                         fontWeight = FontWeight.Bold
                     )
@@ -512,12 +518,13 @@ fun MaintenanceServiceItem(
         onClick = onClick,
         modifier = Modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(
-            containerColor = AutoPulseSurface
+            containerColor = MaterialTheme.colorScheme.surface
         ),
         border = androidx.compose.foundation.BorderStroke(
             1.dp,
             color.copy(alpha = 0.25f)
-        )
+        ),
+        shape = MaterialTheme.shapes.medium
     ) {
 
         Column(
@@ -554,14 +561,14 @@ fun MaintenanceServiceItem(
 
                     Text(
                         text = title,
-                        color = AutoPulseText,
+                        color = MaterialTheme.colorScheme.onSurface,
                         fontWeight = FontWeight.Bold,
                         fontSize = 14.sp
                     )
 
                     Text(
                         text = dueIn,
-                        color = AutoPulseTextMuted,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                         fontSize = 11.sp,
                         modifier = Modifier.padding(top = 3.dp)
                     )
@@ -570,7 +577,7 @@ fun MaintenanceServiceItem(
                 Icon(
                     imageVector = Icons.Default.ChevronRight,
                     contentDescription = null,
-                    tint = AutoPulseTextMuted
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
 
@@ -583,7 +590,7 @@ fun MaintenanceServiceItem(
                     .height(6.dp)
                     .clip(CircleShape),
                 color = color,
-                trackColor = AutoPulseText.copy(alpha = 0.08f)
+                trackColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.08f)
             )
 
             Spacer(modifier = Modifier.height(6.dp))
@@ -595,7 +602,7 @@ fun MaintenanceServiceItem(
 
                 Text(
                     text = "SERVICE INTERVAL",
-                    color = AutoPulseTextMuted,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 8.sp,
                     fontWeight = FontWeight.Bold
                 )
@@ -643,14 +650,14 @@ private fun HistoryItem(
 
             Text(
                 text = title,
-                color = AutoPulseText,
+                color = MaterialTheme.colorScheme.onSurface,
                 fontSize = 13.sp,
                 fontWeight = FontWeight.Bold
             )
 
             Text(
                 text = date,
-                color = AutoPulseTextMuted,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 10.sp,
                 modifier = Modifier.padding(top = 3.dp)
             )
@@ -658,7 +665,7 @@ private fun HistoryItem(
 
         Text(
             text = mileage,
-            color = AutoPulseTextSecondary,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 10.sp,
             fontWeight = FontWeight.Bold
         )

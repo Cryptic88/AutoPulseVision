@@ -1,5 +1,6 @@
 package com.example.autopulse_poe.ui.screens.ai
 
+import android.graphics.Color
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -15,17 +16,21 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.autopulse_poe.ui.theme.*
 
 @Composable
-fun AiAssistantScreen(onBack: () -> Unit) {
+fun AiAssistantScreen(
+    onBack: () -> Unit
+) {
 
+    // ============================================================
+    // CHAT MESSAGES
+    // ============================================================
 
-    // Chat messages
     val messages = remember {
         mutableStateListOf(
             ChatMessage(
@@ -49,7 +54,10 @@ fun AiAssistantScreen(onBack: () -> Unit) {
 
     val listState = rememberLazyListState()
 
-    // Send message
+    // ============================================================
+    // SEND MESSAGE
+    // ============================================================
+
     fun sendMessage() {
 
         val trimmedMessage = messageText.trim()
@@ -66,23 +74,31 @@ fun AiAssistantScreen(onBack: () -> Unit) {
         messageText = ""
     }
 
-    // Automatically scroll to newest message
+    // ============================================================
+    // AUTO SCROLL
+    // ============================================================
+
     LaunchedEffect(messages.size) {
+
         if (messages.isNotEmpty()) {
             listState.animateScrollToItem(messages.lastIndex)
         }
     }
 
+    // ============================================================
+    // SCREEN
+    // ============================================================
+
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(AutoPulseBackground)
+            .background(MaterialTheme.colorScheme.background)
             .imePadding()
     ) {
 
-        // ============================================================
+        // ========================================================
         // HEADER
-        // ============================================================
+        // ========================================================
 
         Row(
             modifier = Modifier
@@ -122,18 +138,21 @@ fun AiAssistantScreen(onBack: () -> Unit) {
                     text = "AI Mechanic",
                     fontSize = 19.sp,
                     fontWeight = FontWeight.Black,
-                    color = AutoPulseText
+                    color = MaterialTheme.colorScheme.onSurface
                 )
 
                 Text(
                     text = "Vehicle diagnostic assistant",
                     fontSize = 11.sp,
-                    color = AutoPulseTextMuted,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.padding(top = 2.dp)
                 )
             }
 
-            // Online indicator
+            // ----------------------------------------------------
+            // ONLINE INDICATOR
+            // ----------------------------------------------------
+
             Row(
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -157,12 +176,12 @@ fun AiAssistantScreen(onBack: () -> Unit) {
         }
 
         HorizontalDivider(
-            color = AutoPulseBorder
+            color = MaterialTheme.colorScheme.outline
         )
 
-        // ============================================================
+        // ========================================================
         // CHAT
-        // ============================================================
+        // ========================================================
 
         LazyColumn(
             state = listState,
@@ -178,17 +197,20 @@ fun AiAssistantScreen(onBack: () -> Unit) {
         ) {
 
             items(messages) { message ->
-                ChatBubble(message)
+
+                ChatBubble(
+                    message = message
+                )
             }
         }
 
-        // ============================================================
+        // ========================================================
         // INPUT AREA
-        // ============================================================
+        // ========================================================
 
         Surface(
             modifier = Modifier.fillMaxWidth(),
-            color = AutoPulseSurface,
+            color = MaterialTheme.colorScheme.surface,
             tonalElevation = 0.dp
         ) {
 
@@ -202,7 +224,10 @@ fun AiAssistantScreen(onBack: () -> Unit) {
                 verticalAlignment = Alignment.Bottom
             ) {
 
-                // Text input
+                // ------------------------------------------------
+                // TEXT INPUT
+                // ------------------------------------------------
+
                 OutlinedTextField(
                     value = messageText,
                     onValueChange = {
@@ -210,37 +235,54 @@ fun AiAssistantScreen(onBack: () -> Unit) {
                     },
                     modifier = Modifier
                         .weight(1f)
-                        .defaultMinSize(minHeight = 52.dp),
+                        .defaultMinSize(
+                            minHeight = 52.dp
+                        ),
                     placeholder = {
+
                         Text(
                             text = "Ask about a code or repair...",
-                            color = AutoPulseTextMuted,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
                             fontSize = 13.sp
                         )
                     },
                     textStyle = LocalTextStyle.current.copy(
-                        color = AutoPulseText,
+                        color = MaterialTheme.colorScheme.onSurface,
                         fontSize = 14.sp
                     ),
                     maxLines = 4,
                     shape = RoundedCornerShape(22.dp),
                     colors = OutlinedTextFieldDefaults.colors(
-                        focusedTextColor = AutoPulseText,
-                        unfocusedTextColor = AutoPulseText,
 
-                        focusedBorderColor = AutoPulsePurple,
-                        unfocusedBorderColor = AutoPulseBorder,
+                        focusedTextColor =
+                            MaterialTheme.colorScheme.onSurface,
 
-                        focusedContainerColor = AutoPulseSurfaceElevated,
-                        unfocusedContainerColor = AutoPulseSurfaceElevated,
+                        unfocusedTextColor =
+                            MaterialTheme.colorScheme.onSurface,
 
-                        cursorColor = AutoPulsePurple
+                        focusedBorderColor =
+                            AutoPulsePurple,
+
+                        unfocusedBorderColor =
+                            MaterialTheme.colorScheme.outline,
+
+                        focusedContainerColor =
+                            MaterialTheme.colorScheme.surfaceVariant,
+
+                        unfocusedContainerColor =
+                            MaterialTheme.colorScheme.surfaceVariant,
+
+                        cursorColor =
+                            AutoPulsePurple
                     )
                 )
 
                 Spacer(modifier = Modifier.width(10.dp))
 
-                // Send button
+                // ------------------------------------------------
+                // SEND BUTTON
+                // ------------------------------------------------
+
                 IconButton(
                     onClick = {
                         sendMessage()
@@ -253,7 +295,7 @@ fun AiAssistantScreen(onBack: () -> Unit) {
                             if (messageText.isNotBlank()) {
                                 AutoPulsePurple
                             } else {
-                                AutoPulseSurfaceElevated
+                                MaterialTheme.colorScheme.surfaceVariant
                             }
                         )
                 ) {
@@ -261,11 +303,12 @@ fun AiAssistantScreen(onBack: () -> Unit) {
                     Icon(
                         imageVector = Icons.Default.Send,
                         contentDescription = "Send message",
-                        tint = if (messageText.isNotBlank()) {
-                            Color.White
-                        } else {
-                            AutoPulseTextMuted
-                        },
+                        tint =
+                            if (messageText.isNotBlank()) {
+                                MaterialTheme.colorScheme.onSurface
+                            } else {
+                                MaterialTheme.colorScheme.onSurfaceVariant
+                            },
                         modifier = Modifier.size(20.dp)
                     )
                 }
@@ -296,14 +339,18 @@ fun ChatBubble(
 
     Column(
         modifier = Modifier.fillMaxWidth(),
-        horizontalAlignment = if (message.isUser) {
-            Alignment.End
-        } else {
-            Alignment.Start
-        }
+        horizontalAlignment =
+            if (message.isUser) {
+                Alignment.End
+            } else {
+                Alignment.Start
+            }
     ) {
 
-        // AI label
+        // ========================================================
+        // AI LABEL
+        // ========================================================
+
         if (!message.isUser) {
 
             Row(
@@ -325,7 +372,7 @@ fun ChatBubble(
 
                 Text(
                     text = "AUTO PULSE AI",
-                    color = AutoPulseTextMuted,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 8.sp,
                     fontWeight = FontWeight.Black,
                     letterSpacing = 0.8.sp
@@ -333,39 +380,53 @@ fun ChatBubble(
             }
         }
 
+        // ========================================================
+        // MESSAGE BUBBLE
+        // ========================================================
+
         Surface(
-            color = if (message.isUser) {
-                AutoPulsePurple
-            } else {
-                AutoPulseSurfaceElevated
-            },
+            color =
+                if (message.isUser) {
+                    AutoPulsePurple
+                } else {
+                    MaterialTheme.colorScheme.surfaceVariant
+                },
+
             shape = RoundedCornerShape(
                 topStart = 16.dp,
                 topEnd = 16.dp,
-                bottomStart = if (message.isUser) {
-                    16.dp
-                } else {
-                    4.dp
-                },
-                bottomEnd = if (message.isUser) {
-                    4.dp
-                } else {
-                    16.dp
-                }
+                bottomStart =
+                    if (message.isUser) {
+                        16.dp
+                    } else {
+                        4.dp
+                    },
+                bottomEnd =
+                    if (message.isUser) {
+                        4.dp
+                    } else {
+                        16.dp
+                    }
             ),
-            border = if (!message.isUser) {
-                androidx.compose.foundation.BorderStroke(
-                    1.dp,
-                    AutoPulseBorder
-                )
-            } else {
-                null
-            }
+
+            border =
+                if (!message.isUser) {
+                    androidx.compose.foundation.BorderStroke(
+                        1.dp,
+                        MaterialTheme.colorScheme.outline
+                    )
+                } else {
+                    null
+                }
         ) {
 
             Text(
                 text = message.text,
-                color = AutoPulseText,
+                color = if (message.isUser) {
+                    White
+                } else {
+                    MaterialTheme.colorScheme.onSurface
+                },
                 fontSize = 14.sp,
                 lineHeight = 20.sp,
                 modifier = Modifier.padding(

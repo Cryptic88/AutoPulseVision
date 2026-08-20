@@ -88,20 +88,20 @@ fun TripsScreen(onNavigateToDetails: () -> Unit = {}) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(DarkBackground)
+            .background(MaterialTheme.colorScheme.background)
     ) {
         Column(modifier = Modifier.padding(20.dp)) {
             Text(
                 text = "Trip History",
                 fontSize = 28.sp,
                 fontWeight = FontWeight.Black,
-                color = Color.White,
+                color = MaterialTheme.colorScheme.onSurface,
                 modifier = Modifier.padding(bottom = 20.dp)
             )
 
             // Search Bar
             Surface(
-                color = Color.White.copy(alpha = 0.05f),
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.05f),
                 shape = RoundedCornerShape(12.dp),
                 modifier = Modifier.fillMaxWidth()
             ) {
@@ -109,11 +109,11 @@ fun TripsScreen(onNavigateToDetails: () -> Unit = {}) {
                     modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Icon(Icons.Default.Search, contentDescription = null, tint = Color.White.copy(alpha = 0.3f))
+                    Icon(Icons.Default.Search, contentDescription = null, tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3f))
                     Spacer(modifier = Modifier.width(12.dp))
                     Text(
                         text = "Search journeys...",
-                        color = Color.White.copy(alpha = 0.3f),
+                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3f),
                         fontSize = 15.sp,
                         modifier = Modifier.weight(1f)
                     )
@@ -145,13 +145,13 @@ fun TripsScreen(onNavigateToDetails: () -> Unit = {}) {
 @Composable
 fun TripFilterChip(label: String, selected: Boolean) {
     Surface(
-        color = if (selected) NeonCyan.copy(alpha = 0.1f) else Color.White.copy(alpha = 0.05f),
+        color = if (selected) NeonCyan.copy(alpha = 0.1f) else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.05f),
         shape = RoundedCornerShape(20.dp),
         border = if (selected) androidx.compose.foundation.BorderStroke(1.dp, NeonCyan) else null
     ) {
         Text(
             text = label,
-            color = if (selected) NeonCyan else Color.White.copy(alpha = 0.5f),
+            color = if (selected) NeonCyan else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
             fontSize = 12.sp,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
@@ -216,14 +216,14 @@ fun TripCard(
                     text = trip.date,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold,
-                    color = AutoPulseText
+                    color = MaterialTheme.colorScheme.onSurface
                 )
 
                 Spacer(modifier = Modifier.height(6.dp))
 
                 Text(
                     text = "${trip.distance} • ${trip.duration}",
-                    color = AutoPulseTextSecondary,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 12.sp
                 )
 
@@ -231,7 +231,7 @@ fun TripCard(
 
                 Text(
                     text = trip.efficiency,
-                    color = AutoPulseTextMuted,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 11.sp
                 )
             }
@@ -261,7 +261,7 @@ fun TripCard(
                         text = trip.score.toString(),
                         fontSize = 20.sp,
                         fontWeight = FontWeight.Black,
-                        color = AutoPulseText
+                        color = MaterialTheme.colorScheme.onSurface
                     )
                 }
 
@@ -284,7 +284,7 @@ private fun RoutePreview(
     Box(
         modifier = modifier
             .background(
-                color = AutoPulseBackground,
+                color = MaterialTheme.colorScheme.background,
                 shape = RoundedCornerShape(12.dp)
             )
     ) {

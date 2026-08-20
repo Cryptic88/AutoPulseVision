@@ -20,7 +20,7 @@ fun LoginScreen(onLoginSuccess: () -> Unit, onNavigateToRegister: () -> Unit = {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(DarkBackground)
+            .background(MaterialTheme.colorScheme.background)
             .padding(32.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
@@ -36,7 +36,7 @@ fun LoginScreen(onLoginSuccess: () -> Unit, onNavigateToRegister: () -> Unit = {
             text = "AutoPulse",
             fontSize = 40.sp,
             fontWeight = FontWeight.Black,
-            color = Color.White
+            color = MaterialTheme.colorScheme.onSurface
         )
         Text(
             text = "Vehicle Intelligence",
@@ -67,7 +67,7 @@ fun LoginScreen(onLoginSuccess: () -> Unit, onNavigateToRegister: () -> Unit = {
             ) {
                 Text(
                     text = "Continue with Google",
-                    color = Color.White,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontWeight = FontWeight.Bold,
                     fontSize = 16.sp
                 )
@@ -77,7 +77,7 @@ fun LoginScreen(onLoginSuccess: () -> Unit, onNavigateToRegister: () -> Unit = {
         Spacer(modifier = Modifier.height(24.dp))
 
         TextButton(onClick = { /* Biometric Login */ }) {
-            Text(text = "Use Biometric Login", color = Color.White.copy(alpha = 0.6f))
+            Text(text = "Use Biometric Login", color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f))
         }
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -93,7 +93,7 @@ fun RegisterScreen(onRegisterSuccess: () -> Unit, onBackToLogin: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(DarkBackground)
+            .background(MaterialTheme.colorScheme.background)
             .padding(32.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
@@ -102,7 +102,7 @@ fun RegisterScreen(onRegisterSuccess: () -> Unit, onBackToLogin: () -> Unit) {
             text = "Create Account",
             fontSize = 32.sp,
             fontWeight = FontWeight.Black,
-            color = Color.White,
+            color = MaterialTheme.colorScheme.onSurface,
             modifier = Modifier.padding(bottom = 8.dp)
         )
         Text(
@@ -132,7 +132,7 @@ fun RegisterScreen(onRegisterSuccess: () -> Unit, onBackToLogin: () -> Unit) {
         Spacer(modifier = Modifier.height(24.dp))
 
         TextButton(onClick = onBackToLogin) {
-            Text(text = "Already have an account? Log In", color = Color.White.copy(alpha = 0.6f))
+            Text(text = "Already have an account? Log In", color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f))
         }
     }
 }
@@ -141,13 +141,13 @@ fun RegisterScreen(onRegisterSuccess: () -> Unit, onBackToLogin: () -> Unit) {
 fun AuthTextField(label: String) {
     Column(modifier = Modifier.padding(bottom = 16.dp)) {
         Surface(
-            color = Color.White.copy(alpha = 0.05f),
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.05f),
             shape = MaterialTheme.shapes.medium,
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(
                 text = label,
-                color = Color.White.copy(alpha = 0.3f),
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3f),
                 modifier = Modifier.padding(16.dp)
             )
         }

@@ -12,7 +12,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -30,7 +30,7 @@ fun BackupRestoreScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(AutoPulseBackground)
+            .background(MaterialTheme.colorScheme.background)
     ) {
 
         // ----------------------------------------------------
@@ -40,7 +40,10 @@ fun BackupRestoreScreen(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 14.dp),
+                .padding(
+                    horizontal = 16.dp,
+                    vertical = 14.dp
+                ),
             verticalAlignment = Alignment.CenterVertically
         ) {
 
@@ -50,7 +53,7 @@ fun BackupRestoreScreen(
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                     contentDescription = "Back",
-                    tint = AutoPulseText
+                    tint = MaterialTheme.colorScheme.onSurface
                 )
             }
 
@@ -60,14 +63,14 @@ fun BackupRestoreScreen(
 
                 Text(
                     text = "Backup & Restore",
-                    color = AutoPulseText,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontSize = 22.sp,
                     fontWeight = FontWeight.Black
                 )
 
                 Text(
                     text = "Protect your AutoPulse data",
-                    color = AutoPulseTextMuted,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 11.sp
                 )
             }
@@ -127,7 +130,7 @@ fun BackupRestoreScreen(
 
                         Text(
                             text = "Cloud Sync",
-                            color = AutoPulseText,
+                            color = MaterialTheme.colorScheme.onSurface,
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Bold
                         )
@@ -162,20 +165,20 @@ fun BackupRestoreScreen(
                 Spacer(modifier = Modifier.height(18.dp))
 
                 HorizontalDivider(
-                    color = AutoPulseBorder
+                    color = MaterialTheme.colorScheme.outline
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
 
                 Text(
                     text = "Last backup",
-                    color = AutoPulseTextMuted,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 10.sp
                 )
 
                 Text(
                     text = lastBackup,
-                    color = AutoPulseText,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(top = 3.dp)
@@ -198,7 +201,7 @@ fun BackupRestoreScreen(
                     shape = RoundedCornerShape(12.dp),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = AutoPulseCyan,
-                        contentColor = AutoPulseBackground
+                        contentColor = MaterialTheme.colorScheme.background
                     )
                 ) {
 
@@ -261,14 +264,14 @@ fun BackupRestoreScreen(
 
                         Text(
                             text = "Restore Data",
-                            color = AutoPulseText,
+                            color = MaterialTheme.colorScheme.onSurface,
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Bold
                         )
 
                         Text(
                             text = "Recover your AutoPulse data",
-                            color = AutoPulseTextMuted,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
                             fontSize = 10.sp,
                             modifier = Modifier.padding(top = 3.dp)
                         )
@@ -279,7 +282,7 @@ fun BackupRestoreScreen(
 
                 Text(
                     text = "Restore your saved vehicle profiles, trip history, diagnostic records and application preferences from your latest cloud backup.",
-                    color = AutoPulseTextSecondary,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 12.sp,
                     lineHeight = 18.sp
                 )
@@ -327,7 +330,7 @@ fun BackupRestoreScreen(
 
             Text(
                 text = "BACKUP CONTENT",
-                color = AutoPulseTextSecondary,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 11.sp,
                 fontWeight = FontWeight.Bold,
                 letterSpacing = 1.sp
@@ -336,7 +339,7 @@ fun BackupRestoreScreen(
             Spacer(modifier = Modifier.height(8.dp))
 
             NeonCard(
-                borderColor = AutoPulseBorder
+                borderColor = MaterialTheme.colorScheme.outline
             ) {
 
                 BackupItem(
@@ -380,7 +383,7 @@ fun BackupRestoreScreen(
                 Icon(
                     imageVector = Icons.Default.Info,
                     contentDescription = null,
-                    tint = AutoPulseTextMuted,
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.size(14.dp)
                 )
 
@@ -388,7 +391,7 @@ fun BackupRestoreScreen(
 
                 Text(
                     text = "Your data will only be restored when you choose to do so.",
-                    color = AutoPulseTextMuted,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 9.sp
                 )
             }
@@ -405,7 +408,7 @@ fun BackupRestoreScreen(
 
 @Composable
 private fun BackupItem(
-    icon: androidx.compose.ui.graphics.vector.ImageVector,
+    icon: ImageVector,
     title: String,
     description: String
 ) {
@@ -421,7 +424,7 @@ private fun BackupItem(
             modifier = Modifier
                 .size(36.dp)
                 .background(
-                    AutoPulseSurfaceElevated,
+                    MaterialTheme.colorScheme.surfaceVariant,
                     RoundedCornerShape(9.dp)
                 ),
             contentAlignment = Alignment.Center
@@ -430,7 +433,7 @@ private fun BackupItem(
             Icon(
                 imageVector = icon,
                 contentDescription = null,
-                tint = AutoPulseTextSecondary,
+                tint = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.size(18.dp)
             )
         }
@@ -443,14 +446,14 @@ private fun BackupItem(
 
             Text(
                 text = title,
-                color = AutoPulseText,
+                color = MaterialTheme.colorScheme.onSurface,
                 fontSize = 13.sp,
                 fontWeight = FontWeight.Bold
             )
 
             Text(
                 text = description,
-                color = AutoPulseTextMuted,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 10.sp,
                 modifier = Modifier.padding(top = 2.dp)
             )

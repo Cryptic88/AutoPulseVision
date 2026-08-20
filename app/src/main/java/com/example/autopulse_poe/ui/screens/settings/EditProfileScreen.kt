@@ -35,7 +35,7 @@ fun EditProfileScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(AutoPulseBackground)
+            .background(MaterialTheme.colorScheme.background)
     ) {
 
         // ----------------------------------------------------
@@ -55,7 +55,7 @@ fun EditProfileScreen(
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                     contentDescription = "Back",
-                    tint = AutoPulseText
+                    tint = MaterialTheme.colorScheme.onSurface
                 )
             }
 
@@ -67,13 +67,13 @@ fun EditProfileScreen(
                     text = "Edit Profile",
                     fontSize = 22.sp,
                     fontWeight = FontWeight.Black,
-                    color = AutoPulseText
+                    color = MaterialTheme.colorScheme.onSurface
                 )
 
                 Text(
                     text = "Manage your account information",
                     fontSize = 10.sp,
-                    color = AutoPulseTextMuted
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
         }
@@ -142,7 +142,7 @@ fun EditProfileScreen(
                             Icon(
                                 imageVector = Icons.Default.PhotoCamera,
                                 contentDescription = "Change profile picture",
-                                tint = AutoPulseBackground,
+                                tint = MaterialTheme.colorScheme.background,
                                 modifier = Modifier.size(19.dp)
                             )
                         }
@@ -152,14 +152,14 @@ fun EditProfileScreen(
 
                     Text(
                         text = "Profile Picture",
-                        color = AutoPulseText,
+                        color = MaterialTheme.colorScheme.onSurface,
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Bold
                     )
 
                     Text(
                         text = "Tap the camera to change your picture",
-                        color = AutoPulseTextMuted,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                         fontSize = 10.sp
                     )
                 }
@@ -207,12 +207,12 @@ fun EditProfileScreen(
                         )
                     },
                     colors = OutlinedTextFieldDefaults.colors(
-                        focusedTextColor = AutoPulseText,
-                        unfocusedTextColor = AutoPulseText,
+                        focusedTextColor = MaterialTheme.colorScheme.onSurface,
+                        unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
                         focusedBorderColor = AutoPulseCyan,
-                        unfocusedBorderColor = AutoPulseBorder,
+                        unfocusedBorderColor = MaterialTheme.colorScheme.outline,
                         focusedLabelColor = AutoPulseCyan,
-                        unfocusedLabelColor = AutoPulseTextMuted,
+                        unfocusedLabelColor = MaterialTheme.colorScheme.onSurfaceVariant,
                         cursorColor = AutoPulseCyan
                     ),
                     shape = RoundedCornerShape(12.dp)
@@ -240,12 +240,12 @@ fun EditProfileScreen(
                         )
                     },
                     colors = OutlinedTextFieldDefaults.colors(
-                        focusedTextColor = AutoPulseText,
-                        unfocusedTextColor = AutoPulseText,
+                        focusedTextColor = MaterialTheme.colorScheme.onSurface,
+                        unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
                         focusedBorderColor = AutoPulseCyan,
-                        unfocusedBorderColor = AutoPulseBorder,
+                        unfocusedBorderColor = MaterialTheme.colorScheme.outline,
                         focusedLabelColor = AutoPulseCyan,
-                        unfocusedLabelColor = AutoPulseTextMuted,
+                        unfocusedLabelColor = MaterialTheme.colorScheme.onSurfaceVariant,
                         cursorColor = AutoPulseCyan
                     ),
                     shape = RoundedCornerShape(12.dp)
@@ -267,7 +267,7 @@ fun EditProfileScreen(
                     .height(54.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = AutoPulseCyan,
-                    contentColor = AutoPulseBackground
+                    contentColor = MaterialTheme.colorScheme.background
                 ),
                 shape = RoundedCornerShape(12.dp)
             ) {
@@ -305,7 +305,7 @@ fun EditProfileScreen(
 
                     Text(
                         text = "Delete Account",
-                        color = AutoPulseText,
+                        color = MaterialTheme.colorScheme.onSurface,
                         fontSize = 15.sp,
                         fontWeight = FontWeight.Bold
                     )
@@ -314,7 +314,7 @@ fun EditProfileScreen(
 
                     Text(
                         text = "Permanently delete your AutoPulse account and associated data.",
-                        color = AutoPulseTextMuted,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                         fontSize = 10.sp,
                         lineHeight = 14.sp
                     )

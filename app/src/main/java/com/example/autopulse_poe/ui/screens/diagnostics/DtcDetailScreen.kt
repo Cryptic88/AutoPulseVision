@@ -24,7 +24,7 @@ fun DtcDetailScreen(onBack: () -> Unit, onNavigateToAiAssistant: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(AutoPulseBackground)
+            .background(MaterialTheme.colorScheme.background)
             .verticalScroll(rememberScrollState())
     ) {
 
@@ -37,7 +37,7 @@ fun DtcDetailScreen(onBack: () -> Unit, onNavigateToAiAssistant: () -> Unit) {
                 Icon(
                     Icons.AutoMirrored.Filled.ArrowBack,
                     contentDescription = "Back",
-                    tint = AutoPulseText
+                    tint = MaterialTheme.colorScheme.onSurface
                 )
             }
 
@@ -48,12 +48,12 @@ fun DtcDetailScreen(onBack: () -> Unit, onNavigateToAiAssistant: () -> Unit) {
                     text = "Fault Analysis",
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Black,
-                    color = AutoPulseText
+                    color = MaterialTheme.colorScheme.onSurface
                 )
 
                 Text(
                     text = "Diagnostic trouble code",
-                    color = AutoPulseTextMuted,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 10.sp
                 )
             }
@@ -80,7 +80,7 @@ fun DtcDetailScreen(onBack: () -> Unit, onNavigateToAiAssistant: () -> Unit) {
                 Text(
                     text = "Random or Multiple Cylinder Misfire Detected",
                     fontSize = 17.sp,
-                    color = AutoPulseText,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontWeight = FontWeight.Bold
                 )
 
@@ -121,7 +121,7 @@ fun DtcDetailScreen(onBack: () -> Unit, onNavigateToAiAssistant: () -> Unit) {
 
                     Text(
                         text = "AI Mechanic Assistant",
-                        color = AutoPulseText,
+                        color = MaterialTheme.colorScheme.onSurface,
                         fontWeight = FontWeight.Black
                     )
                 }
@@ -138,7 +138,7 @@ fun DtcDetailScreen(onBack: () -> Unit, onNavigateToAiAssistant: () -> Unit) {
 
                         Text(
                             text = "AutoPulse analysis suggests checking the ignition system and spark plugs first.",
-                            color = AutoPulseText,
+                            color = MaterialTheme.colorScheme.onSurface,
                             fontSize = 13.sp,
                             lineHeight = 19.sp
                         )
@@ -266,7 +266,7 @@ fun CauseItem(text: String) {
 
         Text(
             text = text,
-            color = AutoPulseText,
+            color = MaterialTheme.colorScheme.onSurface,
             fontSize = 13.sp
         )
     }
@@ -288,7 +288,7 @@ fun ActionItem(
             tint = if (isPrimary) {
                 AutoPulseCyan
             } else {
-                AutoPulseTextMuted
+                MaterialTheme.colorScheme.onSurfaceVariant
             },
             modifier = Modifier.size(18.dp)
         )
@@ -297,7 +297,7 @@ fun ActionItem(
 
         Text(
             text = text,
-            color = AutoPulseText,
+            color = MaterialTheme.colorScheme.onSurface,
             fontSize = 13.sp
         )
     }

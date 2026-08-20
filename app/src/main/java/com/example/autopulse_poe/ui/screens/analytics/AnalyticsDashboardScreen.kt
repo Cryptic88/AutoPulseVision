@@ -33,7 +33,7 @@ fun AnalyticsDashboardScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(DarkBackground)
+            .background(MaterialTheme.colorScheme.background)
             .verticalScroll(rememberScrollState())
             .padding(20.dp)
     ) {
@@ -53,12 +53,12 @@ fun AnalyticsDashboardScreen() {
                     text = "Advanced Analytics",
                     fontSize = 28.sp,
                     fontWeight = FontWeight.Black,
-                    color = Color.White
+                    color = MaterialTheme.colorScheme.onSurface
                 )
 
                 Text(
                     text = "Understand your driving behaviour",
-                    color = Color.White.copy(alpha = 0.55f),
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.55f),
                     fontSize = 12.sp
                 )
             }
@@ -110,7 +110,7 @@ fun AnalyticsDashboardScreen() {
                     color = if (selectedPeriod == period) {
                         NeonCyan.copy(alpha = 0.15f)
                     } else {
-                        Color.White.copy(alpha = 0.04f)
+                        MaterialTheme.colorScheme.onSurface.copy(alpha = 0.04f)
                     },
                     shape = RoundedCornerShape(10.dp),
                     border = if (selectedPeriod == period) {
@@ -131,7 +131,7 @@ fun AnalyticsDashboardScreen() {
                             color = if (selectedPeriod == period) {
                                 NeonCyan
                             } else {
-                                Color.White.copy(alpha = 0.6f)
+                                MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
                             },
                             fontWeight = FontWeight.Bold,
                             fontSize = 12.sp
@@ -149,7 +149,7 @@ fun AnalyticsDashboardScreen() {
 
         Text(
             text = "PERFORMANCE OVERVIEW",
-            color = Color.White,
+            color = MaterialTheme.colorScheme.onSurface,
             fontWeight = FontWeight.Bold,
             fontSize = 16.sp
         )
@@ -222,7 +222,7 @@ fun AnalyticsDashboardScreen() {
                 Column {
                     Text(
                         text = "Driving Patterns",
-                        color = Color.White,
+                        color = MaterialTheme.colorScheme.onSurface,
                         fontWeight = FontWeight.Bold,
                         fontSize = 16.sp
                     )
@@ -239,7 +239,7 @@ fun AnalyticsDashboardScreen() {
 
             Text(
                 text = "Your average speed has increased by 12% during peak morning hours. Fuel efficiency is currently strongest around 55 km/h.",
-                color = Color.White.copy(alpha = 0.7f),
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
                 fontSize = 13.sp,
                 lineHeight = 19.sp
             )
@@ -272,7 +272,7 @@ fun AnalyticsDashboardScreen() {
                 ) {
                     Text(
                         text = "Fuel efficiency",
-                        color = Color.White.copy(alpha = 0.6f),
+                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
                         fontSize = 12.sp
                     )
 
@@ -293,13 +293,13 @@ fun AnalyticsDashboardScreen() {
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Text("Mon", color = Color.White.copy(alpha = 0.4f), fontSize = 10.sp)
-                    Text("Tue", color = Color.White.copy(alpha = 0.4f), fontSize = 10.sp)
-                    Text("Wed", color = Color.White.copy(alpha = 0.4f), fontSize = 10.sp)
-                    Text("Thu", color = Color.White.copy(alpha = 0.4f), fontSize = 10.sp)
-                    Text("Fri", color = Color.White.copy(alpha = 0.4f), fontSize = 10.sp)
-                    Text("Sat", color = Color.White.copy(alpha = 0.4f), fontSize = 10.sp)
-                    Text("Sun", color = Color.White.copy(alpha = 0.4f), fontSize = 10.sp)
+                    Text("Mon", color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f), fontSize = 10.sp)
+                    Text("Tue", color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f), fontSize = 10.sp)
+                    Text("Wed", color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f), fontSize = 10.sp)
+                    Text("Thu", color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f), fontSize = 10.sp)
+                    Text("Fri", color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f), fontSize = 10.sp)
+                    Text("Sat", color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f), fontSize = 10.sp)
+                    Text("Sun", color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f), fontSize = 10.sp)
                 }
             }
         }
@@ -377,7 +377,7 @@ fun AnalyticsDashboardScreen() {
 
                     Text(
                         text = "Battery behaviour requires attention",
-                        color = Color.White,
+                        color = MaterialTheme.colorScheme.onSurface,
                         fontSize = 12.sp
                     )
                 }
@@ -387,7 +387,7 @@ fun AnalyticsDashboardScreen() {
 
             Text(
                 text = "Resting voltage dropped below 11.8V three times this week. Consider checking the battery and charging system.",
-                color = Color.White.copy(alpha = 0.7f),
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
                 fontSize = 12.sp,
                 lineHeight = 18.sp
             )
@@ -432,7 +432,7 @@ fun AnalyticsStatCard(
 
         Text(
             text = title,
-            color = Color.White.copy(alpha = 0.5f),
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
             fontSize = 10.sp,
             fontWeight = FontWeight.Bold
         )
@@ -454,7 +454,7 @@ fun AnalyticsStatCard(
 
             Text(
                 text = unit,
-                color = Color.White.copy(alpha = 0.5f),
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
                 fontSize = 9.sp,
                 modifier = Modifier.padding(bottom = 3.dp)
             )
@@ -547,7 +547,7 @@ fun InsightItem(
 ) {
 
     Surface(
-        color = Color.White.copy(alpha = 0.04f),
+        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.04f),
         shape = MaterialTheme.shapes.medium,
         modifier = Modifier.fillMaxWidth()
     ) {
@@ -569,14 +569,14 @@ fun InsightItem(
             Column {
                 Text(
                     text = title,
-                    color = Color.White,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontWeight = FontWeight.Bold,
                     fontSize = 13.sp
                 )
 
                 Text(
                     text = description,
-                    color = Color.White.copy(alpha = 0.55f),
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.55f),
                     fontSize = 11.sp,
                     lineHeight = 16.sp
                 )

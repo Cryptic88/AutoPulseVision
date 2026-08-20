@@ -53,7 +53,7 @@ fun OnboardingScreen(onFinish: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(DarkBackground)
+            .background(MaterialTheme.colorScheme.background)
     ) {
         HorizontalPager(
             state = pagerState,
@@ -86,14 +86,14 @@ fun OnboardingScreen(onFinish: () -> Unit) {
                     text = page.title,
                     fontSize = 28.sp,
                     fontWeight = FontWeight.Black,
-                    color = Color.White,
+                    color = MaterialTheme.colorScheme.onSurface,
                     textAlign = TextAlign.Center
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 Text(
                     text = page.description,
                     fontSize = 16.sp,
-                    color = Color.White.copy(alpha = 0.6f),
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
                     textAlign = TextAlign.Center,
                     lineHeight = 24.sp
                 )
@@ -111,7 +111,7 @@ fun OnboardingScreen(onFinish: () -> Unit) {
             // Page Indicator
             Row {
                 repeat(3) { index ->
-                    val color = if (pagerState.currentPage == index) NeonCyan else Color.White.copy(alpha = 0.2f)
+                    val color = if (pagerState.currentPage == index) NeonCyan else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.2f)
                     Box(
                         modifier = Modifier
                             .padding(4.dp)

@@ -49,7 +49,7 @@ fun DtcHistoryScreen(onBack: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(AutoPulseBackground)
+            .background(MaterialTheme.colorScheme.background)
     ) {
 
         // HEADER
@@ -62,7 +62,7 @@ fun DtcHistoryScreen(onBack: () -> Unit) {
                 Icon(
                     Icons.AutoMirrored.Filled.ArrowBack,
                     contentDescription = "Back",
-                    tint = AutoPulseText
+                    tint = MaterialTheme.colorScheme.onSurface
                 )
             }
 
@@ -73,12 +73,12 @@ fun DtcHistoryScreen(onBack: () -> Unit) {
                     text = "DTC History",
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Black,
-                    color = AutoPulseText
+                    color = MaterialTheme.colorScheme.onSurface
                 )
 
                 Text(
                     text = "Previous diagnostic events",
-                    color = AutoPulseTextMuted,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 10.sp
                 )
             }
@@ -112,7 +112,7 @@ fun DtcHistoryScreen(onBack: () -> Unit) {
 
                     Text(
                         text = "${historyItems.size} recorded events",
-                        color = AutoPulseTextSecondary,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                         fontSize = 11.sp
                     )
                 }
@@ -211,7 +211,7 @@ fun HistoryCard(item: HistoryLogItem) {
 
                 Text(
                     text = item.desc,
-                    color = AutoPulseText,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontSize = 13.sp,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(top = 3.dp)
@@ -219,7 +219,7 @@ fun HistoryCard(item: HistoryLogItem) {
 
                 Text(
                     text = item.date,
-                    color = AutoPulseTextMuted,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 10.sp,
                     modifier = Modifier.padding(top = 3.dp)
                 )

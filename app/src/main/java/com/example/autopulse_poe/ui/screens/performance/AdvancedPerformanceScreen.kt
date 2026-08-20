@@ -31,7 +31,7 @@ fun AdvancedPerformanceScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(AutoPulseBackground)
+            .background(MaterialTheme.colorScheme.background)
     ) {
 
         // ----------------------------------------------------
@@ -55,7 +55,7 @@ fun AdvancedPerformanceScreen(
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                     contentDescription = "Back",
-                    tint = AutoPulseText
+                    tint = MaterialTheme.colorScheme.onSurface
                 )
             }
 
@@ -65,14 +65,14 @@ fun AdvancedPerformanceScreen(
 
                 Text(
                     text = "DYNO ANALYSIS",
-                    color = AutoPulseText,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold
                 )
 
                 Text(
                     text = "Power & torque performance",
-                    color = AutoPulseTextSecondary,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 12.sp
                 )
             }
@@ -112,7 +112,7 @@ fun AdvancedPerformanceScreen(
 
                         Text(
                             text = "POWER & TORQUE",
-                            color = AutoPulseText,
+                            color = MaterialTheme.colorScheme.onSurface,
                             fontSize = 13.sp,
                             fontWeight = FontWeight.Bold
                         )
@@ -121,7 +121,7 @@ fun AdvancedPerformanceScreen(
 
                         Text(
                             text = "RPM PERFORMANCE CURVE",
-                            color = AutoPulseTextMuted,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
                             fontSize = 10.sp,
                             fontWeight = FontWeight.Bold
                         )
@@ -294,7 +294,7 @@ fun AdvancedPerformanceScreen(
                     // X-axis label
                     Text(
                         text = "RPM",
-                        color = AutoPulseTextMuted,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                         fontSize = 9.sp,
                         modifier = Modifier
                             .align(Alignment.BottomEnd)
@@ -311,7 +311,7 @@ fun AdvancedPerformanceScreen(
 
             Text(
                 text = "PEAK PERFORMANCE",
-                color = AutoPulseTextSecondary,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -348,7 +348,7 @@ fun AdvancedPerformanceScreen(
 
             Text(
                 text = "PERFORMANCE GAIN",
-                color = AutoPulseTextSecondary,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -397,7 +397,7 @@ fun AdvancedPerformanceScreen(
 
                         Text(
                             text = "Current output is higher than factory specifications.",
-                            color = AutoPulseTextSecondary,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
                             fontSize = 11.sp
                         )
                     }
@@ -435,7 +435,7 @@ fun AdvancedPerformanceScreen(
 
             Text(
                 text = "TEST INFORMATION",
-                color = AutoPulseTextSecondary,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -499,7 +499,7 @@ private fun LegendItem(
 
         Text(
             text = label,
-            color = AutoPulseTextSecondary,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 9.sp,
             fontWeight = FontWeight.Bold
         )
@@ -527,7 +527,7 @@ private fun PeakValueCard(
 
         Text(
             text = label,
-            color = AutoPulseTextMuted,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 10.sp,
             fontWeight = FontWeight.Bold
         )
@@ -545,7 +545,7 @@ private fun PeakValueCard(
 
         Text(
             text = subValue,
-            color = AutoPulseTextMuted,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 10.sp
         )
     }
@@ -584,7 +584,7 @@ private fun PerformanceGainRow(
 
         Text(
             text = label,
-            color = AutoPulseTextSecondary,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 13.sp,
             modifier = Modifier.weight(1f)
         )
@@ -638,13 +638,13 @@ private fun PerformanceInfoRow(
 
         Text(
             text = label,
-            color = AutoPulseTextSecondary,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 13.sp
         )
 
         Text(
             text = value,
-            color = AutoPulseText,
+            color = MaterialTheme.colorScheme.onSurface,
             fontSize = 13.sp,
             fontWeight = FontWeight.Bold
         )

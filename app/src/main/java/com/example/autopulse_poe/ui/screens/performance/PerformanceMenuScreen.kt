@@ -30,7 +30,7 @@ fun PerformanceMenuScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(AutoPulseBackground)
+            .background(MaterialTheme.colorScheme.background)
             .verticalScroll(rememberScrollState())
             .padding(20.dp)
     ) {
@@ -41,7 +41,7 @@ fun PerformanceMenuScreen(
 
         Text(
             text = "Performance",
-            color = AutoPulseText,
+            color = MaterialTheme.colorScheme.onSurface,
             fontSize = 30.sp,
             fontWeight = FontWeight.Bold
         )
@@ -50,7 +50,7 @@ fun PerformanceMenuScreen(
 
         Text(
             text = "Monitor and measure your vehicle's performance",
-            color = AutoPulseTextSecondary,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 14.sp
         )
 
@@ -191,7 +191,7 @@ private fun PerformanceMenuCard(
 
                 Text(
                     text = title,
-                    color = AutoPulseText,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold
                 )
@@ -200,7 +200,7 @@ private fun PerformanceMenuCard(
 
                 Text(
                     text = subtitle,
-                    color = AutoPulseTextSecondary,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 12.sp,
                     lineHeight = 17.sp
                 )
@@ -220,7 +220,7 @@ private fun PerformanceMenuCard(
                 Icon(
                     imageVector = Icons.Default.ChevronRight,
                     contentDescription = "Open $title",
-                    tint = AutoPulseTextMuted
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
         }

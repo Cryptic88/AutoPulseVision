@@ -32,7 +32,7 @@ fun VehicleEditorScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(AutoPulseBackground)
+            .background(MaterialTheme.colorScheme.background)
     ) {
 
         Row(
@@ -47,13 +47,13 @@ fun VehicleEditorScreen(
                 Icon(
                     Icons.AutoMirrored.Filled.ArrowBack,
                     contentDescription = "Back",
-                    tint = AutoPulseText
+                    tint = MaterialTheme.colorScheme.onSurface
                 )
             }
 
             Text(
                 text = "Vehicle Profile",
-                color = AutoPulseText,
+                color = MaterialTheme.colorScheme.onSurface,
                 fontSize = 21.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(start = 4.dp)
@@ -87,31 +87,31 @@ fun VehicleEditorScreen(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            AutoPulseTextField(
+            onSurfaceField(
                 label = "Make",
                 value = make,
                 onValueChange = { make = it }
             )
 
-            AutoPulseTextField(
+            onSurfaceField(
                 label = "Model",
                 value = model,
                 onValueChange = { model = it }
             )
 
-            AutoPulseTextField(
+            onSurfaceField(
                 label = "Year",
                 value = year,
                 onValueChange = { year = it }
             )
 
-            AutoPulseTextField(
+            onSurfaceField(
                 label = "Engine / Powertrain",
                 value = engineSize,
                 onValueChange = { engineSize = it }
             )
 
-            AutoPulseTextField(
+            onSurfaceField(
                 label = "VIN",
                 value = vin,
                 onValueChange = { vin = it }
@@ -127,7 +127,7 @@ fun VehicleEditorScreen(
                 shape = RoundedCornerShape(12.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = AutoPulseCyan,
-                    contentColor = AutoPulseBackground
+                    contentColor = MaterialTheme.colorScheme.background
                 )
             ) {
 
@@ -152,10 +152,10 @@ fun VehicleEditorScreen(
                 shape = RoundedCornerShape(12.dp),
                 border = androidx.compose.foundation.BorderStroke(
                     1.dp,
-                    AutoPulseWarning
+                    AutoPulseError
                 ),
                 colors = ButtonDefaults.outlinedButtonColors(
-                    contentColor = AutoPulseWarning
+                    contentColor = AutoPulseError
                 )
             ) {
 
@@ -179,7 +179,7 @@ fun VehicleEditorScreen(
 
 
 @Composable
-private fun AutoPulseTextField(
+private fun onSurfaceField(
     label: String,
     value: String,
     onValueChange: (String) -> Unit
@@ -191,7 +191,7 @@ private fun AutoPulseTextField(
 
         Text(
             text = label,
-            color = AutoPulseTextSecondary,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 11.sp,
             fontWeight = FontWeight.Bold
         )
@@ -205,10 +205,10 @@ private fun AutoPulseTextField(
             singleLine = true,
             shape = RoundedCornerShape(12.dp),
             colors = OutlinedTextFieldDefaults.colors(
-                focusedTextColor = AutoPulseText,
-                unfocusedTextColor = AutoPulseText,
+                focusedTextColor = MaterialTheme.colorScheme.onSurface,
+                unfocusedTextColor = MaterialTheme.colorScheme.onSurface,
                 focusedBorderColor = AutoPulseCyan,
-                unfocusedBorderColor = AutoPulseBorder,
+                unfocusedBorderColor = MaterialTheme.colorScheme.outline,
                 cursorColor = AutoPulseCyan
             )
         )

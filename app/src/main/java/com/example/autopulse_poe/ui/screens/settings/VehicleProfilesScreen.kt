@@ -46,13 +46,13 @@ fun VehicleProfilesScreen(
     )
 
     Scaffold(
-        containerColor = AutoPulseBackground,
+        containerColor = MaterialTheme.colorScheme.background,
         floatingActionButton = {
 
             FloatingActionButton(
                 onClick = onAddVehicle,
                 containerColor = AutoPulsePurple,
-                contentColor = Color.White,
+                contentColor = MaterialTheme.colorScheme.onSurface,
                 shape = CircleShape
             ) {
 
@@ -87,7 +87,7 @@ fun VehicleProfilesScreen(
                     Icon(
                         Icons.AutoMirrored.Filled.ArrowBack,
                         contentDescription = "Back",
-                        tint = AutoPulseText
+                        tint = MaterialTheme.colorScheme.onSurface
                     )
                 }
 
@@ -97,14 +97,14 @@ fun VehicleProfilesScreen(
 
                     Text(
                         text = "My Vehicles",
-                        color = AutoPulseText,
+                        color = MaterialTheme.colorScheme.onSurface,
                         fontSize = 21.sp,
                         fontWeight = FontWeight.Bold
                     )
 
                     Text(
                         text = "${vehicles.size} vehicles saved",
-                        color = AutoPulseTextSecondary,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                         fontSize = 11.sp
                     )
                 }
@@ -143,7 +143,7 @@ private fun VehicleProfileCard(
         borderColor = if (vehicle.isActive) {
             vehicle.color.copy(alpha = 0.7f)
         } else {
-            AutoPulseBorder
+            MaterialTheme.colorScheme.outline
         }
     ) {
 
@@ -179,14 +179,14 @@ private fun VehicleProfileCard(
 
                     Text(
                         text = vehicle.name,
-                        color = AutoPulseText,
+                        color = MaterialTheme.colorScheme.onSurface,
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Bold
                     )
 
                     Text(
                         text = vehicle.specs,
-                        color = AutoPulseTextSecondary,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                         fontSize = 11.sp
                     )
                 }
@@ -194,7 +194,7 @@ private fun VehicleProfileCard(
                 Icon(
                     imageVector = Icons.Default.MoreVert,
                     contentDescription = "Vehicle options",
-                    tint = AutoPulseTextMuted
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
 

@@ -1,5 +1,6 @@
 package com.example.autopulse_poe.ui.screens.settings
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -51,7 +52,7 @@ fun BluetoothSettingsScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(AutoPulseBackground)
+            .background(MaterialTheme.colorScheme.background)
     ) {
 
         // ----------------------------------------------------
@@ -71,7 +72,7 @@ fun BluetoothSettingsScreen(
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                     contentDescription = "Back",
-                    tint = AutoPulseText
+                    tint = MaterialTheme.colorScheme.onSurface
                 )
             }
 
@@ -81,14 +82,14 @@ fun BluetoothSettingsScreen(
 
                 Text(
                     text = "OBD-II Adapter",
-                    color = AutoPulseText,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontSize = 22.sp,
                     fontWeight = FontWeight.Black
                 )
 
                 Text(
                     text = "Manage your vehicle connection",
-                    color = AutoPulseTextMuted,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 10.sp
                 )
             }
@@ -107,7 +108,6 @@ fun BluetoothSettingsScreen(
                 )
             }
         }
-
 
         // ----------------------------------------------------
         // CONTENT
@@ -160,12 +160,11 @@ fun BluetoothSettingsScreen(
                                 .fillMaxWidth()
                                 .height(2.dp),
                             color = AutoPulseCyan,
-                            trackColor = AutoPulseSurfaceElevated
+                            trackColor = MaterialTheme.colorScheme.surfaceVariant
                         )
                     }
                 }
             }
-
 
             // ------------------------------------------------
             // CONNECTED DEVICE
@@ -191,7 +190,6 @@ fun BluetoothSettingsScreen(
                 }
             }
 
-
             // ------------------------------------------------
             // AVAILABLE DEVICES
             // ------------------------------------------------
@@ -200,7 +198,7 @@ fun BluetoothSettingsScreen(
 
                 SettingsSectionTitle(
                     title = "AVAILABLE DEVICES",
-                    color = AutoPulseTextSecondary
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
 
                 Spacer(modifier = Modifier.height(8.dp))
@@ -209,7 +207,7 @@ fun BluetoothSettingsScreen(
             items(devices.drop(1)) { device ->
 
                 NeonCard(
-                    borderColor = AutoPulseBorder
+                    borderColor = MaterialTheme.colorScheme.outline
                 ) {
 
                     DeviceItem(
@@ -218,7 +216,6 @@ fun BluetoothSettingsScreen(
                     )
                 }
             }
-
 
             // ------------------------------------------------
             // ADAPTER DIAGNOSTICS
@@ -267,14 +264,14 @@ fun BluetoothSettingsScreen(
 
                             Text(
                                 text = "Adapter Diagnostics",
-                                color = AutoPulseText,
+                                color = MaterialTheme.colorScheme.onSurface,
                                 fontSize = 15.sp,
                                 fontWeight = FontWeight.Bold
                             )
 
                             Text(
                                 text = "Check communication and adapter compatibility",
-                                color = AutoPulseTextMuted,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
                                 fontSize = 10.sp,
                                 lineHeight = 14.sp
                             )
@@ -314,7 +311,7 @@ fun BluetoothSettingsScreen(
                             .height(48.dp),
                         colors = ButtonDefaults.buttonColors(
                             containerColor = AutoPulsePurple,
-                            contentColor = Color.White
+                            contentColor = MaterialTheme.colorScheme.background
                         ),
                         shape = RoundedCornerShape(10.dp)
                     ) {
@@ -335,7 +332,6 @@ fun BluetoothSettingsScreen(
                 }
             }
 
-
             // ------------------------------------------------
             // FOOTER
             // ------------------------------------------------
@@ -346,14 +342,16 @@ fun BluetoothSettingsScreen(
 
                 Text(
                     text = "AutoPulse Bluetooth Connection",
-                    color = AutoPulseTextMuted,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 9.sp,
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
 
                 Text(
                     text = "Only pair with adapters you trust.",
-                    color = AutoPulseTextMuted.copy(alpha = 0.6f),
+                    color = MaterialTheme.colorScheme.onSurfaceVariant.copy(
+                        alpha = 0.6f
+                    ),
                     fontSize = 9.sp,
                     modifier = Modifier
                         .align(Alignment.CenterHorizontally)
@@ -382,15 +380,15 @@ fun DeviceItem(
         verticalAlignment = Alignment.CenterVertically
     ) {
 
-        // Bluetooth icon
         Box(
             modifier = Modifier
                 .size(44.dp)
                 .background(
-                    if (isConnected)
+                    if (isConnected) {
                         AutoPulseCyan.copy(alpha = 0.12f)
-                    else
-                        AutoPulseSurfaceElevated,
+                    } else {
+                        MaterialTheme.colorScheme.surfaceVariant
+                    },
                     RoundedCornerShape(10.dp)
                 ),
             contentAlignment = Alignment.Center
@@ -399,10 +397,11 @@ fun DeviceItem(
             Icon(
                 imageVector = Icons.Default.Bluetooth,
                 contentDescription = null,
-                tint = if (isConnected)
+                tint = if (isConnected) {
                     AutoPulseCyan
-                else
-                    AutoPulseTextMuted,
+                } else {
+                    MaterialTheme.colorScheme.onSurfaceVariant
+                },
                 modifier = Modifier.size(22.dp)
             )
         }
@@ -415,7 +414,7 @@ fun DeviceItem(
 
             Text(
                 text = device.name,
-                color = AutoPulseText,
+                color = MaterialTheme.colorScheme.onSurface,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -424,7 +423,7 @@ fun DeviceItem(
 
             Text(
                 text = device.address,
-                color = AutoPulseTextMuted,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 10.sp
             )
         }
@@ -458,7 +457,7 @@ fun DeviceItem(
 
                 Text(
                     text = "Active",
-                    color = AutoPulseTextMuted,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 9.sp
                 )
             }
@@ -471,7 +470,7 @@ fun DeviceItem(
                 contentPadding = PaddingValues(
                     horizontal = 12.dp
                 ),
-                border = androidx.compose.foundation.BorderStroke(
+                border = BorderStroke(
                     1.dp,
                     AutoPulseCyan.copy(alpha = 0.5f)
                 ),
@@ -500,14 +499,14 @@ fun DeviceItem(
 private fun DiagnosticValue(
     label: String,
     value: String,
-    valueColor: Color = AutoPulseText
+    valueColor: Color = MaterialTheme.colorScheme.onSurface
 ) {
 
     Column {
 
         Text(
             text = label,
-            color = AutoPulseTextMuted,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 9.sp
         )
 

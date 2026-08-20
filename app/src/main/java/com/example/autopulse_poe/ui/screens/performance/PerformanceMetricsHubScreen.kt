@@ -34,7 +34,7 @@ fun PerformanceMetricsHubScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(AutoPulseBackground)
+            .background(MaterialTheme.colorScheme.background)
     ) {
 
         // ----------------------------------------------------
@@ -59,7 +59,7 @@ fun PerformanceMetricsHubScreen(
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                     contentDescription = "Back",
-                    tint = AutoPulseText
+                    tint = MaterialTheme.colorScheme.onSurface
                 )
             }
 
@@ -69,14 +69,14 @@ fun PerformanceMetricsHubScreen(
 
                 Text(
                     text = "Performance Metrics",
-                    color = AutoPulseText,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontSize = 21.sp,
                     fontWeight = FontWeight.Bold
                 )
 
                 Text(
                     text = "Live vehicle performance",
-                    color = AutoPulseTextSecondary,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 12.sp
                 )
             }
@@ -137,7 +137,7 @@ fun PerformanceMetricsHubScreen(
 
             Text(
                 text = "LIVE TELEMETRY",
-                color = AutoPulseText,
+                color = MaterialTheme.colorScheme.onSurface,
                 fontSize = 13.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -203,7 +203,7 @@ fun PerformanceMetricsHubScreen(
 
             Text(
                 text = "ENGINE RPM",
-                color = AutoPulseText,
+                color = MaterialTheme.colorScheme.onSurface,
                 fontSize = 13.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -274,7 +274,7 @@ fun PerformanceMetricsHubScreen(
 
                         Text(
                             text = "DYNAMOMETER MODE",
-                            color = AutoPulseText,
+                            color = MaterialTheme.colorScheme.onSurface,
                             fontWeight = FontWeight.Bold,
                             fontSize = 14.sp
                         )
@@ -283,7 +283,7 @@ fun PerformanceMetricsHubScreen(
 
                         Text(
                             text = "Analyse power and torque from your performance run",
-                            color = AutoPulseTextSecondary,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
                             fontSize = 11.sp,
                             lineHeight = 15.sp
                         )
@@ -304,7 +304,7 @@ fun PerformanceMetricsHubScreen(
                     shape = RoundedCornerShape(13.dp),
                     colors = ButtonDefaults.buttonColors(
                         containerColor = AutoPulsePurple,
-                        contentColor = Color.White
+                        contentColor = MaterialTheme.colorScheme.onSurface
                     )
                 ) {
 
@@ -347,7 +347,7 @@ private fun PerformanceValueCard(
 
         Text(
             text = label,
-            color = AutoPulseTextSecondary,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 10.sp,
             fontWeight = FontWeight.Bold
         )
@@ -369,7 +369,7 @@ private fun PerformanceValueCard(
 
             Text(
                 text = unit,
-                color = AutoPulseText,
+                color = MaterialTheme.colorScheme.onSurface,
                 fontSize = 13.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(bottom = 5.dp)
@@ -433,7 +433,7 @@ private fun TelemetryCard(
 
             Text(
                 text = label,
-                color = AutoPulseTextSecondary,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 9.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -447,7 +447,7 @@ private fun TelemetryCard(
 
             Text(
                 text = value,
-                color = AutoPulseText,
+                color = MaterialTheme.colorScheme.onSurface,
                 fontSize = 25.sp,
                 fontWeight = FontWeight.Black
             )
@@ -515,7 +515,7 @@ private fun PerformanceGauge(
 
             Text(
                 text = value.toInt().toString(),
-                color = AutoPulseText,
+                color = MaterialTheme.colorScheme.onSurface,
                 fontSize = 38.sp,
                 fontWeight = FontWeight.Black
             )
@@ -531,7 +531,7 @@ private fun PerformanceGauge(
 
             Text(
                 text = "of ${maxValue.toInt()}",
-                color = AutoPulseTextMuted,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 10.sp
             )
         }

@@ -30,7 +30,7 @@ fun StockComparisonScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(AutoPulseBackground)
+            .background(MaterialTheme.colorScheme.background)
     ) {
 
         // ----------------------------------------------------
@@ -52,7 +52,7 @@ fun StockComparisonScreen(
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                     contentDescription = "Back",
-                    tint = AutoPulseText
+                    tint = MaterialTheme.colorScheme.onSurface
                 )
             }
 
@@ -62,14 +62,14 @@ fun StockComparisonScreen(
 
                 Text(
                     text = "STOCK COMPARISON",
-                    color = AutoPulseText,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold
                 )
 
                 Text(
                     text = "Vehicle performance analysis",
-                    color = AutoPulseTextSecondary,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 12.sp
                 )
             }
@@ -127,7 +127,7 @@ fun StockComparisonScreen(
 
                         Text(
                             text = "CURRENT VEHICLE",
-                            color = AutoPulseTextMuted,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
                             fontSize = 10.sp,
                             fontWeight = FontWeight.Bold
                         )
@@ -136,7 +136,7 @@ fun StockComparisonScreen(
 
                         Text(
                             text = "2024 Tesla Model S Plaid",
-                            color = AutoPulseText,
+                            color = MaterialTheme.colorScheme.onSurface,
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Bold
                         )
@@ -159,7 +159,7 @@ fun StockComparisonScreen(
 
             Text(
                 text = "PERFORMANCE OVERVIEW",
-                color = AutoPulseTextSecondary,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -181,7 +181,7 @@ fun StockComparisonScreen(
 
                         Text(
                             text = "OVERALL RESULT",
-                            color = AutoPulseTextMuted,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
                             fontSize = 10.sp,
                             fontWeight = FontWeight.Bold
                         )
@@ -199,7 +199,7 @@ fun StockComparisonScreen(
 
                         Text(
                             text = "Vehicle is performing above factory specifications.",
-                            color = AutoPulseTextSecondary,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
                             fontSize = 11.sp
                         )
                     }
@@ -220,7 +220,7 @@ fun StockComparisonScreen(
 
             Text(
                 text = "PERFORMANCE COMPARISON",
-                color = AutoPulseTextSecondary,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -281,7 +281,7 @@ fun StockComparisonScreen(
 
             Text(
                 text = "AUTOPULSE INSIGHTS",
-                color = AutoPulseTextSecondary,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -309,7 +309,7 @@ fun StockComparisonScreen(
 
                         Text(
                             text = "Performance Analysis",
-                            color = AutoPulseText,
+                            color = MaterialTheme.colorScheme.onSurface,
                             fontSize = 14.sp,
                             fontWeight = FontWeight.Bold
                         )
@@ -318,7 +318,7 @@ fun StockComparisonScreen(
 
                         Text(
                             text = "Current measurements indicate improved power delivery compared with the factory baseline. Acceleration and braking performance are also showing measurable improvements.",
-                            color = AutoPulseTextSecondary,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
                             fontSize = 12.sp,
                             lineHeight = 18.sp
                         )
@@ -354,7 +354,7 @@ private fun StockComparisonCard(
 
         Text(
             text = label,
-            color = AutoPulseTextMuted,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 10.sp,
             fontWeight = FontWeight.Bold,
             letterSpacing = 0.8.sp
@@ -377,7 +377,7 @@ private fun StockComparisonCard(
 
                 Text(
                     text = "FACTORY",
-                    color = AutoPulseTextMuted,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 9.sp,
                     fontWeight = FontWeight.Bold
                 )
@@ -386,7 +386,7 @@ private fun StockComparisonCard(
 
                 Text(
                     text = factory,
-                    color = AutoPulseText,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold
                 )

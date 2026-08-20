@@ -20,12 +20,12 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Analytics
+import androidx.compose.material.icons.filled.Assessment
 import androidx.compose.material.icons.filled.AutoAwesome
 import androidx.compose.material.icons.filled.Backup
 import androidx.compose.material.icons.filled.Build
 import androidx.compose.material.icons.filled.DirectionsCar
 import androidx.compose.material.icons.filled.EmojiEvents
-import androidx.compose.material.icons.filled.Assessment
 import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Navigation
@@ -37,6 +37,7 @@ import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -47,23 +48,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.example.autopulse_poe.ui.components.Gauge
-import com.example.autopulse_poe.ui.theme.AutoPulseBackground
-import com.example.autopulse_poe.ui.theme.AutoPulseBorder
-import com.example.autopulse_poe.ui.theme.AutoPulseBorderStrong
+import com.example.autopulse_poe.ui.theme.AutoPulseBlue
 import com.example.autopulse_poe.ui.theme.AutoPulseCyan
 import com.example.autopulse_poe.ui.theme.AutoPulseError
 import com.example.autopulse_poe.ui.theme.AutoPulsePurple
 import com.example.autopulse_poe.ui.theme.AutoPulseSuccess
-import com.example.autopulse_poe.ui.theme.AutoPulseSurface
-import com.example.autopulse_poe.ui.theme.AutoPulseSurfaceElevated
-import com.example.autopulse_poe.ui.theme.AutoPulseText
-import com.example.autopulse_poe.ui.theme.AutoPulseTextMuted
-import com.example.autopulse_poe.ui.theme.AutoPulseTextSecondary
 import com.example.autopulse_poe.ui.theme.AutoPulseWarning
+
 
 @Composable
 fun DashboardScreen(
@@ -86,16 +82,17 @@ fun DashboardScreen(
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .background(AutoPulseBackground)
+            .background(MaterialTheme.colorScheme.background)
             .padding(horizontal = 20.dp),
         verticalArrangement = Arrangement.spacedBy(20.dp)
     ) {
 
-        // ----------------------------------------------------
+        // ====================================================
         // HEADER
-        // ----------------------------------------------------
+        // ====================================================
 
         item {
+
             Spacer(modifier = Modifier.height(12.dp))
 
             Row(
@@ -107,13 +104,17 @@ fun DashboardScreen(
                 Row(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
+
                     Box(
                         modifier = Modifier
                             .size(42.dp)
                             .clip(RoundedCornerShape(12.dp))
-                            .background(AutoPulseSurfaceElevated),
+                            .background(
+                                MaterialTheme.colorScheme.surfaceVariant
+                            ),
                         contentAlignment = Alignment.Center
                     ) {
+
                         Icon(
                             imageVector = Icons.Default.DirectionsCar,
                             contentDescription = "AutoPulse",
@@ -125,16 +126,17 @@ fun DashboardScreen(
                     Spacer(modifier = Modifier.width(12.dp))
 
                     Column {
+
                         Text(
                             text = "AutoPulse",
-                            color = AutoPulseText,
+                            color = MaterialTheme.colorScheme.onBackground,
                             fontSize = 22.sp,
                             fontWeight = FontWeight.Bold
                         )
 
                         Text(
                             text = "VEHICLE TELEMETRY",
-                            color = AutoPulseTextMuted,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
                             fontSize = 9.sp,
                             fontWeight = FontWeight.Bold,
                             letterSpacing = 1.2.sp
@@ -146,7 +148,10 @@ fun DashboardScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
 
-                    // Connection indicator
+                    // ------------------------------------------------
+                    // CONNECTION INDICATOR
+                    // ------------------------------------------------
+
                     Row(
                         modifier = Modifier
                             .clip(CircleShape)
@@ -159,168 +164,213 @@ fun DashboardScreen(
                             ),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
+
                         Box(
                             modifier = Modifier
                                 .size(7.dp)
                                 .clip(CircleShape)
                                 .background(AutoPulseSuccess)
                         )
+                    }
 
-                        Spacer(modifier = Modifier.width(6.dp))
+                    // ------------------------------------------------
+                    // SETTINGS
+                    // ------------------------------------------------
 
-                    /*Text(
-                            text = "CONNECTED",
-                            color = AutoPulseSuccess,
-                            fontSize = 9.sp,
-                            fontWeight = FontWeight.Bold
-                        )*/
-                }
-
-                IconButton(
-                    onClick = onNavigateToSettings
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Settings,
-                        contentDescription = "Settings",
-                        tint = AutoPulseTextSecondary
-                    )
-                }
-
-                Box {
                     IconButton(
-                        onClick = { showMoreMenu = true }
+                        onClick = onNavigateToSettings
                     ) {
+
                         Icon(
-                            imageVector = Icons.Default.Menu,
-                            contentDescription = "More features",
-                            tint = AutoPulseTextSecondary
+                            imageVector = Icons.Default.Settings,
+                            contentDescription = "Settings",
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     }
 
-                    DropdownMenu(
-                        expanded = showMoreMenu,
-                        onDismissRequest = { showMoreMenu = false },
-                        containerColor = AutoPulseSurfaceElevated
-                    ) {
-                        DropdownMenuItem(
-                            text = { Text("Profile", color = AutoPulseText) },
-                            leadingIcon = {
-                                Icon(
-                                    imageVector = Icons.Default.Person,
-                                    contentDescription = null,
-                                    tint = AutoPulseCyan
-                                )
-                            },
-                            onClick = {
-                                showMoreMenu = false
-                                onNavigateToSettings()
-                            }
-                        )
+                    // ------------------------------------------------
+                    // MORE MENU
+                    // ------------------------------------------------
 
-                        DropdownMenuItem(
-                            text = { Text("Reports", color = AutoPulseText) },
-                            leadingIcon = {
-                                Icon(
-                                    imageVector = Icons.Default.Assessment,
-                                    contentDescription = null,
-                                    tint = AutoPulseCyan
-                                )
-                            },
-                            onClick = {
-                                showMoreMenu = false
-                                onNavigateToReports()
-                            }
-                        )
+                    Box {
 
-                        DropdownMenuItem(
-                            text = { Text("Maintenance", color = AutoPulseText) },
-                            leadingIcon = {
-                                Icon(
-                                    imageVector = Icons.Default.Build,
-                                    contentDescription = null,
-                                    tint = AutoPulseCyan
-                                )
-                            },
+                        IconButton(
                             onClick = {
-                                showMoreMenu = false
-                                onNavigateToMaintenance()
+                                showMoreMenu = true
                             }
-                        )
+                        ) {
 
-                        DropdownMenuItem(
-                            text = { Text("Analytics", color = AutoPulseText) },
-                            leadingIcon = {
-                                Icon(
-                                    imageVector = Icons.Default.Analytics,
-                                    contentDescription = null,
-                                    tint = AutoPulseCyan
-                                )
-                            },
-                            onClick = {
-                                showMoreMenu = false
-                                onNavigateToAnalytics()
-                            }
-                        )
+                            Icon(
+                                imageVector = Icons.Default.Menu,
+                                contentDescription = "More features",
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
 
-                        DropdownMenuItem(
-                            text = { Text("Achievements", color = AutoPulseText) },
-                            leadingIcon = {
-                                Icon(
-                                    imageVector = Icons.Default.EmojiEvents,
-                                    contentDescription = null,
-                                    tint = AutoPulseCyan
-                                )
-                            },
-                            onClick = {
+                        DropdownMenu(
+                            expanded = showMoreMenu,
+                            onDismissRequest = {
                                 showMoreMenu = false
-                                onNavigateToAchievements()
-                            }
-                        )
+                            },
+                            containerColor = MaterialTheme.colorScheme.surface
+                        ) {
 
-                        DropdownMenuItem(
-                            text = { Text("Vehicle Profiles", color = AutoPulseText) },
-                            leadingIcon = {
-                                Icon(
-                                    imageVector = Icons.Default.DirectionsCar,
-                                    contentDescription = null,
-                                    tint = AutoPulseCyan
-                                )
-                            },
-                            onClick = {
-                                showMoreMenu = false
-                                onNavigateToVehicleProfiles()
-                            }
-                        )
+                            DropdownMenuItem(
+                                text = {
+                                    Text(
+                                        text = "Profile",
+                                        color = MaterialTheme.colorScheme.onSurface
+                                    )
+                                },
+                                leadingIcon = {
+                                    Icon(
+                                        imageVector = Icons.Default.Person,
+                                        contentDescription = null,
+                                        tint = AutoPulseCyan
+                                    )
+                                },
+                                onClick = {
+                                    showMoreMenu = false
+                                    onNavigateToSettings()
+                                }
+                            )
 
-                        DropdownMenuItem(
-                            text = { Text("Backup & Restore", color = AutoPulseText) },
-                            leadingIcon = {
-                                Icon(
-                                    imageVector = Icons.Default.Backup,
-                                    contentDescription = null,
-                                    tint = AutoPulseCyan
-                                )
-                            },
-                            onClick = {
-                                showMoreMenu = false
-                                onNavigateToBackup()
-                            }
-                        )
+                            DropdownMenuItem(
+                                text = {
+                                    Text(
+                                        text = "Reports",
+                                        color = MaterialTheme.colorScheme.onSurface
+                                    )
+                                },
+                                leadingIcon = {
+                                    Icon(
+                                        imageVector = Icons.Default.Assessment,
+                                        contentDescription = null,
+                                        tint = AutoPulseCyan
+                                    )
+                                },
+                                onClick = {
+                                    showMoreMenu = false
+                                    onNavigateToReports()
+                                }
+                            )
+
+                            DropdownMenuItem(
+                                text = {
+                                    Text(
+                                        text = "Maintenance",
+                                        color = MaterialTheme.colorScheme.onSurface
+                                    )
+                                },
+                                leadingIcon = {
+                                    Icon(
+                                        imageVector = Icons.Default.Build,
+                                        contentDescription = null,
+                                        tint = AutoPulseCyan
+                                    )
+                                },
+                                onClick = {
+                                    showMoreMenu = false
+                                    onNavigateToMaintenance()
+                                }
+                            )
+
+                            DropdownMenuItem(
+                                text = {
+                                    Text(
+                                        text = "Analytics",
+                                        color = MaterialTheme.colorScheme.onSurface
+                                    )
+                                },
+                                leadingIcon = {
+                                    Icon(
+                                        imageVector = Icons.Default.Analytics,
+                                        contentDescription = null,
+                                        tint = AutoPulseCyan
+                                    )
+                                },
+                                onClick = {
+                                    showMoreMenu = false
+                                    onNavigateToAnalytics()
+                                }
+                            )
+
+                            DropdownMenuItem(
+                                text = {
+                                    Text(
+                                        text = "Achievements",
+                                        color = MaterialTheme.colorScheme.onSurface
+                                    )
+                                },
+                                leadingIcon = {
+                                    Icon(
+                                        imageVector = Icons.Default.EmojiEvents,
+                                        contentDescription = null,
+                                        tint = AutoPulseCyan
+                                    )
+                                },
+                                onClick = {
+                                    showMoreMenu = false
+                                    onNavigateToAchievements()
+                                }
+                            )
+
+                            DropdownMenuItem(
+                                text = {
+                                    Text(
+                                        text = "Vehicle Profiles",
+                                        color = MaterialTheme.colorScheme.onSurface
+                                    )
+                                },
+                                leadingIcon = {
+                                    Icon(
+                                        imageVector = Icons.Default.DirectionsCar,
+                                        contentDescription = null,
+                                        tint = AutoPulseCyan
+                                    )
+                                },
+                                onClick = {
+                                    showMoreMenu = false
+                                    onNavigateToVehicleProfiles()
+                                }
+                            )
+
+                            DropdownMenuItem(
+                                text = {
+                                    Text(
+                                        text = "Backup & Restore",
+                                        color = MaterialTheme.colorScheme.onSurface
+                                    )
+                                },
+                                leadingIcon = {
+                                    Icon(
+                                        imageVector = Icons.Default.Backup,
+                                        contentDescription = null,
+                                        tint = AutoPulseCyan
+                                    )
+                                },
+                                onClick = {
+                                    showMoreMenu = false
+                                    onNavigateToBackup()
+                                }
+                            )
+                        }
                     }
                 }
             }
         }
-    }
 
-        // ----------------------------------------------------
+        // ====================================================
         // WELCOME
-        // ----------------------------------------------------
+        // ====================================================
 
         item {
+
             Column {
+
                 Text(
                     text = "Welcome back, Alex",
-                    color = AutoPulseText,
+                    color = MaterialTheme.colorScheme.onBackground,
                     fontSize = 25.sp,
                     fontWeight = FontWeight.Bold
                 )
@@ -329,15 +379,15 @@ fun DashboardScreen(
 
                 Text(
                     text = "Your vehicle is running smoothly.",
-                    color = AutoPulseTextSecondary,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 14.sp
                 )
             }
         }
 
-        // ----------------------------------------------------
+        // ====================================================
         // HUD
-        // ----------------------------------------------------
+        // ====================================================
 
         item {
 
@@ -351,18 +401,19 @@ fun DashboardScreen(
             Spacer(modifier = Modifier.height(20.dp))
         }
 
-        // ----------------------------------------------------
+        // ====================================================
         // QUICK ACTIONS
-        // ----------------------------------------------------
+        // ====================================================
 
         item {
+
             Column(
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
 
                 Text(
                     text = "QUICK ACTIONS",
-                    color = AutoPulseTextMuted,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 11.sp,
                     fontWeight = FontWeight.Bold,
                     letterSpacing = 1.sp
@@ -381,7 +432,6 @@ fun DashboardScreen(
                         accent = AutoPulseCyan,
                         onClick = {}
                     )
-
 
                     AutoPulseQuickAction(
                         modifier = Modifier.weight(1f),
@@ -403,7 +453,7 @@ fun DashboardScreen(
                         icon = Icons.Default.Speed,
                         title = "Performance",
                         subtitle = "Live metrics",
-                        accent = Color(0xFF3B82F6),
+                        accent = AutoPulseBlue,
                         onClick = onNavigateToPerformance
                     )
 
@@ -419,12 +469,14 @@ fun DashboardScreen(
             }
         }
 
-        // ----------------------------------------------------
+        // ====================================================
         // CURRENT TRIP
-        // ----------------------------------------------------
+        // ====================================================
 
         item {
+
             Column {
+
                 SectionTitle("CURRENT TRIP")
 
                 Spacer(modifier = Modifier.height(10.dp))
@@ -437,92 +489,23 @@ fun DashboardScreen(
             }
         }
 
-        // ----------------------------------------------------
-        // LIVE TELEMETRY
-        // ----------------------------------------------------
-
-        /*item {
-            Column {
-
-                SectionTitle("LIVE TELEMETRY")
-
-                Spacer(modifier = Modifier.height(10.dp))
-
-                // ---------------------------------------------
-                // HERO RPM CARD
-                // ---------------------------------------------
-
-                AutoPulseRpmCard()
-
-                Spacer(modifier = Modifier.height(12.dp))
-
-                // ---------------------------------------------
-                // SUPPORTING METRICS
-                // ---------------------------------------------
-
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(12.dp)
-                ) {
-
-                    AutoPulseMetricCard(
-                        modifier = Modifier.weight(1f),
-                        label = "COOLANT",
-                        value = "89",
-                        unit = "°C",
-                        accent = AutoPulseSuccess
-                    )
-
-                    AutoPulseMetricCard(
-                        modifier = Modifier.weight(1f),
-                        label = "THROTTLE",
-                        value = "42",
-                        unit = "%",
-                        accent = Color(0xFF3B82F6)
-                    )
-                }
-
-                Spacer(modifier = Modifier.height(12.dp))
-
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(12.dp)
-                ) {
-
-                    AutoPulseMetricCard(
-                        modifier = Modifier.weight(1f),
-                        label = "ENGINE LOAD",
-                        value = "58",
-                        unit = "%",
-                        accent = AutoPulseWarning
-                    )
-
-                    AutoPulseMetricCard(
-                        modifier = Modifier.weight(1f),
-                        label = "SPEED",
-                        value = "65",
-                        unit = "km/h",
-                        accent = AutoPulseCyan
-                    )
-                }
-            }
-        }*/
-
-        // ----------------------------------------------------
+        // ====================================================
         // AI MECHANIC
-        // ----------------------------------------------------
+        // ====================================================
 
         item {
+
             AutoPulseAiCard(
                 onClick = onNavigateToAi
             )
         }
 
-        // ----------------------------------------------------
+        // ====================================================
         // FUEL
-        // ----------------------------------------------------
+        // ====================================================
 
         item {
+
             AutoPulseFuelCard(
                 mpg = "32",
                 fuelLevel = "78%",
@@ -530,19 +513,21 @@ fun DashboardScreen(
             )
         }
 
-        // ----------------------------------------------------
+        // ====================================================
         // MAINTENANCE + SAFETY
-        // ----------------------------------------------------
+        // ====================================================
 
         item {
 
             Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(12.dp)
+                modifier = Modifier
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
+                verticalAlignment = Alignment.Top
             ) {
 
                 AutoPulseMaintenanceCard(
-                    modifier = Modifier.weight(1.2f),
+                    modifier = Modifier.weight(1f),
                     onClick = onNavigateToMaintenance
                 )
 
@@ -551,6 +536,10 @@ fun DashboardScreen(
                     onClick = onNavigateToAchievements
                 )
             }
+        }
+
+        item {
+            Spacer(modifier = Modifier.height(12.dp))
         }
     }
 }
@@ -564,9 +553,10 @@ fun DashboardScreen(
 private fun SectionTitle(
     text: String
 ) {
+
     Text(
         text = text,
-        color = AutoPulseTextMuted,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
         fontSize = 11.sp,
         fontWeight = FontWeight.Bold,
         letterSpacing = 1.2.sp
@@ -581,16 +571,19 @@ private fun SectionTitle(
 @Composable
 private fun AutoPulseQuickAction(
     modifier: Modifier = Modifier,
-    icon: androidx.compose.ui.graphics.vector.ImageVector,
+    icon: ImageVector,
     title: String,
     subtitle: String,
     accent: Color,
     onClick: () -> Unit
 ) {
+
     Column(
         modifier = modifier
             .clip(RoundedCornerShape(16.dp))
-            .background(accent.copy(alpha = 0.075f))
+            .background(
+                accent.copy(alpha = 0.075f)
+            )
             .border(
                 width = 1.dp,
                 color = accent.copy(alpha = 0.30f),
@@ -604,9 +597,12 @@ private fun AutoPulseQuickAction(
             modifier = Modifier
                 .size(42.dp)
                 .clip(RoundedCornerShape(12.dp))
-                .background(accent.copy(alpha = 0.14f)),
+                .background(
+                    accent.copy(alpha = 0.14f)
+                ),
             contentAlignment = Alignment.Center
         ) {
+
             Icon(
                 imageVector = icon,
                 contentDescription = null,
@@ -619,7 +615,7 @@ private fun AutoPulseQuickAction(
 
         Text(
             text = title,
-            color = AutoPulseText,
+            color = MaterialTheme.colorScheme.onSurface,
             fontSize = 15.sp,
             fontWeight = FontWeight.Bold
         )
@@ -628,11 +624,12 @@ private fun AutoPulseQuickAction(
 
         Text(
             text = subtitle,
-            color = AutoPulseTextSecondary,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 11.sp
         )
     }
 }
+
 
 // ============================================================
 // TRIP CARD
@@ -644,11 +641,12 @@ private fun AutoPulseTripCard(
     distance: String,
     averageSpeed: String
 ) {
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(18.dp))
-            .background(AutoPulseSurface)
+            .background(MaterialTheme.colorScheme.surface)
             .border(
                 width = 1.dp,
                 color = AutoPulseCyan.copy(alpha = 0.22f),
@@ -657,7 +655,6 @@ private fun AutoPulseTripCard(
             .padding(18.dp)
     ) {
 
-        // Header
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -688,7 +685,7 @@ private fun AutoPulseTripCard(
 
             Text(
                 text = duration,
-                color = AutoPulseText,
+                color = MaterialTheme.colorScheme.onSurface,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.SemiBold
             )
@@ -696,17 +693,16 @@ private fun AutoPulseTripCard(
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        // Main distance
         Text(
             text = distance,
-            color = AutoPulseText,
+            color = MaterialTheme.colorScheme.onSurface,
             fontSize = 32.sp,
             fontWeight = FontWeight.Bold
         )
 
         Text(
             text = "DISTANCE",
-            color = AutoPulseTextMuted,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 9.sp,
             fontWeight = FontWeight.Bold,
             letterSpacing = 1.sp
@@ -714,14 +710,16 @@ private fun AutoPulseTripCard(
 
         Spacer(modifier = Modifier.height(18.dp))
 
-        // Trip progress line
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(4.dp)
                 .clip(CircleShape)
-                .background(AutoPulseSurfaceElevated)
+                .background(
+                    MaterialTheme.colorScheme.surfaceVariant
+                )
         ) {
+
             Box(
                 modifier = Modifier
                     .fillMaxWidth(0.55f)
@@ -761,6 +759,7 @@ private fun AutoPulseTripCard(
     }
 }
 
+
 @Composable
 private fun TripMetric(
     modifier: Modifier,
@@ -768,6 +767,7 @@ private fun TripMetric(
     value: String,
     accent: Color
 ) {
+
     Column(
         modifier = modifier
     ) {
@@ -784,7 +784,7 @@ private fun TripMetric(
 
         Text(
             text = value,
-            color = AutoPulseText,
+            color = MaterialTheme.colorScheme.onSurface,
             fontSize = 14.sp,
             fontWeight = FontWeight.Bold
         )
@@ -793,7 +793,7 @@ private fun TripMetric(
 
         Text(
             text = label,
-            color = AutoPulseTextMuted,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 8.sp,
             fontWeight = FontWeight.Bold,
             letterSpacing = 0.5.sp
@@ -801,17 +801,21 @@ private fun TripMetric(
     }
 }
 
+
 @Composable
 private fun TripValue(
     modifier: Modifier,
     value: String,
     label: String
 ) {
-    Column(modifier = modifier) {
+
+    Column(
+        modifier = modifier
+    ) {
 
         Text(
             text = value,
-            color = AutoPulseText,
+            color = MaterialTheme.colorScheme.onSurface,
             fontSize = 22.sp,
             fontWeight = FontWeight.Bold
         )
@@ -820,7 +824,7 @@ private fun TripValue(
 
         Text(
             text = label,
-            color = AutoPulseTextMuted,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 9.sp,
             fontWeight = FontWeight.Bold,
             letterSpacing = 0.8.sp
@@ -841,13 +845,14 @@ private fun AutoPulseMetricCard(
     unit: String,
     accent: Color
 ) {
+
     Column(
         modifier = modifier
             .clip(RoundedCornerShape(14.dp))
-            .background(AutoPulseSurface)
+            .background(MaterialTheme.colorScheme.surface)
             .border(
                 width = 1.dp,
-                color = AutoPulseBorder,
+                color = MaterialTheme.colorScheme.outline,
                 shape = RoundedCornerShape(14.dp)
             )
             .padding(16.dp)
@@ -868,7 +873,7 @@ private fun AutoPulseMetricCard(
 
             Text(
                 text = label,
-                color = AutoPulseTextSecondary,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 9.sp,
                 fontWeight = FontWeight.Bold,
                 letterSpacing = 0.5.sp
@@ -883,7 +888,7 @@ private fun AutoPulseMetricCard(
 
             Text(
                 text = value,
-                color = AutoPulseText,
+                color = MaterialTheme.colorScheme.onSurface,
                 fontSize = 25.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -892,7 +897,7 @@ private fun AutoPulseMetricCard(
 
             Text(
                 text = unit,
-                color = AutoPulseTextMuted,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 10.sp,
                 modifier = Modifier.padding(bottom = 4.dp)
             )
@@ -909,11 +914,12 @@ private fun AutoPulseMetricCard(
 private fun AutoPulseAiCard(
     onClick: () -> Unit
 ) {
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(16.dp))
-            .background(AutoPulseSurface)
+            .background(MaterialTheme.colorScheme.surface)
             .border(
                 width = 1.dp,
                 color = AutoPulsePurple.copy(alpha = 0.35f),
@@ -928,9 +934,12 @@ private fun AutoPulseAiCard(
             modifier = Modifier
                 .size(42.dp)
                 .clip(RoundedCornerShape(12.dp))
-                .background(AutoPulsePurple.copy(alpha = 0.10f)),
+                .background(
+                    AutoPulsePurple.copy(alpha = 0.10f)
+                ),
             contentAlignment = Alignment.Center
         ) {
+
             Icon(
                 imageVector = Icons.Default.AutoAwesome,
                 contentDescription = null,
@@ -947,7 +956,7 @@ private fun AutoPulseAiCard(
 
             Text(
                 text = "AI Mechanic",
-                color = AutoPulseText,
+                color = MaterialTheme.colorScheme.onSurface,
                 fontSize = 15.sp,
                 fontWeight = FontWeight.SemiBold
             )
@@ -956,7 +965,7 @@ private fun AutoPulseAiCard(
 
             Text(
                 text = "Ask me about your vehicle",
-                color = AutoPulseTextSecondary,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 11.sp
             )
         }
@@ -981,11 +990,12 @@ private fun AutoPulseFuelCard(
     fuelLevel: String,
     onClick: () -> Unit
 ) {
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(18.dp))
-            .background(AutoPulseSurface)
+            .background(MaterialTheme.colorScheme.surface)
             .border(
                 width = 1.dp,
                 color = AutoPulseCyan.copy(alpha = 0.25f),
@@ -1002,9 +1012,10 @@ private fun AutoPulseFuelCard(
         ) {
 
             Column {
+
                 Text(
                     text = "FUEL EFFICIENCY",
-                    color = AutoPulseText,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontSize = 13.sp,
                     fontWeight = FontWeight.Bold,
                     letterSpacing = 0.8.sp
@@ -1014,7 +1025,7 @@ private fun AutoPulseFuelCard(
 
                 Text(
                     text = "Current driving efficiency",
-                    color = AutoPulseTextSecondary,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 11.sp
                 )
             }
@@ -1034,7 +1045,6 @@ private fun AutoPulseFuelCard(
             verticalAlignment = Alignment.CenterVertically
         ) {
 
-            // Existing gauge component
             Gauge(
                 value = 32f,
                 maxValue = 50f,
@@ -1063,7 +1073,7 @@ private fun AutoPulseFuelCard(
 
                     Text(
                         text = "MPG",
-                        color = AutoPulseTextSecondary,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier.padding(bottom = 7.dp)
@@ -1074,7 +1084,7 @@ private fun AutoPulseFuelCard(
 
                 Text(
                     text = "Fuel Level",
-                    color = AutoPulseTextMuted,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 10.sp
                 )
 
@@ -1101,10 +1111,12 @@ private fun AutoPulseMaintenanceCard(
     modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) {
+
     Column(
         modifier = modifier
+            .height(145.dp)
             .clip(RoundedCornerShape(16.dp))
-            .background(AutoPulseSurface)
+            .background(MaterialTheme.colorScheme.surface)
             .border(
                 width = 1.dp,
                 color = AutoPulseError.copy(alpha = 0.30f),
@@ -1116,7 +1128,7 @@ private fun AutoPulseMaintenanceCard(
 
         Text(
             text = "MAINTENANCE",
-            color = AutoPulseTextSecondary,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 9.sp,
             fontWeight = FontWeight.Bold,
             letterSpacing = 0.8.sp
@@ -1139,7 +1151,7 @@ private fun AutoPulseMaintenanceCard(
 
             Text(
                 text = "Oil change",
-                color = AutoPulseText,
+                color = MaterialTheme.colorScheme.onSurface,
                 fontSize = 13.sp,
                 fontWeight = FontWeight.SemiBold
             )
@@ -1165,13 +1177,15 @@ private fun AutoPulseSafetyCard(
     modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) {
+
     Column(
         modifier = modifier
+            .height(145.dp)
             .clip(RoundedCornerShape(16.dp))
-            .background(AutoPulseSurface)
+            .background(MaterialTheme.colorScheme.surface)
             .border(
                 width = 1.dp,
-                color = AutoPulseBorder,
+                color = MaterialTheme.colorScheme.outline,
                 shape = RoundedCornerShape(16.dp)
             )
             .clickable(onClick = onClick)
@@ -1180,7 +1194,7 @@ private fun AutoPulseSafetyCard(
 
         Text(
             text = "SAFETY SCORE",
-            color = AutoPulseTextSecondary,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 9.sp,
             fontWeight = FontWeight.Bold,
             letterSpacing = 0.8.sp
@@ -1203,7 +1217,7 @@ private fun AutoPulseSafetyCard(
 
             Text(
                 text = "/ 100",
-                color = AutoPulseTextMuted,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 11.sp,
                 modifier = Modifier.padding(bottom = 5.dp)
             )
@@ -1227,16 +1241,17 @@ private fun AutoPulseSafetyCard(
 private fun AutoPulseOutlineButton(
     modifier: Modifier = Modifier,
     text: String,
-    icon: androidx.compose.ui.graphics.vector.ImageVector,
+    icon: ImageVector,
     onClick: () -> Unit
 ) {
+
     Row(
         modifier = modifier
             .clip(RoundedCornerShape(12.dp))
-            .background(AutoPulseSurface)
+            .background(MaterialTheme.colorScheme.surface)
             .border(
                 width = 1.dp,
-                color = AutoPulseBorderStrong,
+                color = MaterialTheme.colorScheme.outlineVariant,
                 shape = RoundedCornerShape(12.dp)
             )
             .clickable(onClick = onClick)
@@ -1264,7 +1279,11 @@ private fun AutoPulseOutlineButton(
     }
 }
 
-//RPM Card
+
+// ============================================================
+// RPM CARD
+// ============================================================
+
 @Composable
 private fun AutoPulseRpmCard() {
 
@@ -1291,7 +1310,7 @@ private fun AutoPulseRpmCard() {
 
             Text(
                 text = "ENGINE RPM",
-                color = AutoPulseTextSecondary,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 10.sp,
                 fontWeight = FontWeight.Bold,
                 letterSpacing = 1.sp
@@ -1327,7 +1346,7 @@ private fun AutoPulseRpmCard() {
 
             Text(
                 text = "4,250",
-                color = AutoPulseText,
+                color = MaterialTheme.colorScheme.onSurface,
                 fontSize = 40.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -1345,7 +1364,6 @@ private fun AutoPulseRpmCard() {
 
         Spacer(modifier = Modifier.height(14.dp))
 
-        // RPM range
         Column {
 
             Box(
@@ -1353,7 +1371,9 @@ private fun AutoPulseRpmCard() {
                     .fillMaxWidth()
                     .height(6.dp)
                     .clip(CircleShape)
-                    .background(AutoPulseSurfaceElevated)
+                    .background(
+                        MaterialTheme.colorScheme.surfaceVariant
+                    )
             ) {
 
                 Box(
@@ -1374,25 +1394,25 @@ private fun AutoPulseRpmCard() {
 
                 Text(
                     text = "0",
-                    color = AutoPulseTextMuted,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 8.sp
                 )
 
                 Text(
                     text = "3,000",
-                    color = AutoPulseTextMuted,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 8.sp
                 )
 
                 Text(
                     text = "5,000",
-                    color = AutoPulseTextMuted,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 8.sp
                 )
 
                 Text(
                     text = "7,000 RPM",
-                    color = AutoPulseTextMuted,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 8.sp
                 )
             }

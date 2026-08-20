@@ -40,17 +40,17 @@ fun SyncOverlay() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Black.copy(alpha = 0.7f)),
+            .background( MaterialTheme.colorScheme.scrim.copy(alpha = 0.7f)),
         contentAlignment = Alignment.Center
     ) {
         NeonCard(borderColor = NeonCyan, modifier = Modifier.width(280.dp)) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 CircularProgressIndicator(color = NeonCyan)
                 Spacer(modifier = Modifier.height(24.dp))
-                Text(text = "Synchronizing Data", color = Color.White, fontWeight = FontWeight.Bold)
+                Text(text = "Synchronizing Data", color = MaterialTheme.colorScheme.onSurface, fontWeight = FontWeight.Bold)
                 Text(
                     text = "Updating your trip logs to the cloud...",
-                    color = Color.White.copy(alpha = 0.6f),
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
                     fontSize = 12.sp,
                     modifier = Modifier.padding(top = 8.dp)
                 )

@@ -41,7 +41,7 @@ fun HudCustomizationScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(AutoPulseBackground)
+            .background(MaterialTheme.colorScheme.background)
             .verticalScroll(rememberScrollState())
     ) {
 
@@ -56,7 +56,7 @@ fun HudCustomizationScreen(
                 Icon(
                     Icons.AutoMirrored.Filled.ArrowBack,
                     contentDescription = "Back",
-                    tint = AutoPulseText
+                    tint = MaterialTheme.colorScheme.onSurface
                 )
             }
 
@@ -67,12 +67,12 @@ fun HudCustomizationScreen(
                     text = "HUD Settings",
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Black,
-                    color = AutoPulseText
+                    color = MaterialTheme.colorScheme.onSurface
                 )
 
                 Text(
                     text = "Customize your driving display",
-                    color = AutoPulseTextMuted,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 10.sp
                 )
             }
@@ -85,7 +85,7 @@ fun HudCustomizationScreen(
             // HUD PREVIEW
             Text(
                 text = "LIVE PREVIEW",
-                color = AutoPulseTextSecondary,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 11.sp,
                 fontWeight = FontWeight.Bold,
                 letterSpacing = 1.sp
@@ -100,7 +100,7 @@ fun HudCustomizationScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(210.dp)
-                        .background(Color.Black),
+                        .background(MaterialTheme.colorScheme.background),
                     contentAlignment = Alignment.Center
                 ) {
 
@@ -110,7 +110,7 @@ fun HudCustomizationScreen(
 
                         Text(
                             text = "85",
-                            color = AutoPulseText,
+                            color = MaterialTheme.colorScheme.onSurface,
                             fontSize = 72.sp,
                             fontWeight = FontWeight.Black
                         )
@@ -204,7 +204,7 @@ fun HudCustomizationScreen(
                 )
 
                 HorizontalDivider(
-                    color = AutoPulseText.copy(alpha = 0.05f),
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.05f),
                     modifier = Modifier.padding(vertical = 10.dp)
                 )
 
@@ -216,7 +216,7 @@ fun HudCustomizationScreen(
                 )
 
                 HorizontalDivider(
-                    color = AutoPulseText.copy(alpha = 0.05f),
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.05f),
                     modifier = Modifier.padding(vertical = 10.dp)
                 )
 
@@ -228,7 +228,7 @@ fun HudCustomizationScreen(
                 )
 
                 HorizontalDivider(
-                    color = AutoPulseText.copy(alpha = 0.05f),
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.05f),
                     modifier = Modifier.padding(vertical = 10.dp)
                 )
 
@@ -240,7 +240,7 @@ fun HudCustomizationScreen(
                 )
 
                 HorizontalDivider(
-                    color = AutoPulseText.copy(alpha = 0.05f),
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.05f),
                     modifier = Modifier.padding(vertical = 10.dp)
                 )
 
@@ -252,7 +252,7 @@ fun HudCustomizationScreen(
                 )
 
                 HorizontalDivider(
-                    color = AutoPulseText.copy(alpha = 0.05f),
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.05f),
                     modifier = Modifier.padding(vertical = 10.dp)
                 )
 
@@ -295,7 +295,7 @@ fun HudCustomizationScreen(
 
                     Text(
                         text = "Speed Warning: ${speedLimit.toInt()} km/h",
-                        color = AutoPulseText,
+                        color = MaterialTheme.colorScheme.onSurface,
                         fontSize = 12.sp,
                         fontWeight = FontWeight.Bold
                     )
@@ -313,7 +313,7 @@ fun HudCustomizationScreen(
                 }
 
                 HorizontalDivider(
-                    color = AutoPulseText.copy(alpha = 0.05f),
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.05f),
                     modifier = Modifier.padding(vertical = 12.dp)
                 )
 
@@ -331,7 +331,7 @@ fun HudCustomizationScreen(
 
                     Text(
                         text = "Shift RPM: ${shiftRpm.toInt()} RPM",
-                        color = AutoPulseText,
+                        color = MaterialTheme.colorScheme.onSurface,
                         fontSize = 12.sp,
                         fontWeight = FontWeight.Bold
                     )
@@ -369,13 +369,13 @@ fun HudCustomizationScreen(
                     Column {
                         Text(
                             text = "HUD Safety",
-                            color = AutoPulseText,
+                            color = MaterialTheme.colorScheme.onSurface,
                             fontWeight = FontWeight.Bold
                         )
 
                         Text(
                             text = "Keep your attention on the road. HUD information is provided for assistance and should not replace safe driving.",
-                            color = AutoPulseTextMuted,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
                             fontSize = 11.sp,
                             lineHeight = 16.sp,
                             modifier = Modifier.padding(top = 4.dp)
@@ -407,14 +407,14 @@ private fun HudSwitchRow(
         ) {
             Text(
                 text = label,
-                color = AutoPulseText,
+                color = MaterialTheme.colorScheme.onSurface,
                 fontSize = 13.sp,
                 fontWeight = FontWeight.Bold
             )
 
             Text(
                 text = description,
-                color = AutoPulseTextMuted,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 10.sp,
                 modifier = Modifier.padding(top = 3.dp)
             )
@@ -424,9 +424,9 @@ private fun HudSwitchRow(
             checked = checked,
             onCheckedChange = onCheckedChange,
             colors = SwitchDefaults.colors(
-                checkedThumbColor = Color.White,
+                checkedThumbColor = MaterialTheme.colorScheme.onSurface,
                 checkedTrackColor = accentColor,
-                uncheckedThumbColor = AutoPulseTextMuted,
+                uncheckedThumbColor = MaterialTheme.colorScheme.onSurfaceVariant,
                 uncheckedTrackColor = AutoPulseSurfaceElevated
             )
         )
@@ -443,14 +443,14 @@ private fun HudPreviewStat(
     ) {
         Text(
             text = label,
-            color = AutoPulseTextMuted,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 8.sp,
             fontWeight = FontWeight.Bold
         )
 
         Text(
             text = value,
-            color = AutoPulseText,
+            color = MaterialTheme.colorScheme.onSurface,
             fontSize = 14.sp,
             fontWeight = FontWeight.Bold
         )

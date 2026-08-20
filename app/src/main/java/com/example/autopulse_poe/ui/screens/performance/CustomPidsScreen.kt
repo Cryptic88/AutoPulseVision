@@ -32,7 +32,7 @@ fun CustomPidsScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(AutoPulseBackground)
+            .background(MaterialTheme.colorScheme.background)
     ) {
 
         // ----------------------------------------------------
@@ -54,7 +54,7 @@ fun CustomPidsScreen(
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                     contentDescription = "Back",
-                    tint = AutoPulseText
+                    tint = MaterialTheme.colorScheme.onSurface
                 )
             }
 
@@ -64,14 +64,14 @@ fun CustomPidsScreen(
 
                 Text(
                     text = "CUSTOM PID SETUP",
-                    color = AutoPulseText,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold
                 )
 
                 Text(
                     text = "Advanced vehicle parameters",
-                    color = AutoPulseTextSecondary,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 12.sp
                 )
             }
@@ -96,7 +96,7 @@ fun CustomPidsScreen(
 
             Text(
                 text = "Configure custom OBD-II parameters for sensors not included in the standard vehicle data set.",
-                color = AutoPulseTextSecondary,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 13.sp,
                 lineHeight = 19.sp
             )
@@ -109,7 +109,7 @@ fun CustomPidsScreen(
 
             Text(
                 text = "CONFIGURED PIDS",
-                color = AutoPulseTextSecondary,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -186,7 +186,7 @@ fun CustomPidsScreen(
 
             Text(
                 text = "ABOUT CUSTOM PIDS",
-                color = AutoPulseTextSecondary,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -214,7 +214,7 @@ fun CustomPidsScreen(
 
                         Text(
                             text = "Advanced Parameters",
-                            color = AutoPulseText,
+                            color = MaterialTheme.colorScheme.onSurface,
                             fontSize = 14.sp,
                             fontWeight = FontWeight.Bold
                         )
@@ -223,7 +223,7 @@ fun CustomPidsScreen(
 
                         Text(
                             text = "Custom PIDs allow AutoPulse to read additional vehicle parameters using manufacturer-specific OBD-II commands and formulas.",
-                            color = AutoPulseTextSecondary,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
                             fontSize = 12.sp,
                             lineHeight = 18.sp
                         )
@@ -298,7 +298,7 @@ private fun CustomPidCard(
 
                 Text(
                     text = label,
-                    color = AutoPulseText,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontSize = 15.sp,
                     fontWeight = FontWeight.Bold
                 )
@@ -320,7 +320,7 @@ private fun CustomPidCard(
                 Icon(
                     imageVector = Icons.Default.Edit,
                     contentDescription = "Edit PID",
-                    tint = AutoPulseTextSecondary
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
         }
@@ -331,7 +331,7 @@ private fun CustomPidCard(
 
         Text(
             text = "FORMULA",
-            color = AutoPulseTextMuted,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 10.sp,
             fontWeight = FontWeight.Bold
         )
@@ -340,13 +340,13 @@ private fun CustomPidCard(
 
         Surface(
             modifier = Modifier.fillMaxWidth(),
-            color = AutoPulseBackground,
+            color = MaterialTheme.colorScheme.background,
             shape = RoundedCornerShape(8.dp)
         ) {
 
             Text(
                 text = formula,
-                color = AutoPulseText,
+                color = MaterialTheme.colorScheme.onSurface,
                 fontSize = 13.sp,
                 fontFamily = androidx.compose.ui.text.font.FontFamily.Monospace,
                 modifier = Modifier.padding(12.dp)
@@ -362,7 +362,7 @@ private fun CustomPidCard(
 
             Text(
                 text = "OUTPUT UNIT",
-                color = AutoPulseTextMuted,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 10.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -397,7 +397,7 @@ private fun AddPidDialog(
 
             Text(
                 text = "DEFINE NEW PID",
-                color = AutoPulseText,
+                color = MaterialTheme.colorScheme.onSurface,
                 fontWeight = FontWeight.Black
             )
         },
@@ -468,7 +468,7 @@ private fun AddPidDialog(
 
                 Text(
                     text = "CANCEL",
-                    color = AutoPulseTextSecondary
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
         }

@@ -16,19 +16,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.text.font.FontWeight
 import com.example.autopulse_poe.ui.components.NeonCard
 import com.example.autopulse_poe.ui.theme.*
 
 @Composable
-fun WeeklyChallengesScreen(onBack: () -> Unit) {
+fun WeeklyChallengesScreen(
+    onBack: () -> Unit
+) {
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(DarkBackground)
+            .background(MaterialTheme.colorScheme.background)
             .verticalScroll(rememberScrollState())
     ) {
 
@@ -41,12 +43,14 @@ fun WeeklyChallengesScreen(onBack: () -> Unit) {
             verticalAlignment = Alignment.CenterVertically
         ) {
 
-            IconButton(onClick = onBack) {
+            IconButton(
+                onClick = onBack
+            ) {
 
                 Icon(
-                    Icons.AutoMirrored.Filled.ArrowBack,
+                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                     contentDescription = "Back",
-                    tint = Color.White
+                    tint = MaterialTheme.colorScheme.onSurface
                 )
             }
 
@@ -58,12 +62,12 @@ fun WeeklyChallengesScreen(onBack: () -> Unit) {
                     text = "Weekly Challenges",
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Black,
-                    color = Color.White
+                    color = MaterialTheme.colorScheme.onSurface
                 )
 
                 Text(
                     text = "Turn your driving into XP",
-                    color = Color.White.copy(alpha = 0.5f),
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 10.sp
                 )
             }
@@ -78,7 +82,7 @@ fun WeeklyChallengesScreen(onBack: () -> Unit) {
             // ------------------------------------------------
 
             NeonCard(
-                borderColor = NeonPurple.copy(alpha = 0.7f)
+                borderColor = AutoPulsePurple.copy(alpha = 0.55f)
             ) {
 
                 Row(
@@ -89,14 +93,16 @@ fun WeeklyChallengesScreen(onBack: () -> Unit) {
                         modifier = Modifier
                             .size(50.dp)
                             .clip(CircleShape)
-                            .background(NeonPurple.copy(alpha = 0.12f)),
+                            .background(
+                                AutoPulsePurple.copy(alpha = 0.10f)
+                            ),
                         contentAlignment = Alignment.Center
                     ) {
 
                         Icon(
-                            Icons.Default.Bolt,
+                            imageVector = Icons.Default.Bolt,
                             contentDescription = null,
-                            tint = NeonPurple,
+                            tint = AutoPulsePurple,
                             modifier = Modifier.size(27.dp)
                         )
                     }
@@ -109,21 +115,21 @@ fun WeeklyChallengesScreen(onBack: () -> Unit) {
 
                         Text(
                             text = "THIS WEEK",
-                            color = Color.White.copy(alpha = 0.5f),
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
                             fontSize = 9.sp,
                             fontWeight = FontWeight.Bold
                         )
 
                         Text(
                             text = "1,250 XP EARNED",
-                            color = Color.White,
+                            color = MaterialTheme.colorScheme.onSurface,
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Black
                         )
 
                         Text(
                             text = "2 challenges completed",
-                            color = NeonPurple,
+                            color = AutoPulsePurple,
                             fontSize = 10.sp
                         )
                     }
@@ -134,14 +140,14 @@ fun WeeklyChallengesScreen(onBack: () -> Unit) {
 
                         Text(
                             text = "3",
-                            color = NeonPurple,
+                            color = AutoPulsePurple,
                             fontSize = 22.sp,
                             fontWeight = FontWeight.Black
                         )
 
                         Text(
                             text = "ACTIVE",
-                            color = Color.White.copy(alpha = 0.4f),
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
                             fontSize = 8.sp
                         )
                     }
@@ -150,9 +156,13 @@ fun WeeklyChallengesScreen(onBack: () -> Unit) {
 
             Spacer(modifier = Modifier.height(24.dp))
 
+            // ------------------------------------------------
+            // ACTIVE CHALLENGES
+            // ------------------------------------------------
+
             Text(
                 text = "ACTIVE CHALLENGES",
-                color = NeonCyan,
+                color = AutoPulsePurple,
                 fontSize = 11.sp,
                 fontWeight = FontWeight.Bold,
                 letterSpacing = 1.sp
@@ -169,7 +179,7 @@ fun WeeklyChallengesScreen(onBack: () -> Unit) {
                 desc = "Maintain over 35 MPG for a single trip over 5 miles.",
                 progress = 0.65f,
                 icon = Icons.Default.Eco,
-                color = NeonGreen,
+                color = AutoPulseSuccess,
                 timeLeft = "2 days left",
                 currentValue = "3.2 / 5.0 miles",
                 reward = "+500 XP"
@@ -186,7 +196,7 @@ fun WeeklyChallengesScreen(onBack: () -> Unit) {
                 desc = "Complete 3 trips with zero hard braking events.",
                 progress = 0.33f,
                 icon = Icons.Default.DirectionsCar,
-                color = NeonCyan,
+                color = AutoPulseCyan,
                 timeLeft = "4 days left",
                 currentValue = "1 / 3 trips",
                 reward = "+350 XP"
@@ -201,34 +211,62 @@ fun WeeklyChallengesScreen(onBack: () -> Unit) {
             ChallengeCard(
                 title = "Early Bird Commuter",
                 desc = "Finish 5 trips before 08:00 AM this week.",
-                progress = 0.8f,
+                progress = 0.80f,
                 icon = Icons.Default.Timer,
-                color = NeonOrange,
+                color = AutoPulseWarning,
                 timeLeft = "1 day left",
                 currentValue = "4 / 5 trips",
                 reward = "+400 XP"
             )
 
+            Spacer(modifier = Modifier.height(14.dp))
+
+            // ------------------------------------------------
+            // CHALLENGE 4
+            // ------------------------------------------------
+
+            ChallengeCard(
+                title = "Long Distance",
+                desc = "Complete a journey of more than 100 kilometres.",
+                progress = 0.42f,
+                icon = Icons.Default.Route,
+                color = AutoPulsePurple,
+                timeLeft = "5 days left",
+                currentValue = "42 / 100 km",
+                reward = "+600 XP"
+            )
+
             Spacer(modifier = Modifier.height(28.dp))
 
             // ------------------------------------------------
-            // TIP
+            // DRIVER TIP
             // ------------------------------------------------
 
             NeonCard(
-                borderColor = NeonCyan.copy(alpha = 0.25f)
+                borderColor = AutoPulseCyan.copy(alpha = 0.30f)
             ) {
 
                 Row(
                     verticalAlignment = Alignment.Top
                 ) {
 
-                    Icon(
-                        Icons.Default.Lightbulb,
-                        contentDescription = null,
-                        tint = NeonCyan,
-                        modifier = Modifier.size(22.dp)
-                    )
+                    Box(
+                        modifier = Modifier
+                            .size(38.dp)
+                            .clip(CircleShape)
+                            .background(
+                                AutoPulseCyan.copy(alpha = 0.10f)
+                            ),
+                        contentAlignment = Alignment.Center
+                    ) {
+
+                        Icon(
+                            imageVector = Icons.Default.Lightbulb,
+                            contentDescription = null,
+                            tint = AutoPulseCyan,
+                            modifier = Modifier.size(20.dp)
+                        )
+                    }
 
                     Spacer(modifier = Modifier.width(12.dp))
 
@@ -236,7 +274,7 @@ fun WeeklyChallengesScreen(onBack: () -> Unit) {
 
                         Text(
                             text = "DRIVER TIP",
-                            color = NeonCyan,
+                            color = AutoPulseCyan,
                             fontSize = 10.sp,
                             fontWeight = FontWeight.Black
                         )
@@ -245,7 +283,7 @@ fun WeeklyChallengesScreen(onBack: () -> Unit) {
 
                         Text(
                             text = "Challenges are automatically tracked using your vehicle telemetry. Keep AutoPulse connected while driving to make sure your progress is recorded.",
-                            color = Color.White.copy(alpha = 0.65f),
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
                             fontSize = 12.sp,
                             lineHeight = 17.sp
                         )
@@ -257,6 +295,11 @@ fun WeeklyChallengesScreen(onBack: () -> Unit) {
         }
     }
 }
+
+
+// ============================================================
+// CHALLENGE CARD
+// ============================================================
 
 @Composable
 fun ChallengeCard(
@@ -271,7 +314,7 @@ fun ChallengeCard(
 ) {
 
     NeonCard(
-        borderColor = color.copy(alpha = 0.45f)
+        borderColor = color.copy(alpha = 0.40f)
     ) {
 
         Column {
@@ -288,7 +331,9 @@ fun ChallengeCard(
                     modifier = Modifier
                         .size(46.dp)
                         .clip(CircleShape)
-                        .background(color.copy(alpha = 0.1f)),
+                        .background(
+                            color.copy(alpha = 0.10f)
+                        ),
                     contentAlignment = Alignment.Center
                 ) {
 
@@ -308,7 +353,7 @@ fun ChallengeCard(
 
                     Text(
                         text = title,
-                        color = Color.White,
+                        color = MaterialTheme.colorScheme.onSurface,
                         fontWeight = FontWeight.Bold,
                         fontSize = 15.sp
                     )
@@ -323,7 +368,7 @@ fun ChallengeCard(
                 }
 
                 Surface(
-                    color = color.copy(alpha = 0.1f),
+                    color = color.copy(alpha = 0.10f),
                     shape = RoundedCornerShape(8.dp)
                 ) {
 
@@ -348,7 +393,7 @@ fun ChallengeCard(
 
             Text(
                 text = desc,
-                color = Color.White.copy(alpha = 0.6f),
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 12.sp,
                 lineHeight = 17.sp
             )
@@ -370,14 +415,16 @@ fun ChallengeCard(
                         .height(8.dp)
                         .clip(CircleShape),
                     color = color,
-                    trackColor = Color.White.copy(alpha = 0.08f)
+                    trackColor = MaterialTheme.colorScheme.onSurface.copy(
+                        alpha = 0.08f
+                    )
                 )
 
                 Spacer(modifier = Modifier.width(12.dp))
 
                 Text(
                     text = "${(progress * 100).toInt()}%",
-                    color = Color.White,
+                    color = color,
                     fontWeight = FontWeight.Black,
                     fontSize = 13.sp
                 )
@@ -385,11 +432,24 @@ fun ChallengeCard(
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            Text(
-                text = currentValue,
-                color = Color.White.copy(alpha = 0.4f),
-                fontSize = 10.sp
-            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+
+                Text(
+                    text = currentValue,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    fontSize = 10.sp
+                )
+
+                Text(
+                    text = "IN PROGRESS",
+                    color = color.copy(alpha = 0.65f),
+                    fontSize = 8.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
         }
     }
 }

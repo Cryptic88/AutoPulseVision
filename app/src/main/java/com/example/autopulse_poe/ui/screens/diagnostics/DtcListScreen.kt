@@ -50,7 +50,7 @@ fun DtcListScreen(
         DtcItem(
             "P0420",
             "Catalyst Efficiency Below Threshold",
-            AutoPulseTextMuted,
+            MaterialTheme.colorScheme.onSurfaceVariant,
             "Permanent"
         )
     )
@@ -70,7 +70,7 @@ fun DtcListScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(AutoPulseBackground)
+            .background(MaterialTheme.colorScheme.background)
     ) {
 
         // HEADER
@@ -84,7 +84,7 @@ fun DtcListScreen(
                 Icon(
                     Icons.AutoMirrored.Filled.ArrowBack,
                     contentDescription = "Back",
-                    tint = AutoPulseText
+                    tint = MaterialTheme.colorScheme.onSurface
                 )
             }
 
@@ -95,12 +95,12 @@ fun DtcListScreen(
                     text = "Fault Codes",
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Black,
-                    color = AutoPulseText
+                    color = MaterialTheme.colorScheme.onSurface
                 )
 
                 Text(
                     text = "${filteredDtcs.size} diagnostic codes",
-                    color = AutoPulseTextMuted,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 10.sp
                 )
             }
@@ -188,7 +188,7 @@ fun DtcListScreen(
 
                             Text(
                                 text = dtc.description,
-                                color = AutoPulseText,
+                                color = MaterialTheme.colorScheme.onSurface,
                                 fontSize = 12.sp,
                                 modifier = Modifier.padding(top = 2.dp)
                             )
@@ -244,7 +244,7 @@ fun DiagnosticFilterChip(
             color = if (selected) {
                 AutoPulseCyanDark
             } else {
-                AutoPulseTextSecondary
+                MaterialTheme.colorScheme.onSurfaceVariant
             },
             fontSize = 11.sp,
             fontWeight = FontWeight.Bold,

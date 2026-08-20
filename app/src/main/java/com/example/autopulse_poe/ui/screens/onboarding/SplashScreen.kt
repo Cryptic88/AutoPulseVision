@@ -38,7 +38,7 @@ fun SplashScreen(onNext: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(DarkBackground),
+            .background(MaterialTheme.colorScheme.background),
         contentAlignment = Alignment.Center
     ) {
         Column(
@@ -56,7 +56,7 @@ fun SplashScreen(onNext: () -> Unit) {
                 text = "AutoPulse",
                 fontSize = 42.sp,
                 fontWeight = FontWeight.Black,
-                color = Color.White
+                color = MaterialTheme.colorScheme.onSurface
             )
             Text(
                 text = "Intelligence in Motion",

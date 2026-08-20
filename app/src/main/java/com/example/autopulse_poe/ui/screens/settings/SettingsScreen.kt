@@ -15,7 +15,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Color.Companion.Magenta
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -25,6 +24,8 @@ import com.example.autopulse_poe.ui.theme.*
 
 @Composable
 fun SettingsScreen(
+    darkMode: Boolean = true,
+    onDarkModeChanged: (Boolean) -> Unit = {},
     onNavigateToVehicleEditor: () -> Unit = {},
     onNavigateToBluetooth: () -> Unit = {},
     onNavigateToVehicleProfiles: () -> Unit = {},
@@ -36,7 +37,7 @@ fun SettingsScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(AutoPulseBackground)
+            .background(MaterialTheme.colorScheme.background)
             .verticalScroll(rememberScrollState())
             .padding(20.dp)
     ) {
@@ -47,14 +48,14 @@ fun SettingsScreen(
 
         Text(
             text = "Settings",
-            color = AutoPulseText,
+            color = MaterialTheme.colorScheme.onSurface,
             fontSize = 28.sp,
             fontWeight = FontWeight.Black
         )
 
         Text(
             text = "Manage your AutoPulse experience",
-            color = AutoPulseTextSecondary,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 12.sp,
             modifier = Modifier.padding(top = 4.dp)
         )
@@ -103,14 +104,14 @@ fun SettingsScreen(
 
                     Text(
                         text = "Alex Smith",
-                        color = AutoPulseText,
+                        color = MaterialTheme.colorScheme.onSurface,
                         fontSize = 18.sp,
                         fontWeight = FontWeight.Bold
                     )
 
                     Text(
                         text = "Manage your profile",
-                        color = AutoPulseTextMuted,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                         fontSize = 10.sp,
                         modifier = Modifier.padding(top = 3.dp)
                     )
@@ -119,7 +120,7 @@ fun SettingsScreen(
                 Icon(
                     imageVector = Icons.Default.ChevronRight,
                     contentDescription = null,
-                    tint = AutoPulseTextMuted
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
         }
@@ -176,20 +177,26 @@ fun SettingsScreen(
 
         SettingsSectionTitle(
             title = "APP PREFERENCES",
-            color = AutoPulseCyanDark
+            color = AutoPulseCyan
         )
 
         Spacer(modifier = Modifier.height(8.dp))
 
         NeonSettingsSection(
             title = "",
-            borderColor = AutoPulseCyanDark
+            borderColor = AutoPulseCyan
         ) {
 
-            SettingsItem(
+            SettingsToggleItem(
                 icon = Icons.Default.Palette,
-                label = "Appearance",
-                description = "Theme and display preferences"
+                label = "Dark Mode",
+                description = if (darkMode) {
+                    "Dark theme enabled"
+                } else {
+                    "Light theme enabled"
+                },
+                checked = darkMode,
+                onCheckedChange = onDarkModeChanged
             )
 
             SettingsItem(
@@ -278,7 +285,7 @@ fun SettingsScreen(
 
         Text(
             text = "AUTOPULSE",
-            color = AutoPulseTextMuted,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 10.sp,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.align(Alignment.CenterHorizontally)
@@ -286,7 +293,7 @@ fun SettingsScreen(
 
         Text(
             text = "Version 1.0.0",
-            color = AutoPulseTextMuted.copy(alpha = 0.6f),
+            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f),
             fontSize = 9.sp,
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
@@ -376,7 +383,7 @@ fun SettingsItem(
             modifier = Modifier
                 .size(40.dp)
                 .background(
-                    AutoPulseSurfaceElevated,
+                    MaterialTheme.colorScheme.surfaceVariant,
                     RoundedCornerShape(10.dp)
                 ),
             contentAlignment = Alignment.Center
@@ -385,7 +392,7 @@ fun SettingsItem(
             Icon(
                 imageVector = icon,
                 contentDescription = null,
-                tint = AutoPulseTextSecondary,
+                tint = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.size(19.dp)
             )
         }
@@ -398,7 +405,7 @@ fun SettingsItem(
 
             Text(
                 text = label,
-                color = AutoPulseText,
+                color = MaterialTheme.colorScheme.onSurface,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -407,7 +414,7 @@ fun SettingsItem(
 
                 Text(
                     text = description,
-                    color = AutoPulseTextMuted,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 10.sp,
                     modifier = Modifier.padding(top = 2.dp)
                 )
@@ -417,8 +424,88 @@ fun SettingsItem(
         Icon(
             imageVector = Icons.Default.ChevronRight,
             contentDescription = null,
-            tint = AutoPulseTextMuted,
+            tint = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.size(18.dp)
+        )
+    }
+}
+
+
+// ------------------------------------------------------------
+// SETTINGS TOGGLE ITEM
+// ------------------------------------------------------------
+
+@Composable
+fun SettingsToggleItem(
+    icon: ImageVector,
+    label: String,
+    description: String = "",
+    checked: Boolean,
+    onCheckedChange: (Boolean) -> Unit
+) {
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable {
+                onCheckedChange(!checked)
+            }
+            .padding(vertical = 13.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+
+        Box(
+            modifier = Modifier
+                .size(40.dp)
+                .background(
+                    MaterialTheme.colorScheme.surfaceVariant,
+                    RoundedCornerShape(10.dp)
+                ),
+            contentAlignment = Alignment.Center
+        ) {
+
+            Icon(
+                imageVector = icon,
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.size(19.dp)
+            )
+        }
+
+        Spacer(modifier = Modifier.width(13.dp))
+
+        Column(
+            modifier = Modifier.weight(1f)
+        ) {
+
+            Text(
+                text = label,
+                color = MaterialTheme.colorScheme.onSurface,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Bold
+            )
+
+            if (description.isNotEmpty()) {
+
+                Text(
+                    text = description,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    fontSize = 10.sp,
+                    modifier = Modifier.padding(top = 2.dp)
+                )
+            }
+        }
+
+        Switch(
+            checked = checked,
+            onCheckedChange = onCheckedChange,
+            colors = SwitchDefaults.colors(
+                checkedThumbColor = AutoPulseCyan,
+                checkedTrackColor = AutoPulseCyan.copy(alpha = 0.4f),
+                uncheckedThumbColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                uncheckedTrackColor = MaterialTheme.colorScheme.surfaceVariant,
+                uncheckedBorderColor = MaterialTheme.colorScheme.outline
+            )
         )
     }
 }

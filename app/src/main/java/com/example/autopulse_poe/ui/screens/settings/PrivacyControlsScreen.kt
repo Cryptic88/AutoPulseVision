@@ -1,5 +1,6 @@
 package com.example.autopulse_poe.ui.screens.settings
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
@@ -20,18 +21,13 @@ fun PrivacyControlsScreen(
     onBack: () -> Unit
 ) {
 
-    // ----------------------------------------------------
-    // PRIVACY SETTINGS STATE
-    // ----------------------------------------------------
-
     var analyticsEnabled by remember { mutableStateOf(true) }
     var locationSharing by remember { mutableStateOf(true) }
-
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(AutoPulseBackground)
+            .background(MaterialTheme.colorScheme.background)
     ) {
 
         // ------------------------------------------------
@@ -53,11 +49,10 @@ fun PrivacyControlsScreen(
             IconButton(
                 onClick = onBack
             ) {
-
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                     contentDescription = "Back",
-                    tint = AutoPulseText
+                    tint = MaterialTheme.colorScheme.onSurface
                 )
             }
 
@@ -67,19 +62,18 @@ fun PrivacyControlsScreen(
 
                 Text(
                     text = "Privacy Controls",
-                    color = AutoPulseText,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontSize = 21.sp,
                     fontWeight = FontWeight.Bold
                 )
 
                 Text(
                     text = "Manage your data and privacy",
-                    color = AutoPulseTextSecondary,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 12.sp
                 )
             }
         }
-
 
         // ------------------------------------------------
         // CONTENT
@@ -93,13 +87,58 @@ fun PrivacyControlsScreen(
 
             Spacer(modifier = Modifier.height(12.dp))
 
-
             // ------------------------------------------------
             // PRIVACY
             // ------------------------------------------------
 
             Text(
                 text = "PRIVACY",
+                color = AutoPulseCyan.copy(alpha = 0.75f),
+                fontSize = 11.sp,
+                fontWeight = FontWeight.Bold,
+                letterSpacing = 1.sp
+            )
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            NeonCard(
+                borderColor = AutoPulseCyan.copy(alpha = 0.45f)
+            ) {
+
+                PrivacyOption(
+                    title = "Anonymous Analytics",
+                    description = "Help improve AutoPulse using anonymous usage data.",
+                    checked = analyticsEnabled,
+                    accent = AutoPulseCyan,
+                    onCheckedChange = {
+                        analyticsEnabled = it
+                    }
+                )
+
+                HorizontalDivider(
+                    modifier = Modifier.padding(vertical = 16.dp),
+                    color = MaterialTheme.colorScheme.outline
+                )
+
+                PrivacyOption(
+                    title = "Route History",
+                    description = "Store previous journeys for trip analysis and reports.",
+                    checked = locationSharing,
+                    accent = AutoPulseCyan,
+                    onCheckedChange = {
+                        locationSharing = it
+                    }
+                )
+            }
+
+            Spacer(modifier = Modifier.height(28.dp))
+
+            // ------------------------------------------------
+            // DATA MANAGEMENT
+            // ------------------------------------------------
+
+            Text(
+                text = "DATA MANAGEMENT",
                 color = AutoPulseCyanDark.copy(alpha = 0.75f),
                 fontSize = 11.sp,
                 fontWeight = FontWeight.Bold,
@@ -108,63 +147,13 @@ fun PrivacyControlsScreen(
 
             Spacer(modifier = Modifier.height(8.dp))
 
-
             NeonCard(
                 borderColor = AutoPulseCyanDark.copy(alpha = 0.45f)
             ) {
 
-                PrivacyOption(
-                    title = "Anonymous Analytics",
-                    description = "Help improve AutoPulse using anonymous usage data.",
-                    checked = analyticsEnabled,
-                    accent = AutoPulseCyanDark,
-                    onCheckedChange = {
-                        analyticsEnabled = it
-                    }
-                )
-
-                HorizontalDivider(
-                    modifier = Modifier.padding(vertical = 16.dp),
-                    color = AutoPulseBorder
-                )
-
-                PrivacyOption(
-                    title = "Route History",
-                    description = "Store previous journeys for trip analysis and reports.",
-                    checked = locationSharing,
-                    accent = AutoPulseCyanDark,
-                    onCheckedChange = {
-                        locationSharing = it
-                    }
-                )
-            }
-
-
-            Spacer(modifier = Modifier.height(28.dp))
-
-
-            // ------------------------------------------------
-            // DATA MANAGEMENT
-            // ------------------------------------------------
-
-            Text(
-                text = "DATA MANAGEMENT",
-                color = AutoPulseWarning.copy(alpha = 0.75f),
-                fontSize = 11.sp,
-                fontWeight = FontWeight.Bold,
-                letterSpacing = 1.sp
-            )
-
-            Spacer(modifier = Modifier.height(8.dp))
-
-
-            NeonCard(
-                borderColor = AutoPulseWarning.copy(alpha = 0.45f)
-            ) {
-
                 Text(
                     text = "Your Data",
-                    color = AutoPulseText,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Bold
                 )
@@ -173,7 +162,7 @@ fun PrivacyControlsScreen(
 
                 Text(
                     text = "Manage stored diagnostic data, trip history and vehicle information.",
-                    color = AutoPulseTextMuted,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 10.sp,
                     lineHeight = 14.sp
                 )
@@ -186,9 +175,9 @@ fun PrivacyControlsScreen(
                     colors = ButtonDefaults.outlinedButtonColors(
                         contentColor = AutoPulseCyan
                     ),
-                    border = androidx.compose.foundation.BorderStroke(
-                        1.dp,
-                        AutoPulseCyan.copy(alpha = 0.6f)
+                    border = BorderStroke(
+                        width = 1.dp,
+                        color = AutoPulseCyan.copy(alpha = 0.6f)
                     )
                 ) {
                     Text(
@@ -205,9 +194,9 @@ fun PrivacyControlsScreen(
                     colors = ButtonDefaults.outlinedButtonColors(
                         contentColor = AutoPulseError
                     ),
-                    border = androidx.compose.foundation.BorderStroke(
-                        1.dp,
-                        AutoPulseError.copy(alpha = 0.6f)
+                    border = BorderStroke(
+                        width = 1.dp,
+                        color = AutoPulseError.copy(alpha = 0.6f)
                     )
                 ) {
                     Text(
@@ -217,9 +206,7 @@ fun PrivacyControlsScreen(
                 }
             }
 
-
             Spacer(modifier = Modifier.height(32.dp))
-
 
             // ------------------------------------------------
             // PRIVACY INFORMATION
@@ -231,7 +218,7 @@ fun PrivacyControlsScreen(
 
                 Text(
                     text = "Privacy Information",
-                    color = AutoPulseText,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Bold
                 )
@@ -240,12 +227,11 @@ fun PrivacyControlsScreen(
 
                 Text(
                     text = "AutoPulse only uses vehicle and trip information required to provide diagnostics, performance analysis and reporting features.",
-                    color = AutoPulseTextMuted,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 10.sp,
                     lineHeight = 15.sp
                 )
             }
-
 
             Spacer(modifier = Modifier.height(32.dp))
         }
@@ -277,7 +263,7 @@ private fun PrivacyOption(
 
             Text(
                 text = title,
-                color = AutoPulseText,
+                color = MaterialTheme.colorScheme.onSurface,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -286,7 +272,7 @@ private fun PrivacyOption(
 
             Text(
                 text = description,
-                color = AutoPulseTextMuted,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 10.sp,
                 lineHeight = 14.sp
             )
@@ -298,10 +284,21 @@ private fun PrivacyOption(
             checked = checked,
             onCheckedChange = onCheckedChange,
             colors = SwitchDefaults.colors(
-                checkedThumbColor = Color.White,
-                checkedTrackColor = accent,
-                uncheckedThumbColor = AutoPulseTextSecondary,
-                uncheckedTrackColor = AutoPulseSurfaceElevated
+                // ON
+                checkedThumbColor = MaterialTheme.colorScheme.surface,
+                checkedTrackColor = accent.copy(alpha = 0.45f),
+                checkedBorderColor = accent,
+
+                // OFF
+                uncheckedThumbColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                uncheckedTrackColor = MaterialTheme.colorScheme.surfaceVariant,
+                uncheckedBorderColor = MaterialTheme.colorScheme.outline,
+
+                // Disabled states
+                disabledCheckedThumbColor = MaterialTheme.colorScheme.outline,
+                disabledCheckedTrackColor = MaterialTheme.colorScheme.surfaceVariant,
+                disabledUncheckedThumbColor = MaterialTheme.colorScheme.outline,
+                disabledUncheckedTrackColor = MaterialTheme.colorScheme.surfaceVariant
             )
         )
     }

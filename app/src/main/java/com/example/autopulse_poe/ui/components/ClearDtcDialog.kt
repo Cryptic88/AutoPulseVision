@@ -24,18 +24,14 @@ fun ClearDtcDialog(
 
         containerColor = MaterialTheme.colorScheme.surface,
 
-        titleContentColor = MaterialTheme.colorScheme.onSurface,
-
-        textContentColor = MaterialTheme.colorScheme.onSurfaceVariant,
-
         title = {
             Row(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Icon(
-                    imageVector = Icons.Default.Warning,
+                    Icons.Default.Warning,
                     contentDescription = null,
-                    tint = AutoPulseError
+                    tint = MaterialTheme.colorScheme.error
                 )
 
                 Spacer(modifier = Modifier.width(12.dp))
@@ -52,7 +48,7 @@ fun ClearDtcDialog(
             Column {
                 Text(
                     text = "This will clear all Diagnostic Trouble Codes and reset the Check Engine Light (MIL).",
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.8f),
                     fontSize = 14.sp
                 )
 
@@ -60,7 +56,7 @@ fun ClearDtcDialog(
 
                 Text(
                     text = "Note: Ensure repairs are completed before clearing codes.",
-                    color = AutoPulseWarning,
+                    color = MaterialTheme.colorScheme.error,
                     fontSize = 12.sp,
                     fontWeight = FontWeight.Bold
                 )
@@ -68,23 +64,19 @@ fun ClearDtcDialog(
         },
 
         confirmButton = {
-            TextButton(
-                onClick = onConfirm
-            ) {
+            TextButton(onClick = onConfirm) {
                 Text(
-                    text = "CLEAR ALL",
-                    color = AutoPulseError,
+                    "CLEAR ALL",
+                    color = MaterialTheme.colorScheme.error,
                     fontWeight = FontWeight.Black
                 )
             }
         },
 
         dismissButton = {
-            TextButton(
-                onClick = onDismiss
-            ) {
+            TextButton(onClick = onDismiss) {
                 Text(
-                    text = "CANCEL",
+                    "CANCEL",
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }

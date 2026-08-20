@@ -27,55 +27,90 @@ fun Gauge(
     val startAngle = 150f
     val progress = (value / maxValue).coerceIn(0f, 1f)
 
-    Box(modifier = modifier.aspectRatio(1f), contentAlignment = Alignment.Center) {
-        Canvas(modifier = Modifier.fillMaxSize().padding(8.dp)) {
+    // Get theme colours before entering the Canvas drawing scope
+    val onSurfaceColor = MaterialTheme.colorScheme.onSurface
+
+    Box(
+        modifier = modifier.aspectRatio(1f),
+        contentAlignment = Alignment.Center
+    ) {
+
+        Canvas(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(8.dp)
+        ) {
+
             // Background arc with segments
             val segmentGap = 2f
             val totalSegments = 20
-            val segmentAngle = (sweepAngle - (totalSegments - 1) * segmentGap) / totalSegments
+            val segmentAngle =
+                (sweepAngle - (totalSegments - 1) * segmentGap) / totalSegments
 
             for (i in 0 until totalSegments) {
-                val currentSegmentStart = startAngle + i * (segmentAngle + segmentGap)
-                val isFilled = (i.toFloat() / totalSegments) < progress
-                
+
+                val currentSegmentStart =
+                    startAngle + i * (segmentAngle + segmentGap)
+
+                val isFilled =
+                    (i.toFloat() / totalSegments) < progress
+
                 drawArc(
-                    color = if (isFilled) color else Color.White.copy(alpha = 0.1f),
+                    color = if (isFilled) {
+                        color
+                    } else {
+                        onSurfaceColor.copy(alpha = 0.10f)
+                    },
                     startAngle = currentSegmentStart,
                     sweepAngle = segmentAngle,
                     useCenter = false,
-                    style = Stroke(width = 8.dp.toPx(), cap = StrokeCap.Butt)
+                    style = Stroke(
+                        width = 8.dp.toPx(),
+                        cap = StrokeCap.Butt
+                    )
                 )
             }
-            
-            // Outer Glow (subtle)
+
+            // Outer glow
             drawArc(
                 color = color.copy(alpha = 0.2f),
                 startAngle = startAngle,
                 sweepAngle = sweepAngle * progress,
                 useCenter = false,
-                style = Stroke(width = 12.dp.toPx(), cap = StrokeCap.Round)
+                style = Stroke(
+                    width = 12.dp.toPx(),
+                    cap = StrokeCap.Round
+                )
             )
         }
-        
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+
             if (value > 0) {
+
                 Text(
                     text = value.toInt().toString(),
                     style = MaterialTheme.typography.displayMedium.copy(
                         fontWeight = FontWeight.Black,
                         fontSize = 24.sp
                     ),
-                    color = Color.White
+                    color = onSurfaceColor
                 )
+
                 if (unit.isNotEmpty()) {
+
                     Text(
                         text = unit,
                         style = MaterialTheme.typography.labelSmall,
-                        color = Color.White.copy(alpha = 0.6f)
+                        color = onSurfaceColor.copy(alpha = 0.6f)
                     )
                 }
             }
+
             if (label.isNotEmpty()) {
+
                 Text(
                     text = label,
                     style = MaterialTheme.typography.labelLarge,

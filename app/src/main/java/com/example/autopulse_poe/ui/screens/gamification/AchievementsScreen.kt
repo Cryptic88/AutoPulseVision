@@ -1,12 +1,12 @@
 package com.example.autopulse_poe.ui.screens.gamification
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
@@ -17,388 +17,448 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.autopulse_poe.ui.components.NeonCard
-import com.example.autopulse_poe.ui.theme.*
+import com.example.autopulse_poe.ui.theme.AutoPulseCyan
+import com.example.autopulse_poe.ui.theme.AutoPulsePurple
+import com.example.autopulse_poe.ui.theme.AutoPulseSuccess
+import com.example.autopulse_poe.ui.theme.AutoPulseWarning
 
 @Composable
 fun AchievementsScreen(
     onNavigateToLeaderboards: () -> Unit = {},
-    onNavigateToChallenges: () -> Unit = {}
+    onNavigateToChallenges: () -> Unit = {},
+    onNavigateToBadgeGallery: () -> Unit = {}
 ) {
-
-    val badges = listOf(
-        Badge(
-            "Eco Warrior",
-            "Maintain >30 MPG for 5 trips",
-            Icons.Default.Eco,
-            NeonGreen,
-            true
-        ),
-        Badge(
-            "Steady Hand",
-            "Zero hard braking for 100 miles",
-            Icons.Default.PanTool,
-            NeonCyan,
-            true
-        ),
-        Badge(
-            "Early Bird",
-            "Complete 5 trips before 8 AM",
-            Icons.Default.WbSunny,
-            NeonOrange,
-            true
-        ),
-        Badge(
-            "Night Owl",
-            "Drive 10 miles at night",
-            Icons.Default.NightsStay,
-            NeonPurple,
-            false
-        ),
-        Badge(
-            "Master Mechanic",
-            "Diagnose and resolve 3 DTCs",
-            Icons.Default.Build,
-            NeonMagenta,
-            false
-        ),
-        Badge(
-            "Long Hauler",
-            "Complete a single trip over 200 miles",
-            Icons.Default.Route,
-            NeonBlue,
-            false
-        )
-    )
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(DarkBackground)
-            .padding(horizontal = 20.dp)
+            .background(MaterialTheme.colorScheme.background)
     ) {
 
-        Spacer(modifier = Modifier.height(20.dp))
+        // ====================================================
+        // SCROLLABLE CONTENT
+        // ====================================================
 
-        // ----------------------------------------------------
-        // HEADER
-        // ----------------------------------------------------
-
-        Text(
-            text = "Driver Profile",
-            fontSize = 28.sp,
-            fontWeight = FontWeight.Black,
-            color = Color.White
-        )
-
-        Text(
-            text = "Your AutoPulse driving journey",
-            color = Color.White.copy(alpha = 0.55f),
-            fontSize = 12.sp,
-            modifier = Modifier.padding(top = 4.dp)
-        )
-
-        Spacer(modifier = Modifier.height(20.dp))
-
-        // ----------------------------------------------------
-        // DRIVER LEVEL
-        // ----------------------------------------------------
-
-        NeonCard(
-            borderColor = NeonCyan.copy(alpha = 0.7f)
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
+                .padding(
+                    start = 20.dp,
+                    end = 20.dp,
+                    top = 20.dp,
+                    bottom = 40.dp
+                )
         ) {
 
-            Row(
-                verticalAlignment = Alignment.CenterVertically
+            // ====================================================
+            // HEADER
+            // ====================================================
+
+            Text(
+                text = "Driver Profile",
+                fontSize = 28.sp,
+                fontWeight = FontWeight.Black,
+                color = MaterialTheme.colorScheme.onSurface
+            )
+
+            Text(
+                text = "Your AutoPulse driving journey",
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                fontSize = 12.sp,
+                modifier = Modifier.padding(top = 4.dp)
+            )
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            // ====================================================
+            // DRIVER LEVEL
+            // ====================================================
+
+            NeonCard(
+                borderColor = AutoPulseCyan.copy(alpha = 0.55f)
             ) {
 
-                Box(
-                    modifier = Modifier
-                        .size(64.dp)
-                        .clip(CircleShape)
-                        .background(NeonCyan.copy(alpha = 0.12f)),
-                    contentAlignment = Alignment.Center
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally
+
+                    // LEVEL CIRCLE
+
+                    Box(
+                        modifier = Modifier
+                            .size(64.dp)
+                            .clip(CircleShape)
+                            .background(
+                                AutoPulseCyan.copy(alpha = 0.12f)
+                            ),
+                        contentAlignment = Alignment.Center
                     ) {
+
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+
+                            Text(
+                                text = "12",
+                                color = AutoPulseCyan,
+                                fontSize = 22.sp,
+                                fontWeight = FontWeight.Black
+                            )
+
+                            Text(
+                                text = "LVL",
+                                color = AutoPulseCyan.copy(alpha = 0.65f),
+                                fontSize = 8.sp,
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.width(16.dp))
+
+                    // XP INFORMATION
+
+                    Column(
+                        modifier = Modifier.weight(1f)
+                    ) {
+
                         Text(
-                            text = "12",
-                            color = NeonCyan,
-                            fontSize = 22.sp,
+                            text = "ROAD MASTER",
+                            color = MaterialTheme.colorScheme.onSurface,
+                            fontSize = 16.sp,
                             fontWeight = FontWeight.Black
                         )
 
                         Text(
-                            text = "LVL",
-                            color = NeonCyan.copy(alpha = 0.6f),
-                            fontSize = 8.sp,
+                            text = "4,250 / 5,000 XP",
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            fontSize = 11.sp,
+                            modifier = Modifier.padding(top = 3.dp)
+                        )
+
+                        Spacer(modifier = Modifier.height(8.dp))
+
+                        LinearProgressIndicator(
+                            progress = { 0.85f },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(7.dp)
+                                .clip(CircleShape),
+                            color = AutoPulseCyan,
+                            trackColor = MaterialTheme.colorScheme.onSurface.copy(
+                                alpha = 0.08f
+                            )
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.width(12.dp))
+
+                    // RANK
+
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+
+                        Icon(
+                            imageVector = Icons.Default.EmojiEvents,
+                            contentDescription = null,
+                            tint = AutoPulseWarning,
+                            modifier = Modifier.size(25.dp)
+                        )
+
+                        Text(
+                            text = "TOP 5%",
+                            color = AutoPulseWarning,
+                            fontSize = 9.sp,
+                            fontWeight = FontWeight.Black
+                        )
+                    }
+                }
+            }
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            // ====================================================
+            // DRIVING PERFORMANCE
+            // ====================================================
+
+            Text(
+                text = "DRIVING PERFORMANCE",
+                color = AutoPulseCyan,
+                fontSize = 11.sp,
+                fontWeight = FontWeight.Bold,
+                letterSpacing = 1.sp
+            )
+
+            Spacer(modifier = Modifier.height(10.dp))
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(10.dp)
+            ) {
+
+                ScoreCard(
+                    label = "DAILY",
+                    score = 88,
+                    color = AutoPulseCyan,
+                    modifier = Modifier.weight(1f)
+                )
+
+                ScoreCard(
+                    label = "WEEKLY",
+                    score = 92,
+                    color = AutoPulseSuccess,
+                    modifier = Modifier.weight(1f)
+                )
+
+                ScoreCard(
+                    label = "MONTHLY",
+                    score = 85,
+                    color = AutoPulsePurple,
+                    modifier = Modifier.weight(1f)
+                )
+            }
+
+            Spacer(modifier = Modifier.height(18.dp))
+
+            // ====================================================
+            // STREAK
+            // ====================================================
+
+            NeonCard(
+                borderColor = AutoPulseWarning.copy(alpha = 0.50f)
+            ) {
+
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+
+                    // FIRE ICON
+
+                    Box(
+                        modifier = Modifier
+                            .size(45.dp)
+                            .clip(CircleShape)
+                            .background(
+                                AutoPulseWarning.copy(alpha = 0.12f)
+                            ),
+                        contentAlignment = Alignment.Center
+                    ) {
+
+                        Icon(
+                            imageVector = Icons.Default.LocalFireDepartment,
+                            contentDescription = null,
+                            tint = AutoPulseWarning,
+                            modifier = Modifier.size(25.dp)
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.width(14.dp))
+
+                    // STREAK INFORMATION
+
+                    Column(
+                        modifier = Modifier.weight(1f)
+                    ) {
+
+                        Text(
+                            text = "7 DAY STREAK",
+                            color = MaterialTheme.colorScheme.onSurface,
+                            fontWeight = FontWeight.Black,
+                            fontSize = 14.sp
+                        )
+
+                        Text(
+                            text = "Keep driving safely to extend your streak",
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            fontSize = 11.sp,
+                            modifier = Modifier.padding(top = 3.dp)
+                        )
+                    }
+
+                    // BONUS
+
+                    Column(
+                        horizontalAlignment = Alignment.End
+                    ) {
+
+                        Text(
+                            text = "+150 XP",
+                            color = AutoPulseWarning,
+                            fontWeight = FontWeight.Black,
+                            fontSize = 12.sp
+                        )
+
+                        Text(
+                            text = "STREAK BONUS",
+                            color = AutoPulseWarning.copy(alpha = 0.60f),
+                            fontSize = 7.sp,
                             fontWeight = FontWeight.Bold
                         )
                     }
                 }
-
-                Spacer(modifier = Modifier.width(16.dp))
-
-                Column(
-                    modifier = Modifier.weight(1f)
-                ) {
-
-                    Text(
-                        text = "ROAD MASTER",
-                        color = Color.White,
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.Black
-                    )
-
-                    Text(
-                        text = "4,250 / 5,000 XP",
-                        color = Color.White.copy(alpha = 0.55f),
-                        fontSize = 11.sp,
-                        modifier = Modifier.padding(top = 3.dp)
-                    )
-
-                    Spacer(modifier = Modifier.height(8.dp))
-
-                    LinearProgressIndicator(
-                        progress = { 0.85f },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(7.dp)
-                            .clip(CircleShape),
-                        color = NeonCyan,
-                        trackColor = Color.White.copy(alpha = 0.08f)
-                    )
-                }
-
-                Spacer(modifier = Modifier.width(12.dp))
-
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Icon(
-                        Icons.Default.EmojiEvents,
-                        contentDescription = null,
-                        tint = NeonOrange,
-                        modifier = Modifier.size(25.dp)
-                    )
-
-                    Text(
-                        text = "TOP 5%",
-                        color = NeonOrange,
-                        fontSize = 9.sp,
-                        fontWeight = FontWeight.Black
-                    )
-                }
             }
-        }
 
-        Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(22.dp))
 
-        // ----------------------------------------------------
-        // DRIVING SCORES
-        // ----------------------------------------------------
+            // ====================================================
+            // GAMIFICATION NAVIGATION
+            // ====================================================
 
-        Text(
-            text = "DRIVING PERFORMANCE",
-            color = NeonCyan,
-            fontSize = 11.sp,
-            fontWeight = FontWeight.Bold,
-            letterSpacing = 1.sp
-        )
-
-        Spacer(modifier = Modifier.height(10.dp))
-
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(10.dp)
-        ) {
-
-            ScoreCard(
-                label = "DAILY",
-                score = 88,
-                color = NeonCyan,
-                modifier = Modifier.weight(1f)
+            Text(
+                text = "EXPLORE GAMIFICATION",
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                fontSize = 10.sp,
+                fontWeight = FontWeight.Bold,
+                letterSpacing = 1.sp
             )
 
-            ScoreCard(
-                label = "WEEKLY",
-                score = 92,
-                color = AutoPulseMagenta,
-                modifier = Modifier.weight(1f)
-            )
+            Spacer(modifier = Modifier.height(10.dp))
 
-            ScoreCard(
-                label = "MONTHLY",
-                score = 85,
-                color = NeonPurple,
-                modifier = Modifier.weight(1f)
-            )
-        }
-
-        Spacer(modifier = Modifier.height(18.dp))
-
-        // ----------------------------------------------------
-        // STREAK
-        // ----------------------------------------------------
-
-        NeonCard(
-            borderColor = NeonOrange.copy(alpha = 0.5f)
-        ) {
+            // ====================================================
+            // LEADERBOARDS + CHALLENGES
+            // ====================================================
 
             Row(
-                verticalAlignment = Alignment.CenterVertically
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
+
+                // ------------------------------------------------
+                // LEADERBOARDS
+                // ------------------------------------------------
+
+                GamificationNavButton(
+                    icon = Icons.Default.EmojiEvents,
+                    title = "Leaderboards",
+                    subtitle = "See how you rank",
+                    color = AutoPulseWarning,
+                    onClick = onNavigateToLeaderboards,
+                    modifier = Modifier.weight(1f)
+                )
+
+                // ------------------------------------------------
+                // CHALLENGES
+                // ------------------------------------------------
+
+                GamificationNavButton(
+                    icon = Icons.Default.Flag,
+                    title = "Challenges",
+                    subtitle = "Weekly goals",
+                    color = AutoPulsePurple,
+                    onClick = onNavigateToChallenges,
+                    modifier = Modifier.weight(1f)
+                )
+            }
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            // ====================================================
+            // BADGE COLLECTION BUTTON
+            // ====================================================
+
+            Text(
+                text = "BADGES",
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                fontSize = 10.sp,
+                fontWeight = FontWeight.Bold,
+                letterSpacing = 1.sp
+            )
+
+            Spacer(modifier = Modifier.height(10.dp))
+
+            OutlinedButton(
+                onClick = onNavigateToBadgeGallery,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(68.dp),
+                shape = RoundedCornerShape(16.dp),
+                colors = ButtonDefaults.outlinedButtonColors(
+                    containerColor = AutoPulseCyan.copy(alpha = 0.04f)
+                ),
+                border = BorderStroke(
+                    width = 1.5.dp,
+                    color = AutoPulseCyan.copy(alpha = 0.45f)
+                ),
+                contentPadding = PaddingValues(
+                    horizontal = 16.dp
+                )
+            ) {
+
+                // BADGE ICON
 
                 Box(
                     modifier = Modifier
-                        .size(45.dp)
+                        .size(40.dp)
                         .clip(CircleShape)
-                        .background(NeonOrange.copy(alpha = 0.12f)),
+                        .background(
+                            AutoPulseCyan.copy(alpha = 0.12f)
+                        ),
                     contentAlignment = Alignment.Center
                 ) {
+
                     Icon(
-                        Icons.Default.LocalFireDepartment,
+                        imageVector = Icons.Default.MilitaryTech,
                         contentDescription = null,
-                        tint = NeonOrange,
-                        modifier = Modifier.size(25.dp)
+                        tint = AutoPulseCyan,
+                        modifier = Modifier.size(23.dp)
                     )
                 }
 
                 Spacer(modifier = Modifier.width(14.dp))
 
+                // BADGE INFORMATION
+
                 Column(
-                    modifier = Modifier.weight(1f)
+                    modifier = Modifier.weight(1f),
+                    horizontalAlignment = Alignment.Start
                 ) {
 
                     Text(
-                        text = "7 DAY STREAK",
-                        color = Color.White,
-                        fontWeight = FontWeight.Black,
-                        fontSize = 14.sp
+                        text = "Badge Collection",
+                        color = MaterialTheme.colorScheme.onSurface,
+                        fontSize = 13.sp,
+                        fontWeight = FontWeight.Black
                     )
 
                     Text(
-                        text = "Keep driving safely to extend your streak",
-                        color = Color.White.copy(alpha = 0.5f),
-                        fontSize = 11.sp,
-                        modifier = Modifier.padding(top = 3.dp)
+                        text = "3 of 6 badges unlocked",
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        fontSize = 9.sp,
+                        modifier = Modifier.padding(top = 2.dp)
                     )
                 }
 
-                Text(
-                    text = "+150 XP",
-                    color = NeonOrange,
-                    fontWeight = FontWeight.Black,
-                    fontSize = 12.sp
-                )
-            }
-        }
+                // ARROW
 
-        Spacer(modifier = Modifier.height(20.dp))
-
-        // ----------------------------------------------------
-        // NAVIGATION
-        // ----------------------------------------------------
-
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
-
-            Button(
-                onClick = onNavigateToLeaderboards,
-                modifier = Modifier
-                    .weight(1f)
-                    .height(48.dp),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = NeonOrange,
-                    contentColor = Color.Black
-                ),
-                shape = RoundedCornerShape(12.dp)
-            ) {
                 Icon(
-                    Icons.Default.EmojiEvents,
-                    contentDescription = null,
-                    modifier = Modifier.size(18.dp)
-                )
-
-                Spacer(modifier = Modifier.width(7.dp))
-
-                Text(
-                    "Leaderboard",
-                    fontWeight = FontWeight.Bold
+                    imageVector = Icons.Default.ChevronRight,
+                    contentDescription = "Open badge collection",
+                    tint = AutoPulseCyan,
+                    modifier = Modifier.size(24.dp)
                 )
             }
 
-            Button(
-                onClick = onNavigateToChallenges,
-                modifier = Modifier
-                    .weight(1f)
-                    .height(48.dp),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = NeonPurple
-                ),
-                shape = RoundedCornerShape(12.dp)
-            ) {
-                Icon(
-                    Icons.Default.Flag,
-                    contentDescription = null,
-                    modifier = Modifier.size(18.dp)
-                )
+            // ====================================================
+            // BOTTOM SPACING
+            // ====================================================
 
-                Spacer(modifier = Modifier.width(7.dp))
-
-                Text(
-                    "Challenges",
-                    fontWeight = FontWeight.Bold
-                )
-            }
-        }
-
-        Spacer(modifier = Modifier.height(24.dp))
-
-        // ----------------------------------------------------
-        // BADGES
-        // ----------------------------------------------------
-
-        Text(
-            text = "BADGE GALLERY",
-            color = Color.White,
-            fontWeight = FontWeight.Bold,
-            fontSize = 16.sp
-        )
-
-        Spacer(modifier = Modifier.height(12.dp))
-
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(2),
-            horizontalArrangement = Arrangement.spacedBy(12.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp),
-            modifier = Modifier.fillMaxSize(),
-            contentPadding = PaddingValues(bottom = 30.dp)
-        ) {
-
-            items(badges) { badge ->
-                BadgeItem(badge)
-            }
+            Spacer(modifier = Modifier.height(40.dp))
         }
     }
 }
 
-data class Badge(
-    val title: String,
-    val desc: String,
-    val icon: ImageVector,
-    val color: Color,
-    val unlocked: Boolean
-)
+
+// ============================================================
+// SCORE CARD
+// ============================================================
 
 @Composable
-fun ScoreCard(
+private fun ScoreCard(
     label: String,
     score: Int,
     color: Color,
@@ -406,7 +466,7 @@ fun ScoreCard(
 ) {
 
     NeonCard(
-        borderColor = color.copy(alpha = 0.35f),
+        borderColor = color.copy(alpha = 0.30f),
         modifier = modifier
     ) {
 
@@ -417,7 +477,7 @@ fun ScoreCard(
 
             Text(
                 text = label,
-                color = Color.White.copy(alpha = 0.5f),
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 9.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -433,125 +493,96 @@ fun ScoreCard(
 
             Text(
                 text = "/100",
-                color = Color.White.copy(alpha = 0.35f),
+                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(
+                    alpha = 0.65f
+                ),
                 fontSize = 9.sp
             )
         }
     }
 }
 
+
+// ============================================================
+// GAMIFICATION NAVIGATION BUTTON
+// ============================================================
+
 @Composable
-fun BadgeItem(badge: Badge) {
+private fun GamificationNavButton(
+    icon: ImageVector,
+    title: String,
+    subtitle: String,
+    color: Color,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
 
-    val alpha = if (badge.unlocked) 1f else 0.35f
-
-    NeonCard(
-        borderColor = if (badge.unlocked) {
-            badge.color.copy(alpha = 0.6f)
-        } else {
-            Color.White.copy(alpha = 0.08f)
-        },
-        modifier = Modifier.fillMaxWidth()
+    OutlinedButton(
+        onClick = onClick,
+        modifier = modifier
+            .height(105.dp),
+        shape = RoundedCornerShape(16.dp),
+        contentPadding = PaddingValues(
+            horizontal = 8.dp,
+            vertical = 10.dp
+        ),
+        colors = ButtonDefaults.outlinedButtonColors(
+            containerColor = color.copy(alpha = 0.04f),
+            contentColor = color
+        ),
+        border = BorderStroke(
+            width = 1.5.dp,
+            color = color.copy(alpha = 0.50f)
+        )
     ) {
 
         Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
+
+            // ICON
 
             Box(
                 modifier = Modifier
-                    .size(58.dp)
+                    .size(40.dp)
                     .clip(CircleShape)
                     .background(
-                        if (badge.unlocked)
-                            badge.color.copy(alpha = 0.15f)
-                        else
-                            Color.White.copy(alpha = 0.04f)
+                        color.copy(alpha = 0.12f)
                     ),
                 contentAlignment = Alignment.Center
             ) {
 
                 Icon(
-                    imageVector = badge.icon,
-                    contentDescription = null,
-                    tint = if (badge.unlocked) {
-                        badge.color
-                    } else {
-                        Color.White.copy(alpha = 0.2f)
-                    },
-                    modifier = Modifier.size(28.dp)
+                    imageVector = icon,
+                    contentDescription = title,
+                    tint = color,
+                    modifier = Modifier.size(22.dp)
                 )
             }
 
-            Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(7.dp))
+
+            // TITLE
 
             Text(
-                text = badge.title,
-                color = Color.White.copy(alpha = alpha),
-                fontWeight = FontWeight.Bold,
-                fontSize = 13.sp,
-                textAlign = TextAlign.Center
+                text = title,
+                color = MaterialTheme.colorScheme.onSurface,
+                fontSize = 11.sp,
+                fontWeight = FontWeight.Black,
+                maxLines = 1
             )
+
+            Spacer(modifier = Modifier.height(2.dp))
+
+            // SUBTITLE
 
             Text(
-                text = badge.desc,
-                color = Color.White.copy(alpha = alpha * 0.6f),
-                fontSize = 10.sp,
-                lineHeight = 14.sp,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.padding(top = 5.dp)
+                text = subtitle,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                fontSize = 8.sp,
+                maxLines = 1
             )
-
-            if (badge.unlocked) {
-
-                Spacer(modifier = Modifier.height(8.dp))
-
-                Row(
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-
-                    Icon(
-                        Icons.Default.CheckCircle,
-                        contentDescription = null,
-                        tint = badge.color,
-                        modifier = Modifier.size(13.dp)
-                    )
-
-                    Spacer(modifier = Modifier.width(4.dp))
-
-                    Text(
-                        text = "UNLOCKED",
-                        color = badge.color,
-                        fontSize = 8.sp,
-                        fontWeight = FontWeight.Black
-                    )
-                }
-            } else {
-
-                Spacer(modifier = Modifier.height(8.dp))
-
-                Row(
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-
-                    Icon(
-                        Icons.Default.Lock,
-                        contentDescription = null,
-                        tint = Color.White.copy(alpha = 0.25f),
-                        modifier = Modifier.size(12.dp)
-                    )
-
-                    Spacer(modifier = Modifier.width(4.dp))
-
-                    Text(
-                        text = "LOCKED",
-                        color = Color.White.copy(alpha = 0.25f),
-                        fontSize = 8.sp,
-                        fontWeight = FontWeight.Black
-                    )
-                }
-            }
         }
     }
 }

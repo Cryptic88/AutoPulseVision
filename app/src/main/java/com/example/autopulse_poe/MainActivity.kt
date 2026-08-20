@@ -5,6 +5,11 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import com.example.autopulse_poe.ui.components.MainScaffold
 import com.example.autopulse_poe.ui.theme.AutoPulsePOETheme
 
@@ -13,8 +18,13 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            AutoPulsePOETheme {
-                MainScaffold()
+            var darkMode by rememberSaveable { mutableStateOf(true) }
+
+            AutoPulsePOETheme(darkTheme = darkMode) {
+                MainScaffold(
+                    darkMode = darkMode,
+                    onDarkModeChanged = { enabled -> darkMode = enabled }
+                )
             }
         }
     }
@@ -22,7 +32,12 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MainPreview() {
-    AutoPulsePOETheme {
-        MainScaffold()
+    var darkMode by remember { mutableStateOf(true) }
+
+    AutoPulsePOETheme(darkTheme = darkMode) {
+        MainScaffold(
+            darkMode = darkMode,
+            onDarkModeChanged = { enabled -> darkMode = enabled }
+        )
     }
 }

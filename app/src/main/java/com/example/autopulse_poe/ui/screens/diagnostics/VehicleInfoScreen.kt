@@ -37,7 +37,7 @@ fun VehicleInfoScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(AutoPulseBackground)
+            .background(MaterialTheme.colorScheme.background)
     ) {
 
         // HEADER
@@ -55,7 +55,7 @@ fun VehicleInfoScreen(
                 Icon(
                     Icons.AutoMirrored.Filled.ArrowBack,
                     contentDescription = "Back",
-                    tint = AutoPulseText
+                    tint = MaterialTheme.colorScheme.onSurface
                 )
             }
 
@@ -67,12 +67,12 @@ fun VehicleInfoScreen(
                     text = "Vehicle Information",
                     fontSize = 22.sp,
                     fontWeight = FontWeight.Black,
-                    color = AutoPulseText
+                    color = MaterialTheme.colorScheme.onSurface
                 )
 
                 Text(
                     text = "ECU & vehicle identification",
-                    color = AutoPulseTextMuted,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 10.sp
                 )
             }
@@ -125,14 +125,14 @@ fun VehicleInfoScreen(
 
                         Text(
                             text = "Vehicle identification available",
-                            color = AutoPulseText,
+                            color = MaterialTheme.colorScheme.onSurface,
                             fontSize = 13.sp,
                             fontWeight = FontWeight.Bold
                         )
 
                         Text(
                             text = "Retrieved using OBD Mode 09",
-                            color = AutoPulseTextMuted,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
                             fontSize = 10.sp
                         )
                     }
@@ -143,7 +143,7 @@ fun VehicleInfoScreen(
 
             Text(
                 text = "VEHICLE DATA",
-                color = AutoPulseTextSecondary,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 11.sp,
                 fontWeight = FontWeight.Bold,
                 letterSpacing = 1.sp
@@ -168,7 +168,7 @@ fun VehicleInfoScreen(
                             modifier = Modifier.padding(
                                 vertical = 12.dp
                             ),
-                            color = AutoPulseBorder
+                            color = MaterialTheme.colorScheme.outline
                         )
                     }
                 }
@@ -180,7 +180,7 @@ fun VehicleInfoScreen(
 
             Text(
                 text = "ADAPTER",
-                color = AutoPulseTextSecondary,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 11.sp,
                 fontWeight = FontWeight.Bold,
                 letterSpacing = 1.sp
@@ -208,14 +208,14 @@ fun VehicleInfoScreen(
 
                         Text(
                             text = "OBDLink MX+",
-                            color = AutoPulseText,
+                            color = MaterialTheme.colorScheme.onSurface,
                             fontWeight = FontWeight.Bold,
                             fontSize = 14.sp
                         )
 
                         Text(
                             text = "Bluetooth LE",
-                            color = AutoPulseTextMuted,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
                             fontSize = 11.sp
                         )
                     }
@@ -266,7 +266,7 @@ fun InfoItemRow(
 
         Text(
             text = label,
-            color = AutoPulseTextMuted,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 10.sp,
             fontWeight = FontWeight.Bold
         )
@@ -275,7 +275,7 @@ fun InfoItemRow(
 
         Text(
             text = value,
-            color = AutoPulseText,
+            color = MaterialTheme.colorScheme.onSurface,
             fontWeight = FontWeight.Bold,
             fontSize = 14.sp
         )
@@ -298,13 +298,13 @@ private fun AdapterInfoRow(
 
         Text(
             text = label,
-            color = AutoPulseTextMuted,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 11.sp
         )
 
         Text(
             text = value,
-            color = AutoPulseText,
+            color = MaterialTheme.colorScheme.onSurface,
             fontSize = 11.sp,
             fontWeight = FontWeight.Bold
         )

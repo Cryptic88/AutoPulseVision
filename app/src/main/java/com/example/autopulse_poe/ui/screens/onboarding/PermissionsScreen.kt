@@ -23,7 +23,7 @@ fun PermissionsScreen(onFinish: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(DarkBackground)
+            .background(MaterialTheme.colorScheme.background)
             .padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
@@ -32,7 +32,7 @@ fun PermissionsScreen(onFinish: () -> Unit) {
             text = "Essential Permissions",
             fontSize = 32.sp,
             fontWeight = FontWeight.Black,
-            color = Color.White,
+            color = MaterialTheme.colorScheme.onSurface,
             textAlign = TextAlign.Center
         )
         
@@ -40,7 +40,7 @@ fun PermissionsScreen(onFinish: () -> Unit) {
         
         Text(
             text = "To provide accurate diagnostics and trip tracking, AutoPulse requires the following access:",
-            color = Color.White.copy(alpha = 0.6f),
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
             textAlign = TextAlign.Center,
             fontSize = 14.sp
         )
@@ -79,11 +79,11 @@ fun PermissionsScreen(onFinish: () -> Unit) {
             modifier = Modifier.fillMaxWidth().height(56.dp),
             colors = ButtonDefaults.buttonColors(containerColor = NeonCyan)
         ) {
-            Text("Grant All & Continue", fontWeight = FontWeight.Bold, color = DarkBackground)
+            Text("Grant All & Continue", fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.background)
         }
         
         TextButton(onClick = onFinish, modifier = Modifier.padding(top = 16.dp)) {
-            Text("Skip for now", color = Color.White.copy(alpha = 0.4f))
+            Text("Skip for now", color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f))
         }
     }
 }
@@ -101,8 +101,8 @@ fun PermissionItem(icon: ImageVector, title: String, desc: String, color: Color)
         }
         Spacer(modifier = Modifier.width(20.dp))
         Column {
-            Text(text = title, color = Color.White, fontWeight = FontWeight.Bold, fontSize = 16.sp)
-            Text(text = desc, color = Color.White.copy(alpha = 0.5f), fontSize = 12.sp)
+            Text(text = title, color = MaterialTheme.colorScheme.onSurface, fontWeight = FontWeight.Bold, fontSize = 16.sp)
+            Text(text = desc, color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f), fontSize = 12.sp)
         }
     }
 }

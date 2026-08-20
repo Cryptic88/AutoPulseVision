@@ -30,7 +30,7 @@ fun MechanicDashboardScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(DarkBackground)
+            .background(MaterialTheme.colorScheme.background)
     ) {
 
         Row(
@@ -42,7 +42,7 @@ fun MechanicDashboardScreen(
                 Icon(
                     Icons.AutoMirrored.Filled.ArrowBack,
                     contentDescription = null,
-                    tint = Color.White
+                    tint = MaterialTheme.colorScheme.onSurface
                 )
             }
 
@@ -53,7 +53,7 @@ fun MechanicDashboardScreen(
                     text = "Mechanic Console",
                     fontSize = 23.sp,
                     fontWeight = FontWeight.Black,
-                    color = Color.White
+                    color = MaterialTheme.colorScheme.onSurface
                 )
 
                 Text(
@@ -109,7 +109,7 @@ fun MechanicDashboardScreen(
 
                         Text(
                             text = "P0300 — Random/Multiple Misfire",
-                            color = Color.White,
+                            color = MaterialTheme.colorScheme.onSurface,
                             fontWeight = FontWeight.Bold,
                             fontSize = 14.sp
                         )
@@ -200,7 +200,7 @@ fun MechanicDashboardScreen(
                 MechanicStatRow(
                     "CAN ID",
                     "11-bit / 500k",
-                    Color.White
+                    MaterialTheme.colorScheme.onSurface
                 )
 
                 MechanicStatRow(
@@ -236,7 +236,7 @@ fun MechanicDashboardScreen(
 
                     Text(
                         text = "Technician Recommendation",
-                        color = Color.White,
+                        color = MaterialTheme.colorScheme.onSurface,
                         fontWeight = FontWeight.Bold
                     )
                 }
@@ -245,7 +245,7 @@ fun MechanicDashboardScreen(
 
                 Text(
                     text = "Inspect ignition components and intake system before clearing the stored DTC.",
-                    color = Color.White.copy(alpha = 0.7f),
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
                     fontSize = 13.sp,
                     lineHeight = 19.sp
                 )
@@ -273,14 +273,14 @@ fun DiagnosticCount(
             modifier = Modifier
                 .size(8.dp)
                 .clip(CircleShape)
-                .background(color)
+                .background(MaterialTheme.colorScheme.background)
         )
 
         Spacer(modifier = Modifier.width(12.dp))
 
         Text(
             text = label,
-            color = Color.White.copy(alpha = 0.7f),
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f),
             fontSize = 13.sp,
             modifier = Modifier.weight(1f)
         )
@@ -319,7 +319,7 @@ fun MechanicSection(
 
             Text(
                 text = title,
-                color = Color.White,
+                color = MaterialTheme.colorScheme.onSurface,
                 fontWeight = FontWeight.Bold,
                 fontSize = 16.sp
             )
@@ -339,7 +339,7 @@ fun MechanicSection(
 fun MechanicStatRow(
     label: String,
     value: String,
-    valueColor: Color = Color.White
+    valueColor: Color = MaterialTheme.colorScheme.onSurface
 ) {
 
     Row(
@@ -351,7 +351,7 @@ fun MechanicStatRow(
 
         Text(
             text = label,
-            color = Color.White.copy(alpha = 0.55f),
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.55f),
             fontSize = 13.sp
         )
 

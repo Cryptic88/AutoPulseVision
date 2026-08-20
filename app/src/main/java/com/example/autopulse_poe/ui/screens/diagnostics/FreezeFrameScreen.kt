@@ -39,7 +39,7 @@ fun FreezeFrameScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(AutoPulseBackground)
+            .background(MaterialTheme.colorScheme.background)
     ) {
 
         // HEADER
@@ -57,7 +57,7 @@ fun FreezeFrameScreen(
                 Icon(
                     Icons.AutoMirrored.Filled.ArrowBack,
                     contentDescription = "Back",
-                    tint = AutoPulseText
+                    tint = MaterialTheme.colorScheme.onSurface
                 )
             }
 
@@ -69,12 +69,12 @@ fun FreezeFrameScreen(
                     text = "Freeze Frame",
                     fontSize = 22.sp,
                     fontWeight = FontWeight.Black,
-                    color = AutoPulseText
+                    color = MaterialTheme.colorScheme.onSurface
                 )
 
                 Text(
                     text = "ECU snapshot at fault detection",
-                    color = AutoPulseTextMuted,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 10.sp
                 )
             }
@@ -117,7 +117,7 @@ fun FreezeFrameScreen(
 
                         Text(
                             text = "Random / multiple cylinder misfire",
-                            color = AutoPulseText,
+                            color = MaterialTheme.colorScheme.onSurface,
                             fontSize = 13.sp,
                             fontWeight = FontWeight.Bold
                         )
@@ -129,7 +129,7 @@ fun FreezeFrameScreen(
 
             Text(
                 text = "VEHICLE PARAMETERS",
-                color = AutoPulseTextSecondary,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 11.sp,
                 fontWeight = FontWeight.Bold,
                 letterSpacing = 1.sp
@@ -154,7 +154,7 @@ fun FreezeFrameScreen(
                             modifier = Modifier.padding(
                                 vertical = 11.dp
                             ),
-                            color = AutoPulseBorder
+                            color = MaterialTheme.colorScheme.outline
                         )
                     }
                 }
@@ -180,7 +180,7 @@ fun FreezeFrameScreen(
 
                     Text(
                         text = "Freeze frame data is captured automatically by the ECU when a diagnostic fault is recorded.",
-                        color = AutoPulseTextMuted,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                         fontSize = 11.sp,
                         lineHeight = 16.sp
                     )
@@ -207,7 +207,7 @@ fun FreezeFrameItem(
 
         Text(
             text = label,
-            color = White,
+            color = MaterialTheme.colorScheme.onSurface,
             fontSize = 12.sp
         )
 

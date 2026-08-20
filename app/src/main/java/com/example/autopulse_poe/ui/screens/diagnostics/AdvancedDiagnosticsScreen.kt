@@ -36,7 +36,7 @@ fun AdvancedDiagnosticsScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(AutoPulseBackground)
+            .background(MaterialTheme.colorScheme.background)
     ) {
 
         // =========================================================
@@ -54,7 +54,7 @@ fun AdvancedDiagnosticsScreen(
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                     contentDescription = "Back",
-                    tint = AutoPulseText
+                    tint = MaterialTheme.colorScheme.onSurface
                 )
             }
 
@@ -64,14 +64,14 @@ fun AdvancedDiagnosticsScreen(
 
                 Text(
                     text = "Advanced Diagnostics",
-                    color = AutoPulseText,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontSize = 22.sp,
                     fontWeight = FontWeight.Black
                 )
 
                 Text(
                     text = "ECU tests & live monitoring",
-                    color = AutoPulseTextMuted,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 10.sp
                 )
             }
@@ -83,7 +83,7 @@ fun AdvancedDiagnosticsScreen(
 
         TabRow(
             selectedTabIndex = selectedTab,
-            containerColor = AutoPulseBackground,
+            containerColor = MaterialTheme.colorScheme.background,
             contentColor = AutoPulseCyan,
             indicator = { positions ->
 
@@ -96,7 +96,7 @@ fun AdvancedDiagnosticsScreen(
             },
             divider = {
                 HorizontalDivider(
-                    color = AutoPulseBorder
+                    color = MaterialTheme.colorScheme.outline
                 )
             }
         ) {
@@ -115,7 +115,7 @@ fun AdvancedDiagnosticsScreen(
                             color = if (selectedTab == index) {
                                 AutoPulseCyan
                             } else {
-                                AutoPulseTextMuted
+                                MaterialTheme.colorScheme.onSurfaceVariant
                             },
                             fontWeight = if (selectedTab == index) {
                                 FontWeight.Bold
@@ -225,14 +225,14 @@ fun EmissionsView() {
 
                     Text(
                         text = "Vehicle is not ready for inspection",
-                        color = AutoPulseText,
+                        color = MaterialTheme.colorScheme.onSurface,
                         fontSize = 13.sp,
                         fontWeight = FontWeight.Bold
                     )
 
                     Text(
                         text = "1 monitor requires attention",
-                        color = AutoPulseTextMuted,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                         fontSize = 10.sp
                     )
                 }
@@ -243,7 +243,7 @@ fun EmissionsView() {
 
         Text(
             text = "READINESS MONITORS",
-            color = AutoPulseTextSecondary,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 11.sp,
             fontWeight = FontWeight.Bold,
             letterSpacing = 1.sp
@@ -266,7 +266,7 @@ fun EmissionsView() {
 
                     HorizontalDivider(
                         modifier = Modifier.padding(vertical = 11.dp),
-                        color = AutoPulseBorder
+                        color = MaterialTheme.colorScheme.outline
                     )
                 }
             }
@@ -324,7 +324,7 @@ fun OxygenSensorsView() {
 
             Text(
                 text = "Sensor interpretation",
-                color = AutoPulseText,
+                color = MaterialTheme.colorScheme.onSurface,
                 fontWeight = FontWeight.Bold,
                 fontSize = 13.sp
             )
@@ -333,7 +333,7 @@ fun OxygenSensorsView() {
 
             Text(
                 text = "AutoPulse monitors oxygen sensor voltage to identify abnormal fuel mixture behaviour and catalytic converter performance.",
-                color = AutoPulseTextMuted,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 11.sp,
                 lineHeight = 17.sp
             )
@@ -406,7 +406,7 @@ fun MonitorView() {
 
                 Text(
                     text = "Mode 06 results are ECU self-test measurements.",
-                    color = AutoPulseTextMuted,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 11.sp
                 )
             }
@@ -431,14 +431,14 @@ private fun DiagnosticSectionHeader(
 
         Text(
             text = title,
-            color = AutoPulseText,
+            color = MaterialTheme.colorScheme.onSurface,
             fontSize = 20.sp,
             fontWeight = FontWeight.Black
         )
 
         Text(
             text = subtitle,
-            color = AutoPulseTextMuted,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 11.sp,
             modifier = Modifier.padding(top = 3.dp)
         )
@@ -480,7 +480,7 @@ fun MonitorItem(
 
         Text(
             text = name,
-            color = AutoPulseText,
+            color = MaterialTheme.colorScheme.onSurface,
             fontSize = 13.sp,
             modifier = Modifier.weight(1f)
         )
@@ -526,14 +526,14 @@ private fun OxygenSensorCard(
 
                 Text(
                     text = title,
-                    color = AutoPulseText,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Bold
                 )
 
                 Text(
                     text = voltage,
-                    color = AutoPulseTextMuted,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 11.sp
                 )
             }
@@ -604,7 +604,7 @@ fun Mode06Item(
 
                 Text(
                     text = title,
-                    color = AutoPulseText,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontWeight = FontWeight.Bold,
                     fontSize = 13.sp
                 )
@@ -662,14 +662,14 @@ private fun DiagnosticValue(
 
         Text(
             text = label,
-            color = AutoPulseTextMuted,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 9.sp,
             fontWeight = FontWeight.Bold
         )
 
         Text(
             text = value,
-            color = AutoPulseText,
+            color = MaterialTheme.colorScheme.onSurface,
             fontSize = 15.sp,
             fontWeight = FontWeight.Black
         )

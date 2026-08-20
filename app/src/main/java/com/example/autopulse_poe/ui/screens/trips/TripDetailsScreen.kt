@@ -17,8 +17,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.*
-import androidx.compose.ui.graphics.Color.Companion.Magenta
-import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
@@ -35,7 +33,7 @@ fun TripDetailsScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(AutoPulseBackground)
+            .background(MaterialTheme.colorScheme.background)
             .verticalScroll(rememberScrollState())
     ) {
 
@@ -47,7 +45,7 @@ fun TripDetailsScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(280.dp)
-                .background(AutoPulseSurface)
+                .background(MaterialTheme.colorScheme.surface)
         ) {
 
             TripRouteMap(
@@ -64,14 +62,14 @@ fun TripDetailsScreen(
                     .padding(16.dp)
                     .clip(RoundedCornerShape(12.dp))
                     .background(
-                        AutoPulseBackground.copy(alpha = 0.85f)
+                        MaterialTheme.colorScheme.background.copy(alpha = 0.85f)
                     )
             ) {
 
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                     contentDescription = "Back",
-                    tint = AutoPulseText
+                    tint = MaterialTheme.colorScheme.onSurface
                 )
             }
 
@@ -83,7 +81,7 @@ fun TripDetailsScreen(
                 modifier = Modifier
                     .align(Alignment.BottomStart)
                     .padding(16.dp),
-                color = AutoPulseBackground.copy(alpha = 0.9f),
+                color = MaterialTheme.colorScheme.background.copy(alpha = 0.9f),
                 shape = RoundedCornerShape(10.dp)
             ) {
 
@@ -130,17 +128,16 @@ fun TripDetailsScreen(
                 text = "Downtown Commute",
                 fontSize = 25.sp,
                 fontWeight = FontWeight.Black,
-                color = AutoPulseText
+                color = MaterialTheme.colorScheme.onSurface
             )
 
             Spacer(modifier = Modifier.height(4.dp))
 
             Text(
                 text = "28 July 2026 • 08:30 AM",
-                color = AutoPulseTextSecondary,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 13.sp
             )
-
 
             Spacer(modifier = Modifier.height(24.dp))
 
@@ -171,9 +168,7 @@ fun TripDetailsScreen(
                 )
             }
 
-
             Spacer(modifier = Modifier.height(10.dp))
-
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -207,7 +202,7 @@ fun TripDetailsScreen(
 
             Text(
                 text = "TRIP SCORE",
-                color = AutoPulseTextSecondary,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -229,7 +224,7 @@ fun TripDetailsScreen(
 
                         Text(
                             text = "SAFETY SCORE",
-                            color = AutoPulseTextMuted,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
                             fontSize = 10.sp,
                             fontWeight = FontWeight.Bold
                         )
@@ -238,7 +233,7 @@ fun TripDetailsScreen(
 
                         Text(
                             text = "85",
-                            color = White,
+                            color = MaterialTheme.colorScheme.onSurface,
                             fontSize = 38.sp,
                             fontWeight = FontWeight.Black
                         )
@@ -283,7 +278,7 @@ fun TripDetailsScreen(
 
             Text(
                 text = "FUEL & COST",
-                color = AutoPulseTextSecondary,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -304,7 +299,7 @@ fun TripDetailsScreen(
 
                         Text(
                             text = "ESTIMATED TRIP COST",
-                            color = AutoPulseTextMuted,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
                             fontSize = 10.sp,
                             fontWeight = FontWeight.Bold
                         )
@@ -313,7 +308,7 @@ fun TripDetailsScreen(
 
                         Text(
                             text = "R48.20",
-                            color = White,
+                            color = MaterialTheme.colorScheme.onSurface,
                             fontSize = 28.sp,
                             fontWeight = FontWeight.Black
                         )
@@ -325,7 +320,7 @@ fun TripDetailsScreen(
 
                         Text(
                             text = "FUEL USED",
-                            color = AutoPulseTextMuted,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
                             fontSize = 10.sp,
                             fontWeight = FontWeight.Bold
                         )
@@ -334,7 +329,7 @@ fun TripDetailsScreen(
 
                         Text(
                             text = "1.03 L",
-                            color = AutoPulseText,
+                            color = MaterialTheme.colorScheme.onSurface,
                             fontSize = 17.sp,
                             fontWeight = FontWeight.Bold
                         )
@@ -352,7 +347,7 @@ fun TripDetailsScreen(
 
             Text(
                 text = "DRIVING BEHAVIOUR",
-                color = AutoPulseTextSecondary,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -372,7 +367,7 @@ fun TripDetailsScreen(
 
                 HorizontalDivider(
                     modifier = Modifier.padding(vertical = 12.dp),
-                    color = AutoPulseBorder
+                    color = MaterialTheme.colorScheme.outline
                 )
 
                 BehaviorItem(
@@ -384,7 +379,7 @@ fun TripDetailsScreen(
 
                 HorizontalDivider(
                     modifier = Modifier.padding(vertical = 12.dp),
-                    color = AutoPulseBorder
+                    color = MaterialTheme.colorScheme.outline
                 )
 
                 BehaviorItem(
@@ -396,7 +391,7 @@ fun TripDetailsScreen(
 
                 HorizontalDivider(
                     modifier = Modifier.padding(vertical = 12.dp),
-                    color = AutoPulseBorder
+                    color = MaterialTheme.colorScheme.outline
                 )
 
                 BehaviorItem(
@@ -417,7 +412,7 @@ fun TripDetailsScreen(
 
             Text(
                 text = "TRIP SUMMARY",
-                color = AutoPulseTextSecondary,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -463,9 +458,23 @@ private fun TripRouteMap(
     modifier: Modifier = Modifier
 ) {
 
+    // Theme colours must be obtained before entering Canvas
+    val surfaceColor = MaterialTheme.colorScheme.surface
+    val onSurfaceColor = MaterialTheme.colorScheme.onSurface
+    val backgroundColor = MaterialTheme.colorScheme.background
+    val outlineColor = MaterialTheme.colorScheme.outline
+
     Canvas(
         modifier = modifier
     ) {
+
+        // ----------------------------------------------------
+        // BACKGROUND
+        // ----------------------------------------------------
+
+        drawRect(
+            color = surfaceColor
+        )
 
         // ----------------------------------------------------
         // BACKGROUND GRID
@@ -478,7 +487,7 @@ private fun TripRouteMap(
         while (x < size.width) {
 
             drawLine(
-                color = AutoPulseBorder.copy(alpha = 0.25f),
+                color = outlineColor.copy(alpha = 0.25f),
                 start = Offset(x, 0f),
                 end = Offset(x, size.height),
                 strokeWidth = 1.dp.toPx()
@@ -492,7 +501,7 @@ private fun TripRouteMap(
         while (y < size.height) {
 
             drawLine(
-                color = AutoPulseBorder.copy(alpha = 0.25f),
+                color = outlineColor.copy(alpha = 0.25f),
                 start = Offset(0f, y),
                 end = Offset(size.width, y),
                 strokeWidth = 1.dp.toPx()
@@ -506,7 +515,7 @@ private fun TripRouteMap(
         // ROAD LINES
         // ----------------------------------------------------
 
-        val roadColor = AutoPulseTextMuted.copy(alpha = 0.12f)
+        val roadColor = onSurfaceColor.copy(alpha = 0.12f)
 
         drawLine(
             color = roadColor,
@@ -587,7 +596,7 @@ private fun TripRouteMap(
         )
 
         drawCircle(
-            color = AutoPulseBackground,
+            color = backgroundColor,
             radius = 4.dp.toPx(),
             center = Offset(
                 size.width * 0.15f,
@@ -610,7 +619,7 @@ private fun TripRouteMap(
         )
 
         drawCircle(
-            color = AutoPulseBackground,
+            color = backgroundColor,
             radius = 4.dp.toPx(),
             center = Offset(
                 size.width * 0.82f,
@@ -656,7 +665,7 @@ private fun TripDetailStat(
 
                 Text(
                     text = label,
-                    color = AutoPulseTextMuted,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     fontSize = 9.sp,
                     fontWeight = FontWeight.Bold
                 )
@@ -665,7 +674,7 @@ private fun TripDetailStat(
 
                 Text(
                     text = value,
-                    color = AutoPulseText,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontWeight = FontWeight.Bold,
                     fontSize = 14.sp
                 )
@@ -703,7 +712,7 @@ private fun BehaviorItem(
 
         Text(
             text = label,
-            color = AutoPulseText,
+            color = MaterialTheme.colorScheme.onSurface,
             fontSize = 14.sp,
             modifier = Modifier.weight(1f)
         )
@@ -737,13 +746,13 @@ private fun TripSummaryRow(
 
         Text(
             text = label,
-            color = AutoPulseTextSecondary,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             fontSize = 13.sp
         )
 
         Text(
             text = value,
-            color = AutoPulseText,
+            color = MaterialTheme.colorScheme.onSurface,
             fontSize = 13.sp,
             fontWeight = FontWeight.Bold
         )

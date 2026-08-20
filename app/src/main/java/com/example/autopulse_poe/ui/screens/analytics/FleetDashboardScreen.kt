@@ -58,7 +58,7 @@ fun FleetDashboardScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(DarkBackground)
+            .background(MaterialTheme.colorScheme.background)
             .padding(20.dp)
     ) {
 
@@ -79,12 +79,12 @@ fun FleetDashboardScreen() {
                     text = "Fleet Dashboard",
                     fontSize = 28.sp,
                     fontWeight = FontWeight.Black,
-                    color = Color.White
+                    color = MaterialTheme.colorScheme.onSurface
                 )
 
                 Text(
                     text = "Real-time vehicle overview",
-                    color = Color.White.copy(alpha = 0.55f),
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.55f),
                     fontSize = 12.sp
                 )
             }
@@ -177,13 +177,13 @@ fun FleetDashboardScreen() {
                 Column {
                     Text(
                         text = "Overall Fleet Health",
-                        color = Color.White,
+                        color = MaterialTheme.colorScheme.onSurface,
                         fontWeight = FontWeight.Bold
                     )
 
                     Text(
                         text = "Strong performance across all vehicles",
-                        color = Color.White.copy(alpha = 0.5f),
+                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
                         fontSize = 11.sp
                     )
                 }
@@ -207,7 +207,7 @@ fun FleetDashboardScreen() {
                     .height(7.dp)
                     .clip(CircleShape),
                 color = NeonPurple,
-                trackColor = Color.White.copy(alpha = 0.08f)
+                trackColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.08f)
             )
         }
 
@@ -224,7 +224,7 @@ fun FleetDashboardScreen() {
 
             Text(
                 text = "YOUR VEHICLES",
-                color = Color.White,
+                color = MaterialTheme.colorScheme.onSurface,
                 fontWeight = FontWeight.Bold,
                 fontSize = 16.sp,
                 modifier = Modifier.weight(1f)
@@ -306,7 +306,7 @@ fun FleetSummaryCard(
 
         Text(
             text = title,
-            color = Color.White.copy(alpha = 0.5f),
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
             fontSize = 10.sp
         )
     }
@@ -365,14 +365,14 @@ fun FleetCard(
 
                 Text(
                     text = vehicle.name,
-                    color = Color.White,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontWeight = FontWeight.Bold,
                     fontSize = 15.sp
                 )
 
                 Text(
                     text = vehicle.plate,
-                    color = Color.White.copy(alpha = 0.45f),
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.45f),
                     fontSize = 11.sp
                 )
 
@@ -402,7 +402,7 @@ fun FleetCard(
 
                     Text(
                         text = "• ${vehicle.lastSeen}",
-                        color = Color.White.copy(alpha = 0.35f),
+                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.35f),
                         fontSize = 10.sp
                     )
                 }
@@ -423,7 +423,7 @@ fun FleetCard(
 
                 Text(
                     text = "HEALTH",
-                    color = Color.White.copy(alpha = 0.35f),
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.35f),
                     fontSize = 8.sp,
                     fontWeight = FontWeight.Bold
                 )
@@ -439,7 +439,7 @@ fun FleetCard(
                 .height(5.dp)
                 .clip(CircleShape),
             color = statusColor,
-            trackColor = Color.White.copy(alpha = 0.07f)
+            trackColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.07f)
         )
 
         Spacer(modifier = Modifier.height(10.dp))
